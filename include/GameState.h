@@ -1,7 +1,11 @@
 #pragma once
-#include "state.h"
-#include<iostream>
-class GameState : public state {
+#include "State.h"
+#include "Entity.h"
+#include <iostream>
+class GameState : public State {
+private:
+    //Variables
+    Entity player;
 public:
     //constructor & destructor
     GameState(sf :: RenderWindow* window);

@@ -1,8 +1,6 @@
-#include"game.h"
-#include<iostream>
+#include "Game.h"
 int main() {
-    game Sorcerer;
-    std :: cerr << "??" << std :: endl;
-    Sorcerer.run();
+    Game process;
+    process.run();
     return 0;
 }

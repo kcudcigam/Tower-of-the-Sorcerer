@@ -2,7 +2,7 @@
 #include <stack>
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
-class game {
+class Game {
 private:
     //Variables
     sf :: RenderWindow *window;
@@ -10,7 +10,7 @@ private:
     sf :: Clock clock;
     float deltaTime;
 
-    std :: stack<state*> states;
+    std :: stack<State*> states;
 
     //Initialization
     void initWindow();
@@ -18,8 +18,8 @@ private:
 
 public:
     //constructor & destructor
-    game();
-    virtual ~game();
+    Game();
+    virtual ~Game();
     
     //function
     void flushClock();

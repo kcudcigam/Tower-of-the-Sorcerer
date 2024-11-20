@@ -1,20 +1,20 @@
-#include "game.h"
+#include "Game.h"
 //Initialization
-void game :: initWindow() {
-    this -> window = new sf :: RenderWindow(sf :: VideoMode(1920, 1080), "RPG GAME");
+void Game :: initWindow() {
+    this -> window = new sf :: RenderWindow(sf :: VideoMode(960, 720), "The Sorcerer");
     this -> window -> setFramerateLimit(120);
     this -> window -> setVerticalSyncEnabled(false);
 }
-void game :: initStates() {
+void Game :: initStates() {
     this -> states.push(new GameState(this -> window));
 }
 
 //constructor & destructor
-game :: game() {
+Game :: Game() {
     this -> initWindow();
     this -> initStates();  
 }
-game :: ~game() {
+Game :: ~Game() {
     delete this -> window;
     while(!this -> states.empty()) {
         delete this -> states.top();
@@ -23,16 +23,16 @@ game :: ~game() {
 }
 
 //function
-void game :: flushClock() {
+void Game :: flushClock() {
     this -> deltaTime = this -> clock.restart().asSeconds();
 }
-void game :: updateSMFLevents() {
+void Game :: updateSMFLevents() {
     while(this -> window -> pollEvent(this -> event)) {
         if(event.type == sf :: Event :: Closed)
             this -> window -> close();
     }
 }
-void game :: update() {
+void Game :: update() {
     this -> updateSMFLevents();
     if(!this -> states.empty()) {
         this -> states.top() -> update(this -> deltaTime);
@@ -44,13 +44,13 @@ void game :: update() {
     }
     else this -> window -> close();
 }
-void game :: render() {
+void Game :: render() {
     this -> window -> clear();
     if(!this -> states.empty())
         this -> states.top() -> render(this -> window);
     this -> window -> display();
 }
-void game :: run() {
+void Game :: run() {
     while (this -> window -> isOpen()) {
         this -> flushClock();
         this -> update();

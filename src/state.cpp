@@ -1,19 +1,19 @@
-#include "state.h"
+#include "State.h"
 //constructor & destructor
-state :: state(sf :: RenderWindow* window) {
+State :: State(sf :: RenderWindow* window) {
     this -> window = window;
     this -> isQuit = false;
 }
-state :: ~state() {
+State :: ~State() {
     
 }
 
 //functions
-void state :: updateQuit() {
+void State :: updateQuit() {
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape))
         this -> isQuit = true;
 }
-const bool& state :: checkQuit() const{
+const bool& State :: checkQuit() const{
     return this -> isQuit;
 }
 

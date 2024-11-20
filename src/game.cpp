@@ -34,8 +34,15 @@ void game :: updateSMFLevents() {
 }
 void game :: update() {
     this -> updateSMFLevents();
-    if(!this -> states.empty())
+    if(!this -> states.empty()) {
         this -> states.top() -> update(this -> deltaTime);
+        if(this -> states.top() -> checkQuit()) {
+            this -> states.top() -> quit();
+            delete this -> states.top();
+            this -> states.pop();
+        }
+    }
+    else this -> window -> close();
 }
 void game :: render() {
     this -> window -> clear();
@@ -43,10 +50,8 @@ void game :: render() {
         this -> states.top() -> render(this -> window);
     this -> window -> display();
 }
-#include<iostream>
 void game :: run() {
     while (this -> window -> isOpen()) {
-        //std :: cerr << this -> deltaTime << std :: endl;
         this -> flushClock();
         this -> update();
         this -> render();

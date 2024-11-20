@@ -8,7 +8,8 @@ public:
     virtual ~GameState();
 
     //functions
+    void updateKeybinds(const float& deltaTime);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
-    void end();
+    void quit();
 };

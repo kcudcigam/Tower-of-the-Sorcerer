@@ -1,0 +1,12 @@
+# Compiler: gcc version 13.1.0 (MinGW-W64 x86_64-msvcrt-posix-seh)
+# Download Website: https://www.sfml-dev.org/download/sfml/2.6.2/
+cmake_minimum_required(VERSION 3.5.0)
+set(CMAKE_CXX_STANDARD 20)
+project(sorcerer)
+set(SFML_DIR ./SFML/lib/cmake/SFML)
+set(SFML_STATIC_LIBRARIES TRUE)
+find_package(SFML COMPONENTS graphics window system REQUIRED)
+include_directories(include)
+aux_source_directory(./src SOURCES)
+add_executable(sorcerer ${SOURCES})
+target_link_libraries(sorcerer PRIVATE sfml-graphics sfml-window sfml-system)

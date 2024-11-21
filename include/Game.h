@@ -2,6 +2,7 @@
 #include <stack>
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
+#include "MenuState.h"
 class Game {
 private:
     //Variables

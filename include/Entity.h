@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 class Entity {
-protected:
+private:
     //Variables
     sf :: RectangleShape shape;
     float movementSpeed;

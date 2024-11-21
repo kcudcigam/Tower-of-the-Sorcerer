@@ -1,16 +1,16 @@
 #pragma once
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "State.h"
-#include "Entity.h"
-
-class GameState : public State {
+#include "GameState.h"
+class MenuState : public State {
 private:
     //Variables
-    Entity player;
+    sf :: RectangleShape shape;
 public:
     //constructor & destructor
-    GameState(sf :: RenderWindow* window, std :: stack<State*>* states);
-    ~GameState();
+    MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    ~MenuState();
 
     //functions
     void checkForQuit();

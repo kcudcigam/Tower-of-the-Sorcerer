@@ -6,7 +6,8 @@ void Game :: initWindow() {
     this -> window -> setVerticalSyncEnabled(false);
 }
 void Game :: initStates() {
-    this -> states.push(new GameState(this -> window));
+    this -> states.push(new MenuState(this -> window, &this -> states));
+    
 }
 
 //constructor & destructor
@@ -38,7 +39,6 @@ void Game :: update() {
     if(!this -> states.empty()) {
         this -> states.top() -> update(this -> deltaTime);
         if(this -> states.top() -> end()) {
-            this -> states.top() -> quit();
             delete this -> states.top();
             this -> states.pop();
         }

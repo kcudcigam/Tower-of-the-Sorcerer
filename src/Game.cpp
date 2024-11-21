@@ -33,10 +33,11 @@ void Game :: updateSMFLevents() {
     }
 }
 void Game :: update() {
+    this -> flushClock();
     this -> updateSMFLevents();
     if(!this -> states.empty()) {
         this -> states.top() -> update(this -> deltaTime);
-        if(this -> states.top() -> checkQuit()) {
+        if(this -> states.top() -> end()) {
             this -> states.top() -> quit();
             delete this -> states.top();
             this -> states.pop();
@@ -47,12 +48,11 @@ void Game :: update() {
 void Game :: render() {
     this -> window -> clear();
     if(!this -> states.empty())
-        this -> states.top() -> render(this -> window);
+        this -> states.top() -> render();
     this -> window -> display();
 }
 void Game :: run() {
     while (this -> window -> isOpen()) {
-        this -> flushClock();
         this -> update();
         this -> render();
     }

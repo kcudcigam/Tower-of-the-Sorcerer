@@ -2,18 +2,22 @@
 //constructor & destructor
 State :: State(sf :: RenderWindow* window) {
     this -> window = window;
-    this -> isQuit = false;
+    this -> isEnd = false;
 }
 State :: ~State() {
     
 }
 
 //functions
-void State :: updateQuit() {
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape))
-        this -> isQuit = true;
+sf :: RenderWindow* State :: getWindow() const{
+    return this -> window;
 }
-const bool& State :: checkQuit() const{
-    return this -> isQuit;
+const bool& State :: end() const{
+    return this -> isEnd;
 }
+void State :: quit() {
+    this -> isEnd = true;
+    std :: cerr << "Game State End!" << std :: endl;
+}
+
 

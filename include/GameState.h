@@ -9,11 +9,10 @@ private:
 public:
     //constructor & destructor
     GameState(sf :: RenderWindow* window);
-    virtual ~GameState();
+    ~GameState();
 
     //functions
-    void updateKeybinds(const float& deltaTime);
+    void checkForQuit();
     void update(const float& deltaTime);
-    void render(sf :: RenderTarget* target);
-    void quit();
+    void render();
 };

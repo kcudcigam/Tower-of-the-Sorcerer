@@ -8,17 +8,14 @@ GameState :: ~GameState() {
 }
 
 //functions 
-void GameState :: updateKeybinds(const float& deltaTime) {
-    this -> updateQuit();
-
+void GameState :: checkForQuit() {
+    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape))
+        this -> quit();
 }
 void GameState :: update(const float &deltaTime) {
-    this -> updateKeybinds(deltaTime);
+    this -> checkForQuit();
     this -> player.update(deltaTime);
 }
-void GameState :: render(sf :: RenderTarget* target) {
-    this -> player.render(this -> window);
-}
-void GameState :: quit() {
-    std :: cerr << "Game State End!" << std :: endl;
+void GameState :: render() {
+    this -> player.render(this -> getWindow());
 }

@@ -1,16 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Movement.h" 
 class Entity {
 private:
     //Variables
-    sf :: RectangleShape shape;
-    float movementSpeed;
+    sf :: Texture* texture;
+    sf :: Sprite* sprite;
+    Movement* position;
 public:
     //constructor & destructor
     Entity();
     virtual ~Entity();
     //funtions
-    virtual void move(const float &deltaTime, const float& x, const float& y);
     virtual void update(const float& deltaTime);
     virtual void render(sf :: RenderTarget* target);
 };

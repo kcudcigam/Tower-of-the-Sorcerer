@@ -2,29 +2,28 @@
 #include <iostream>
 //constructor & destructor
 Entity :: Entity() {
-    this -> shape.setSize(sf :: Vector2f(50.f, 50.f));
-    this -> shape.setFillColor(sf :: Color :: Green);
-    this -> movementSpeed = 600.f;
+    this -> texture = new sf :: Texture();
+    this -> texture -> loadFromFile("../res/background.png");
+    this -> sprite = new sf :: Sprite(*this -> texture);
+    this -> sprite -> setScale(sf :: Vector2f(0.1f, 0.1f));
+    this -> position = new Movement(*this -> sprite, 420.f, 4200.f, 3000.f);
 }
 Entity :: ~Entity() {
 
 }
 
-//funtions
-void Entity :: move(const float &deltaTime, const float& x, const float& y) {
-    std :: cerr << "Move " << x * this -> movementSpeed * deltaTime << ' ' << y * this -> movementSpeed * deltaTime << std :: endl;
-    this -> shape.move(x * this -> movementSpeed * deltaTime, y * this -> movementSpeed * deltaTime);
-}
+//funtionss
 void Entity :: update(const float& deltaTime) {
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: A) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left))
-        this -> move(deltaTime, -1.f,  0.f);
+        this -> position -> move(-1.f,  0.f, deltaTime);
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: D) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right))
-        this -> move(deltaTime,  1.f,  0.f);
+        this -> position -> move(1.f,  0.f, deltaTime);
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: W) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Up))
-        this -> move(deltaTime,  0.f, -1.f);
+        this -> position -> move(0.f, -1.f, deltaTime);
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: S) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Down))
-        this -> move(deltaTime,  0.f,  1.f);
+        this -> position -> move(0.f,  1.f, deltaTime);
+    this -> position -> update(deltaTime);
 }
 void Entity :: render(sf :: RenderTarget* target) {
-    target -> draw(this -> shape);
+    target -> draw(*this -> sprite);
 }

@@ -6,7 +6,8 @@
 class MenuState : public State {
 private:
     //Variables
-    sf :: RectangleShape shape;
+    sf :: RectangleShape background;
+    sf :: Texture backgroundTexture;
 public:
     //constructor & destructor
     MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);

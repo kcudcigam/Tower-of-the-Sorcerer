@@ -7,8 +7,7 @@ MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states)
         static_cast<float>(this -> getWindow() -> getSize().y)
         )
     );
-    if(!this -> backgroundTexture.loadFromFile("../res/background.png"))
-        throw("ERROR :: MenuState :: FAILED_TO_LOAD_BACKGROUND_TEXTURE");
+    this -> backgroundTexture.loadFromFile("../res/bg.png");
     this -> background.setTexture(&this -> backgroundTexture);
     
 }

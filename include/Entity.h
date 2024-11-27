@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Movement.h" 
+#include "Movement.h"
+#include "Animation.h"
 class Entity {
 private:
     //Variables
     sf :: Texture* texture;
     sf :: Sprite* sprite;
     Movement* position;
+    AnimationSet* animation;
 public:
     //constructor & destructor
     Entity();

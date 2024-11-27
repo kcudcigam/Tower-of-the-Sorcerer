@@ -1,8 +1,9 @@
 #include "Movement.h"
 #include<iostream>
-Movement :: Movement(sf :: Sprite &sprite, const float &maxVelocity, const float &acceleration, const float &deceleration)
-: sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration) {
-    this -> velocity = sf :: Vector2f(0.f, 0.f);
+
+Movement :: Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration)
+: sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration), velocity(sf :: Vector2f(0.f, 0.f)) {
+
 }
 Movement :: ~Movement() {
 
@@ -23,7 +24,7 @@ void Movement :: stopVelocity(const bool &x = true, const bool &y = true) {
 
 void Movement :: move(const float &x, const float &y, const float &deltaTime) {
     auto limit = [](float &u, const float &maxVelocity) {
-        u = std :: min(u, maxVelocity);
+        u = std :: min(u,  maxVelocity);
         u = std :: max(u, -maxVelocity);
     };
     limit(this -> velocity.x += this -> acceleration * x * deltaTime, this -> maxVelocity);
@@ -37,6 +38,6 @@ void Movement :: update(const float &deltaTime) {
     };
     updateSpeed(this -> velocity.x, this -> deceleration);
     updateSpeed(this -> velocity.y, this -> deceleration);
-    this -> sprite.move(this -> velocity * deltaTime);
-    std :: cerr << this -> velocity.x << ' ' << this -> velocity.y << std :: endl;
+    this -> sprite -> move(this -> velocity * deltaTime);
+    //std :: cerr << this -> velocity.x << ' ' << this -> velocity.y << std :: endl;
 }

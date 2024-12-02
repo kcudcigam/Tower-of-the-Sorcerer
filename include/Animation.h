@@ -8,7 +8,8 @@ public:
     RectQueue(const sf :: Vector2i &start, const sf :: Vector2i &end, const sf :: Vector2i &size);
     virtual ~RectQueue();
     
-    sf :: IntRect next();
+    void next();
+    sf :: IntRect now() const;
     bool end() const;
     void reset();
 };
@@ -19,11 +20,11 @@ private:
     sf :: Texture *sheet;
     float currentTime, animationTime;
     RectQueue position;
-    bool loop, isEnd;
+    bool loop;
 public:
     Animation(sf :: Texture *sheet, const float &animationTime, const RectQueue &position, bool loop = false);
     virtual ~Animation();
-    const bool& end() const;
+    bool end() const;
     void init(sf :: Sprite *sprite);
     void play(const float &deltaTime);
     void reset();
@@ -33,7 +34,7 @@ class AnimationSet {
 private:
     sf :: Sprite* sprite;
     std :: map<std :: string, Animation> animation;
-    std :: map<std :: string, float> offset;
+    std :: map<std :: string, sf :: Vector2f> offset;
     std :: pair<std :: string, bool> priority;
     std :: string currentAnimation;
 
@@ -41,8 +42,8 @@ private:
 public:
     AnimationSet(sf :: Sprite* sprite);
     virtual ~AnimationSet();
-    void insert(const std :: string &key, const Animation &value, const float &offset = 0, bool reversed = false);
-    void reverse(const bool &reversed, const float &offset);
+    void insert(const std :: string &key, const Animation &value, const sf :: Vector2f &offset = sf :: Vector2f(0, 0), bool reversed = false);
+    void reverse(const bool &reversed, const sf :: Vector2f &offset);
     void play(std :: string key, const float &deltaTime, bool reversed = false);
     bool hasPriority();
     void delPriority();

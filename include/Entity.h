@@ -2,13 +2,16 @@
 #include <SFML/Graphics.hpp>
 #include "Movement.h"
 #include "Animation.h"
+#include "Hitbox.h"
+
 class Entity {
 private:
     //Variables
     sf :: Texture* texture;
     sf :: Sprite* sprite;
-    Movement* position;
+    Movement* movement;
     AnimationSet* animation;
+    Hitbox* hitbox;
 public:
     //constructor & destructor
     Entity();

@@ -5,10 +5,12 @@ private:
     sf :: Sprite *sprite;
     float maxVelocity, acceleration, deceleration;
     sf :: Vector2f velocity;
+    unsigned direction;
 public:
-    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration);
+    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const unsigned &direction = 0);
     virtual ~Movement();  
 
+    const unsigned& getDirection() const;
     const float& getMaxVelocity() const;
     const sf :: Vector2f& getVelocity() const;
     

@@ -22,8 +22,8 @@ void RectQueue :: reset() {
 }
 
 //Animation
-Animation :: Animation(sf :: Texture *sheet, const float &animationTime, const RectQueue &position)
-: sprite(nullptr), sheet(sheet), animationTime(animationTime), position(position) {
+Animation :: Animation(sf :: Texture *sheet, const float &animationTime, const RectQueue &position, bool loop)
+: sprite(nullptr), sheet(sheet), animationTime(animationTime), position(position), loop(loop) {
     
 }
 Animation :: ~Animation() {
@@ -31,40 +31,64 @@ Animation :: ~Animation() {
 }
 void Animation :: init(sf :: Sprite *sprite) {
     this -> sprite = sprite;
-    this -> sprite -> setTexture(*this -> sheet);
     this -> reset();
 }
-bool Animation :: end() const {
-    return this -> position.end();
+const bool& Animation :: end() const {
+    return this -> isEnd;
 }
-bool Animation :: play(const float &deltaTime) {
+void Animation :: play(const float &deltaTime) {
     this -> currentTime += deltaTime;
+    
     if(this -> currentTime > this -> animationTime) {
-        if(this -> end()) return true;
+        if(this -> position.end()) {
+            if(this -> loop) this -> reset(); 
+            else {this -> isEnd = true; return;}
+        }
         this -> currentTime = 0.f;
+        this -> sprite -> setTexture(*this -> sheet);
         this -> sprite -> setTextureRect(this -> position.next());
     }
-    return false;
 }
 void Animation :: reset() {
-    currentTime = 0.f;
+    currentTime = 0.f; this -> isEnd = false;
     this -> position.reset();
     this -> sprite -> setTextureRect(this -> position.next());
 }
 
 //AnimationSet
-AnimationSet :: AnimationSet(sf :: Sprite* sprite) : sprite(sprite) {
+AnimationSet :: AnimationSet(sf :: Sprite* sprite) : sprite(sprite), currentAnimation({"", 0}) {
     
 }
 AnimationSet :: ~AnimationSet() {
 
 }
-void AnimationSet :: insert(const std :: string &key, const Animation &value) {
-    this -> animation.emplace(key, value);
+void AnimationSet :: insert(const std :: string &key, const Animation &value, const float &offset, bool reversed) {
+    this -> animation.emplace(key, value), this -> offset.emplace(key, offset);
     this -> animation.at(key).init(this -> sprite);
 }
-void AnimationSet :: play(const std :: string &key, const float &deltaTime) {
-    if(this -> animation.at(key).play(deltaTime))
-        this -> animation.at(key).reset();
+void AnimationSet :: reverse(const bool &reversed, const float &offset) {
+    this -> sprite -> setOrigin(reversed ? offset : 0.f, 1.f);
+    this -> sprite -> setScale(reversed ? -1.f : 1.f, 1.f);
+}
+bool AnimationSet :: hasPriority() {
+    return this -> priority.first != "" && !this -> animation.at(priority.first).end();
+}
+void AnimationSet ::delPriority() {
+    if(this -> priority.first != "") this -> animation.at(this -> priority.first).reset();
+    this -> priority = {"", false};
+}
+void AnimationSet :: play(std :: string key, const float &deltaTime, bool reversed) {
+    if(hasPriority()) key = priority.first, reversed = priority.second;
+    if(currentAnimation != key) {
+        if(currentAnimation != "") this -> animation.at(currentAnimation).reset();
+        currentAnimation = key;
+    }
+    this -> animation.at(key).play(deltaTime);
+    if(!hasPriority()) delPriority();
+    this -> reverse(reversed, this -> offset.at(key));
+}
+
+void AnimationSet :: setPriority(const std :: string &key, bool reversed) {
+    this -> priority = make_pair(key, true);
 }
 

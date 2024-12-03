@@ -6,14 +6,13 @@ void Game :: initWindow() {
     this -> window -> setVerticalSyncEnabled(false);
 }
 void Game :: initStates() {
-    this -> states.push(new MenuState(this -> window, &this -> states));
-    
+    this -> states.push(new MenuState(this -> window, &this -> states, &this -> resource));
 }
 
 //constructor & destructor
-Game :: Game() {
+Game :: Game() : resource("..\\resource") {
     this -> initWindow();
-    this -> initStates();  
+    this -> initStates();
 }
 Game :: ~Game() {
     delete this -> window;

@@ -9,7 +9,7 @@ private:
     Entity player;
 public:
     //constructor & destructor
-    GameState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    GameState(sf :: RenderWindow* window, std :: stack<State*>* states, Resource* resource);
     ~GameState();
 
     //functions

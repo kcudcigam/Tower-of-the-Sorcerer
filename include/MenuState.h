@@ -8,9 +8,10 @@ private:
     //Variables
     sf :: RectangleShape background;
     sf :: Texture backgroundTexture;
+
 public:
     //constructor & destructor
-    MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    MenuState(sf :: RenderWindow* window, std :: stack<State*>* states, Resource* resource);
     ~MenuState();
 
     //functions

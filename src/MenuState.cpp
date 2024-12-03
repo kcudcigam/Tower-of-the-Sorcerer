@@ -1,14 +1,13 @@
 #include "MenuState.h"
 //constructor & destructor
-MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states) : State(window, states) {
+MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states, Resource* resource) : State(window, states, resource) {
     //init background
     this -> background.setSize(sf :: Vector2f (
         static_cast<float>(this -> getWindow() -> getSize().x), 
         static_cast<float>(this -> getWindow() -> getSize().y)
         )
     );
-    this -> backgroundTexture.loadFromFile("../res/bg.png");
-    this -> background.setTexture(&this -> backgroundTexture);
+    this -> background.setTexture(this -> getResource() -> getImg("bg.png"));
     
 }
 MenuState :: ~MenuState() {
@@ -23,7 +22,7 @@ void MenuState :: checkForQuit() {
 void MenuState :: update(const float &deltaTime) {
     this -> checkForQuit();
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
-        this -> stateStack() -> push(new GameState(this -> getWindow(), this -> stateStack()));
+        this -> stateStack() -> push(new GameState(this -> getWindow(), this -> stateStack(), this -> getResource()));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     if(target == nullptr) target = this -> getWindow();

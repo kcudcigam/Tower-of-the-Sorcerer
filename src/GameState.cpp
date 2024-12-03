@@ -1,6 +1,6 @@
 #include "GameState.h"
 //constructor & destructor
-GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states) : State(window, states) {
+GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states, Resource* resource) : State(window, states, resource), player(resource) {
     
 }
 GameState :: ~GameState() {

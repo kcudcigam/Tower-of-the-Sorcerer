@@ -7,7 +7,7 @@ private:
 	sf :: Vector2f offset;
 
 public:
-	Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset, const sf :: Vector2f &size);
+	Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset = sf :: Vector2f(0.f, 0.f), const sf :: Vector2f &size = sf :: Vector2f(0.f, 0.f));
 	virtual ~Hitbox();
 
 	const sf :: Vector2f& getPosition() const;

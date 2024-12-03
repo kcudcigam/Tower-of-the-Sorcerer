@@ -3,9 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "MenuState.h"
+#include "Resource.h"
 class Game {
 private:
     //Variables
+    Resource resource;
     sf :: RenderWindow *window;
     sf :: Event event;
     sf :: Clock clock;

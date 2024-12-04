@@ -22,7 +22,7 @@ void MenuState :: checkForQuit() {
 void MenuState :: update(const float &deltaTime) {
     this -> checkForQuit();
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
-        this -> stateStack() -> push(new GameState(this -> getWindow(), this -> stateStack(), this -> getResource()));
+        this -> stateStack() -> push(new GameState(this -> getWindow(), this -> stateStack(), this -> getResource(), "test.json"));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     if(target == nullptr) target = this -> getWindow();

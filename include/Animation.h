@@ -5,7 +5,7 @@ struct Img {
     sf :: IntRect rect;
     sf :: Vector2f origin;
     float scale;
-    Img(sf :: Texture* texture, const sf :: IntRect &rect, const float &scale = 1.f, const sf :: Vector2f &origin = sf :: Vector2f(0.f, 0.f));
+    Img(sf :: Texture* texture = nullptr, const sf :: IntRect &rect = sf :: IntRect(), const float &scale = 1.f, const sf :: Vector2f &origin = sf :: Vector2f(0.f, 0.f));
 };
 std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &start, const sf :: Vector2i &end, const sf :: Vector2i &size, const float &scale = 1.f, const sf :: Vector2f &origin = sf :: Vector2f(0.f, 0.f));
 
@@ -16,7 +16,7 @@ private:
     std :: vector<Img> :: iterator position;
     bool loop;
 public:
-    Animation(const std :: vector<Img> &list, const float &animationTime = 0, bool loop = true);
+    Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
     bool end() const;
     void play(sf :: Sprite *sprite, const float &deltaTime);

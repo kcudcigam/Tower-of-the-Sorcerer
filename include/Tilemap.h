@@ -21,11 +21,11 @@ public:
 
 class Layer {
 private:
-    std :: vector<std :: vector<Tile> > tiles;
+    std :: vector<Tile> tiles;
 public:
-    Layer(const sf :: Vector2i &size);
+    Layer();
     virtual ~Layer();
-    void insert(int x, int y, const sf :: Vector2f &position, const Animation &animation);
+    void insert(const sf :: Vector2f &position, const Animation &animation);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;
 };

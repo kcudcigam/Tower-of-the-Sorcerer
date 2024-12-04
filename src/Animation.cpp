@@ -6,6 +6,9 @@ Img :: Img(sf :: Texture* texture, const sf :: IntRect &rect, const float &scale
 : texture(texture), rect(rect), scale(scale), origin(origin) {
 
 }
+void Img :: flip() {
+    this -> scale *= -1.f;
+}
 std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &start, const sf :: Vector2i &end, const sf :: Vector2i &size, const float &scale, const sf :: Vector2f &origin) {
     std :: vector<Img> imgList;
     auto startRect = sf :: IntRect(sf :: Vector2i(start.x * size.x, start.y * size.y), size);
@@ -23,8 +26,13 @@ Animation :: Animation(const std :: vector<Img> &list, const float &animationTim
 Animation :: ~Animation() {
 
 }
+Animation Animation :: flip(bool flip) const {
+    Animation animation = (*this);
+    if(flip) for(auto &img : animation.list) img.flip();
+    return animation;
+}
 bool Animation :: empty() const {
-    return this -> list.empty();
+    return this -> list.empty() || this -> list.back().texture == nullptr;
 }
 bool Animation :: end() const {
     return this -> position == this -> list.size();

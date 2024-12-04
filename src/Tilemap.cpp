@@ -15,7 +15,6 @@ void Tile :: setAnimation(const Animation &animation) {
     this -> animation.reset();
 }
 void Tile :: update(const float& deltaTime) {
-    //std :: cerr << (this -> animation.empty()) << std :: endl;
     this -> animation.play(&this -> sprite, deltaTime);
 }
 bool Tile :: empty () const {
@@ -26,23 +25,20 @@ void Tile :: render(sf :: RenderTarget* target) const {
 }
 
 //Layer
-Layer :: Layer(const sf :: Vector2i &size) : tiles(size.x, std :: vector<Tile>(size.y)) {
+Layer :: Layer() {
     
 }
 Layer :: ~Layer() {
 
 }
-void Layer :: insert(int x, int y, const sf :: Vector2f &position, const Animation &animation) {
-    this -> tiles[x][y].setPosition(position);
-    this -> tiles[x][y].setAnimation(animation);
+void Layer :: insert(const sf :: Vector2f &position, const Animation &animation) {
+    this -> tiles.emplace_back(position, animation);
 }
 void Layer :: update(const float& deltaTime) {
-    for(auto &raw : this -> tiles)
-        for(auto &tile : raw) tile.update(deltaTime);
+    for(auto &tile : this -> tiles) tile.update(deltaTime);
 }
 void Layer :: render(sf :: RenderTarget* target) const {
-    for(const auto &raw : this -> tiles)
-        for(const auto &tile : raw) tile.render(target);
+    for(const auto &tile : this -> tiles) tile.render(target);
 }
 
 Tilemap :: Tilemap(Resource *resource, const std :: string &file) {
@@ -56,14 +52,29 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
     auto getFileName = [](const std :: string &path) {
         return path.substr(path.find_last_of("\\/") + 1);
     };
+    const unsigned int bitmask = (1 << 29) - 1;
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == this -> imgList.size());
-        const auto texture = Resource.getImg(getFileName(tileset["image"].get<std :: string>()));
-        const int column = tileset["columns"].get<int>(), row = tileset["tilecount"].get<int>() / column;
-        sf :: Vector2i size(tileset["tilewidth"], tileset["tileheight"]);
-        for(int i = 0; i < row; i++) {
-            const auto list = generateList(texture, {0, i}, {column - 1, i}, size);
-            this -> imgList.insert(this -> imgList.end(), list.begin(), list.end());
+        //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
+        const int cnt = tileset["tilecount"].get<int>();
+        if(tileset.contains("image")) {
+            const auto texture = Resource.getImg(getFileName(tileset["image"].get<std :: string>()));
+            const int column = tileset["columns"].get<int>(), row = cnt / column;
+            sf :: Vector2i size(tileset["tilewidth"], tileset["tileheight"]);
+            for(int i = 0; i < row; i++) {
+                const auto list = generateList(texture, {0, i}, {column - 1, i}, size);
+                this -> imgList.insert(this -> imgList.end(), list.begin(), list.end());
+            }
+        }
+        if(tileset.contains("tiles")) {
+            for(const auto &tile : tileset["tiles"]) {
+                if(!tile.contains("image")) continue;
+                const auto texture = Resource.getImg(getFileName(tile["image"].get<std :: string>()));
+                const int x = tile["imagewidth"].get<int>(), y = tile["imageheight"].get<int>();
+                size_t id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
+                if(this -> imgList.size() <= id) this -> imgList.resize(id + 1);
+                this -> imgList[id] = Img(texture, sf :: IntRect({0, 0}, {x, y}));
+            }
         }
     }
     this -> animationList.resize(imgList.size());
@@ -83,15 +94,27 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
     }
     
     for(const auto &layer : map["layers"]) {
-        if(layer["type"].get<std :: string>() != "tilelayer") continue;
-        
-        const int x = layer["height"].get<int>(), y = layer["width"].get<int>();
-        this -> layers.emplace_back(sf :: Vector2i(x, y));
-        for(int i = 0; i < x; i++)
-            for(int j = 0; j < y; j++) {
-                const int id = layer["data"][i * x + j].get<int>();
-                this -> layers.back().insert(i, j, sf :: Vector2f(i * map["tilewidth"].get<int>(), j * map["tileheight"].get<int>()), animationList[id]);
+        if(layer["type"].get<std :: string>() == "tilelayer") {
+            const int x = layer["height"].get<int>(), y = layer["width"].get<int>();
+            this -> layers.emplace_back();
+            for(int i = 0; i < x; i++)
+                for(int j = 0; j < y; j++) {
+                    const unsigned int id = layer["data"][i * y + j].get<int>();
+                    this -> layers.back().insert(sf :: Vector2f(j * map["tilewidth"].get<int>(), i * map["tileheight"].get<int>()), animationList[id & bitmask].flip(id >> 31 & 1));
+                }
+        }
+        else if(layer["type"].get<std :: string>() == "objectgroup") {
+            std :: cerr << layer["name"].get<std :: string>() << std :: endl;
+            layers.emplace_back();
+            for(const auto &object : layer["objects"]) {
+                if(!object.contains("gid")) continue;
+                std :: cerr << object["x"].get<float>() << ' ' << object["y"].get<float>() << std :: endl;
+                const unsigned int id = object["gid"].get<unsigned int>();
+                const float x = object["x"].get<float>() + object["width"].get<float>();
+                const float y = object["y"].get<float>() - object["height"].get<float>();
+                if(!(id >> 31 & 1)) layers.back().insert(sf :: Vector2f(x, y), animationList[id & bitmask].flip(id >> 31 & 1));
             }
+        }
     }
 }
 

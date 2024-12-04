@@ -13,12 +13,11 @@ class Animation {
 private:
     float currentTime, animationTime;
     std :: vector<Img> list;
-    size_t position;
+    std :: vector<Img> :: iterator position;
     bool loop;
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
-    bool empty() const;
     bool end() const;
     void play(sf :: Sprite *sprite, const float &deltaTime);
     void reset();

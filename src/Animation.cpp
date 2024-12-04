@@ -23,8 +23,11 @@ Animation :: Animation(const std :: vector<Img> &list, const float &animationTim
 Animation :: ~Animation() {
 
 }
+bool Animation :: empty() const {
+    return this -> list.empty();
+}
 bool Animation :: end() const {
-    return this -> position == this -> list.end();
+    return this -> position == this -> list.size();
 }
 
 void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
@@ -32,20 +35,19 @@ void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
     this -> currentTime += deltaTime;
     if(this -> currentTime > this -> animationTime) {
         this -> currentTime = 0.f;
-        this -> position = next(this -> position);
+        this -> position++;
     }
     if(this -> end()) {
-        if(this -> loop) this -> position = this -> list.begin();
+        if(this -> loop) this -> position = 0;
         else return;
     }
-    sprite -> setTexture(*this -> position -> texture);
-    sprite -> setTextureRect(this -> position -> rect);
-    sprite -> setOrigin(this -> position -> origin);
-    sprite -> setScale(this -> position -> scale, fabs(this -> position -> scale));
+    sprite -> setTexture(*this -> list[this -> position].texture);
+    sprite -> setTextureRect(this -> list[this -> position].rect);
+    sprite -> setOrigin(this -> list[this -> position].origin);
+    sprite -> setScale(this -> list[this -> position].scale, fabs(this -> list[this -> position].scale));
 }
 void Animation :: reset() {
-    currentTime = 0.f;
-    this -> position = this -> list.begin();
+    currentTime = 0.f; this -> position = 0;
 }
 
 //AnimationSet

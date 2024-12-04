@@ -33,9 +33,9 @@ public:
 class Tilemap {
 private:
     //Variables
-    std :: vector<Img> imgList;
-    std :: vector<Animation> animationList;
     std :: vector<Layer> layers;
+    std :: vector<sf :: FloatRect> rects;
+
 public:
     //constructor & destructor
     Tilemap(Resource* resource, const std :: string &file);

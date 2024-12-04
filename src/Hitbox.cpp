@@ -35,5 +35,5 @@ void Hitbox :: update() {
 	this -> outline.setPosition(this -> sprite -> getPosition() + offset);
 }
 void Hitbox :: render(sf :: RenderTarget *target) {
-    if(target != nullptr && this -> outline.getSize() != sf :: Vector2f(0.f, 0.f)) target -> draw(this -> outline);
+    if(target != nullptr) target -> draw(this -> outline);
 }

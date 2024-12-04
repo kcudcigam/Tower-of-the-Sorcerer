@@ -7,7 +7,8 @@ Img :: Img(sf :: Texture* texture, const sf :: IntRect &rect, const float &scale
 
 }
 void Img :: flip() {
-    this -> scale *= -1.f;
+    this -> scale *= -1.f; this -> origin.x *= -1.f;
+    this -> origin.x += this -> rect.width;
 }
 std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &start, const sf :: Vector2i &end, const sf :: Vector2i &size, const float &scale, const sf :: Vector2f &origin) {
     std :: vector<Img> imgList;
@@ -16,6 +17,9 @@ std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &st
     for(auto current = startRect; current.left <= endRect.left; current.left += size.x)
         imgList.emplace_back(texture, current, scale, origin);
     return imgList;
+}
+sf :: Vector2i Img :: getSize() const {
+    return sf :: Vector2i(this -> rect.width, this -> rect.height);
 }
 
 //Animation
@@ -30,6 +34,9 @@ Animation Animation :: flip(bool flip) const {
     Animation animation = (*this);
     if(flip) for(auto &img : animation.list) img.flip();
     return animation;
+}
+sf :: Vector2i Animation :: getSize() const {
+    return this -> list.back().getSize();
 }
 bool Animation :: empty() const {
     return this -> list.empty() || this -> list.back().texture == nullptr;

@@ -12,6 +12,7 @@ private:
 public:
     Tile(const sf :: Vector2f &position = sf :: Vector2f(0.f, 0.f), const Animation &animation = Animation());
     virtual ~Tile();
+    bool empty() const;
     void setPosition(const sf :: Vector2f &position);
     void setAnimation(const Animation &animation);
     void update(const float& deltaTime);
@@ -24,6 +25,7 @@ private:
 public:
     Layer(const sf :: Vector2i &size);
     virtual ~Layer();
+    void insert(int x, int y, const sf :: Vector2f &position, const Animation &animation);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;
 };
@@ -32,6 +34,7 @@ class Tilemap {
 private:
     //Variables
     std :: vector<Img> imgList;
+    std :: vector<Animation> animationList;
     std :: vector<Layer> layers;
 public:
     //constructor & destructor

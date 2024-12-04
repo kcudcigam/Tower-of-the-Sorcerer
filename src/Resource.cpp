@@ -18,10 +18,11 @@ void Resource :: loadMap(const std :: filesystem ::path &directory) {
     for (const auto &map : std :: filesystem :: directory_iterator(directory)) {
         auto mapjson = new json(json :: parse(std :: ifstream(map.path().string())));
         this -> map.emplace(map.path().filename().string(), mapjson);
-        std :: cerr << mapjson -> at("layers").at(0).at("name") << std :: endl;
+        //std :: cerr << mapjson -> at("layers").at(0).at("name") << std :: endl;
     }
 }
 sf :: Texture* Resource :: getImg(const std :: string &file) const {
+    std :: cerr << file << std :: endl;
     return this -> img.at(file);
 }
 json* Resource :: getMap(const std :: string &file) const {

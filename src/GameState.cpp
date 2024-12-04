@@ -16,8 +16,10 @@ void GameState :: checkForQuit() {
 void GameState :: update(const float &deltaTime) {
     this -> checkForQuit();
     this -> player.update(deltaTime);
+    this -> map.update(deltaTime);
 }
 void GameState :: render(sf :: RenderTarget* target) {
     if(target == nullptr) target = this -> getWindow();
+    this -> map.render(target);
     this -> player.render(target);
 }

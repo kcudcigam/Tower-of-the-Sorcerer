@@ -3,20 +3,15 @@
 class Hitbox {
 private:
 	sf :: Sprite* sprite;
-	sf :: RectangleShape outline;
+	sf :: FloatRect box;
 	sf :: Vector2f offset;
 
 public:
 	Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset = sf :: Vector2f(0.f, 0.f), const sf :: Vector2f &size = sf :: Vector2f(0.f, 0.f));
 	virtual ~Hitbox();
 
-	const sf :: Vector2f& getPosition() const;
-	//const sf :: FloatRect getGlobalBounds() const;
-	//const sf :: FloatRect& getNextPosition(const sf::Vector2f& velocity) const;
-
-	void setPosition(const sf :: Vector2f &position);
-	bool intersects(const sf::FloatRect &rect);
-
-	void update();
-	void render(sf :: RenderTarget *target = nullptr);
+	sf :: Vector2f getPosition() const;
+	sf :: Vector2f getOffset() const;
+	sf :: Vector2f getSize() const;
+	void render(sf :: RenderTarget *target) const;
 };

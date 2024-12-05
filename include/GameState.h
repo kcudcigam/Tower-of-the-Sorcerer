@@ -1,13 +1,12 @@
 #pragma once
 #include <iostream>
 #include "State.h"
-#include "Entity.h"
+#include "Player.h"
 #include "Tilemap.h" 
 
 class GameState : public State {
 private:
     //Variables
-    Entity player;
     Tilemap map;
 public:
     //constructor & destructor

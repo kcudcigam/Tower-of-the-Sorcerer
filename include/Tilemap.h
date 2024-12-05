@@ -3,7 +3,8 @@
 #include "Hitbox.h"
 #include "Animation.h"
 #include "Resource.h"
-#include <json.hpp>
+#include "Entity.h"
+#include "json.hpp"
 
 class Tile {
 private:
@@ -33,8 +34,9 @@ public:
 class Tilemap {
 private:
     //Variables
+    Player player;
     std :: vector<Layer> layers;
-    std :: vector<sf :: FloatRect> rects;
+    std :: vector<Entity*> entities;
 
 public:
     //constructor & destructor

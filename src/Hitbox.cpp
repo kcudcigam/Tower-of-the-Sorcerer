@@ -1,39 +1,28 @@
 #include "Hitbox.h"
 
-Hitbox :: Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset, const sf :: Vector2f &size) : sprite(sprite), offset(offset) {
-    this -> outline.setPosition(this -> sprite -> getPosition() + offset);
-    this -> outline.setSize(size);
-    this -> outline.setFillColor(sf :: Color :: Transparent);
-    this -> outline.setOutlineThickness(-1.f);
-    this -> outline.setOutlineColor(sf :: Color :: Green);
+Hitbox :: Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset, const sf :: Vector2f &size) : sprite(sprite), box(offset, size) {
+    
 }
 Hitbox :: ~Hitbox() {
 
 }
 
-const sf :: Vector2f& Hitbox :: getPosition() const {
-	return this -> outline.getPosition();
+sf :: Vector2f Hitbox :: getPosition() const {
+	return box.getPosition() + sprite -> getPosition();
 }
-/*
-const sf::FloatRect HitboxComponent::getGlobalBounds() const
-{
-	return this->hitbox.getGlobalBounds();
-}*/
-
-
-void Hitbox :: setPosition(const sf::Vector2f &position) {
-	this -> outline.setPosition(position);
-	this -> sprite -> setPosition(position - offset);
+sf :: Vector2f Hitbox :: getOffset() const {
+	return box.getPosition();
+}
+sf :: Vector2f Hitbox :: getSize() const {
+	return box.getSize();
 }
 
-
-bool Hitbox :: intersects(const sf :: FloatRect &rect) {
-    if(this -> outline.getSize() == sf :: Vector2f(0.f, 0.f)) return false;
-	return this -> outline.getGlobalBounds().intersects(rect);
-}
-void Hitbox :: update() {
-	this -> outline.setPosition(this -> sprite -> getPosition() + offset);
-}
-void Hitbox :: render(sf :: RenderTarget *target) {
-    if(target != nullptr) target -> draw(this -> outline);
+void Hitbox :: render(sf :: RenderTarget *target) const {
+    sf :: RectangleShape outline;
+    outline.setPosition(this -> getPosition());
+    outline.setSize(this -> getSize());
+    outline.setFillColor(sf :: Color :: Transparent);
+    outline.setOutlineThickness(-1.f);
+    outline.setOutlineColor(sf :: Color :: Green);
+    target -> draw(outline);
 }

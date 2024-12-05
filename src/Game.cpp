@@ -1,7 +1,7 @@
 #include "Game.h"
 //Initialization
 void Game :: initWindow() {
-    this -> window = new sf :: RenderWindow(sf :: VideoMode(1280, 640), "The Sorcerer");
+    this -> window = new sf :: RenderWindow(sf :: VideoMode(960, 640), "The Sorcerer");
     this -> window -> setFramerateLimit(120);
     this -> window -> setVerticalSyncEnabled(false);
 }

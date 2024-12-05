@@ -1,57 +1,41 @@
 #include "Entity.h"
-#include <iostream>
-//constructor & destructor
-Entity :: Entity(Resource* resource) : resource(resource) {
-    this -> sprite = new sf :: Sprite();
-    this -> movement = new Movement(this -> sprite, 400.f, 2000.f, 1000.f);
-    this -> animation = new AnimationSet;
-    this -> animation -> insert("IDLE_LEFT"   , Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 0}, {13, 0}, {192, 192}), 0.05f, true));
-    this -> animation -> insert("IDLE_RIGHT"  , Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 0}, {13, 0}, {192, 192}, -1.f, {258.f, 0.f}), 0.05f, true));
-    this -> animation -> insert("WALK_LEFT"   , Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 1}, {11, 1}, {192, 192}), 0.05f, true));
-    this -> animation -> insert("WALK_RIGHT"  , Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 1}, {11, 1}, {192, 192}, -1.f, {258.f, 0.f}), 0.05f, true));
-    this -> animation -> insert("ATTACK_LEFT" , Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 2}, {14, 2}, {384, 192},  1.f, { 88.f, 0.f}), 0.05f, false));
-    this -> animation -> insert("ATTACK_RIGHT", Animation(generateList(this -> resource -> getImg("PLAYER_SHEET.png"), {0, 2}, {14, 2}, {384, 192}, -1.f, {348.f, 0.f}), 0.05f, false));
-    this -> hitbox = new Hitbox(this -> sprite, sf :: Vector2f(86.f, 61.f), sf :: Vector2f(86.f, 111.f));
+//Entity
+Entity :: Entity() {
+
 }
 Entity :: ~Entity() {
-    delete this -> sprite;
-    delete this -> movement;
-    delete this -> animation;
+
 }
 
-//funtionss
-void Entity :: update(const float& deltaTime) {
+//Tilebox
+Tilebox :: Tilebox(const sf :: FloatRect &rect) : rect(rect) {
 
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: A) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left))
-        this -> movement -> move(-1.f,  0.f, deltaTime);
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: D) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right))
-        this -> movement -> move(1.f,  0.f, deltaTime);
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: W) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Up))
-        this -> movement -> move(0.f, -1.f, deltaTime);
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: S) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Down))
-        this -> movement -> move(0.f,  1.f, deltaTime);
-    this -> movement -> update(deltaTime);
+}
+Tilebox :: ~Tilebox() {
 
-    //std :: cerr << (this -> movement -> getVelocity().x) << ' ' << (this -> movement -> getVelocity().y) << std :: endl;
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: J)) {
-        if(this -> movement -> getDirection() >> 2 & 1)
-            this -> animation -> setPriority("ATTACK_RIGHT");
-        else this -> animation -> setPriority("ATTACK_LEFT");
-    }
-    if(this -> movement -> getVelocity() != sf :: Vector2f(0.f, 0.f)) {
-        if(this -> movement -> getDirection() >> 2 & 1)
-            this -> animation -> play(this -> sprite, "WALK_RIGHT", deltaTime);
-        else this -> animation -> play(this -> sprite, "WALK_LEFT", deltaTime);
+}
+void Tilebox :: update(Player &player, const float &deltaTime) {
+    const auto &position = player.getPosition();
+    if(!position.intersects(rect)) return;
+    const std :: pair<float, float> dx = {position.left + position.width - rect.left, rect.left + rect.width - position.left};
+    const std :: pair<float, float> dy = {position.top + position.height - rect.top, rect.top + rect.height - position.top};
+    if(std :: min(dx.first, dx.second) < std :: min(dy.first, dy.second)) {
+        if(dx.first < dx.second) player.setPosition({rect.left - position.width, position.top});
+        else player.setPosition({rect.left + rect.width, position.top});
+        player.stopVelocity(true, false);
     }
     else {
-        if(this -> movement -> getDirection() >> 2 & 1)
-            this -> animation -> play(this -> sprite, "IDLE_RIGHT", deltaTime);
-        else this -> animation -> play(this -> sprite, "IDLE_LEFT", deltaTime);
+        if(dy.first < dy.second) player.setPosition({position.left, rect.top - position.height});
+        else player.setPosition({position.left, rect.top + rect.height});
+        player.stopVelocity(false, true);
     }
-
-    this -> hitbox -> update();
 }
-void Entity :: render(sf :: RenderTarget* target) {
-    target -> draw(*this -> sprite);
-    this -> hitbox -> render(target);
+void Tilebox :: render(sf :: RenderTarget *target) const {
+    sf :: RectangleShape outline;
+    outline.setPosition({rect.left, rect.top});
+    outline.setSize({rect.width, rect.height});
+    outline.setFillColor(sf :: Color :: Transparent);
+    outline.setOutlineThickness(-1.f);
+    outline.setOutlineColor(sf :: Color :: Green);
+    target -> draw(outline);
 }

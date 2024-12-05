@@ -1,7 +1,7 @@
 #include "Movement.h"
 #include<iostream>
 
-Movement :: Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const unsigned &direction)
+Movement :: Movement(sf :: Sprite *sprite, const sf :: Vector2f &maxVelocity, const sf :: Vector2f &acceleration, const sf :: Vector2f &deceleration, const unsigned &direction)
 : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration), velocity(sf :: Vector2f(0.f, 0.f)), direction(direction) {
 
 }
@@ -12,9 +12,7 @@ Movement :: ~Movement() {
 const unsigned& Movement :: getDirection() const {
     return this -> direction;
 }
-const float& Movement :: getMaxVelocity() const {
-    return this -> maxVelocity;
-}
+
 const sf :: Vector2f& Movement :: getVelocity() const {
     return this -> velocity;
 }
@@ -31,8 +29,8 @@ void Movement :: move(const float &x, const float &y, const float &deltaTime) {
     };
     if(x != 0) this -> direction = ((this -> direction >> 1 & 1) << 1) | ((x > 0) << 2);
     if(y != 0) this -> direction = ((this -> direction >> 2 & 1) << 2) | ((y > 0) << 1) | 1;
-    limit(this -> velocity.x += this -> acceleration * x * deltaTime, this -> maxVelocity);
-    limit(this -> velocity.y += this -> acceleration * y * deltaTime, this -> maxVelocity);
+    limit(this -> velocity.x += this -> acceleration.x * x * deltaTime, this -> maxVelocity.x);
+    limit(this -> velocity.y += this -> acceleration.y * y * deltaTime, this -> maxVelocity.y);
 }
 
 void Movement :: update(const float &deltaTime) {
@@ -40,8 +38,8 @@ void Movement :: update(const float &deltaTime) {
         const int u = (x > 0.f ? 1 : x < 0.f ? -1 : 0); x *= u;
         x -= deltaTime * deceleration; x = std :: max(x, 0.f) * u;
     };
-    updateSpeed(this -> velocity.x, this -> deceleration);
-    updateSpeed(this -> velocity.y, this -> deceleration);
+    updateSpeed(this -> velocity.x, this -> deceleration.x);
+    updateSpeed(this -> velocity.y, this -> deceleration.y);
     this -> sprite -> move(this -> velocity * deltaTime);
     //std :: cerr << this -> velocity.x << ' ' << this -> velocity.y << std :: endl;
 }

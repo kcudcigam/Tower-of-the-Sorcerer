@@ -30,16 +30,11 @@ Animation :: Animation(const std :: vector<Img> &list, const float &animationTim
 Animation :: ~Animation() {
 
 }
-Animation Animation :: flip(bool flip) const {
-    Animation animation = (*this);
-    if(flip) for(auto &img : animation.list) img.flip();
-    return animation;
+void Animation :: flip() {
+    for(auto &img : list) img.flip();
 }
 sf :: Vector2i Animation :: getSize() const {
     return this -> list.back().getSize();
-}
-bool Animation :: empty() const {
-    return this -> list.empty() || this -> list.back().texture == nullptr;
 }
 bool Animation :: end() const {
     return this -> position == this -> list.size();

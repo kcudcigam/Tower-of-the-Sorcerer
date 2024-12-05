@@ -1,23 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Movement.h"
-#include "Animation.h"
-#include "Hitbox.h"
-#include "Resource.h"
-
+#include "Player.h"
 class Entity {
-private:
-    //Variables
-    sf :: Sprite* sprite;
-    Movement* movement;
-    AnimationSet* animation;
-    Hitbox* hitbox;
-    Resource* resource;
 public:
-    //constructor & destructor
-    Entity(Resource* resource);
+    Entity();
     virtual ~Entity();
-    //funtions
-    virtual void update(const float& deltaTime);
-    virtual void render(sf :: RenderTarget* target);
+    virtual void update(Player &player, const float &deltaTime) = 0;
+    virtual void render(sf :: RenderTarget *target) const = 0;
+};
+bool checkCollision(Player &player, const sf :: FloatRect &rect);
+class Tilebox : public Entity {
+private:
+    sf :: FloatRect rect;
+public:
+    Tilebox(const sf :: FloatRect &rect);
+    virtual ~Tilebox();
+    void update(Player &player, const float &deltaTime);
+    void render(sf :: RenderTarget *target) const;
 };

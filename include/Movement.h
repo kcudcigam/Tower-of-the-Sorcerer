@@ -3,15 +3,13 @@
 class Movement {
 private:
     sf :: Sprite *sprite;
-    float maxVelocity, acceleration, deceleration;
-    sf :: Vector2f velocity;
+    sf :: Vector2f maxVelocity, acceleration, deceleration, velocity;
     unsigned direction;
 public:
-    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const unsigned &direction = 0);
+    Movement(sf :: Sprite *sprite, const sf :: Vector2f &maxVelocity, const sf :: Vector2f &acceleration, const sf :: Vector2f &deceleration, const unsigned &direction = 0);
     virtual ~Movement();  
 
     const unsigned& getDirection() const;
-    const float& getMaxVelocity() const;
     const sf :: Vector2f& getVelocity() const;
     
     void stopVelocity(const bool &x, const bool &y);

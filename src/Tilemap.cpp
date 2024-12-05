@@ -18,7 +18,7 @@ void Tile :: update(const float& deltaTime) {
     this -> animation.play(&this -> sprite, deltaTime);
 }
 bool Tile :: empty () const {
-    return this -> animation.empty();
+    return sprite.getTexture() == nullptr;
 }
 void Tile :: render(sf :: RenderTarget* target) const {
     if(!this -> empty()) target -> draw(this -> sprite);
@@ -41,11 +41,11 @@ void Layer :: render(sf :: RenderTarget* target) const {
     for(const auto &tile : this -> tiles) tile.render(target);
 }
 
-Tilemap :: Tilemap(Resource *resource, const std :: string &file) {
+Tilemap :: Tilemap(Resource *resource, const std :: string &file) : player(resource) {
     this -> loadFromFile(*resource -> getMap(file), *resource);
 }
 Tilemap :: ~Tilemap() {
-
+    for(const auto &entity : entities) delete entity;
 }
 void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
 
@@ -117,12 +117,13 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                 for(int j = 0; j < y; j++) {
                     const unsigned int id = layer["data"][i * y + j].get<int>();
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
-                    layers.back().insert(position, animationList[id & bitmask].flip(id >> 31 & 1));
+                    auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
+                    layers.back().insert(position, animation);
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(const auto &box : rect)
-                            rects.emplace_back(calcRect(tileRect, box, id >> 31 & 1));
+                            entities.emplace_back(new Tilebox(calcRect(tileRect, box, id >> 31 & 1)));
                     }
                 }
         }
@@ -134,12 +135,13 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                 const unsigned int id = object["gid"].get<unsigned int>();
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
                 const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y);
-                layers.back().insert(position, animationList[id & bitmask].flip(id >> 31 & 1));
+                auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
+                layers.back().insert(position, animation);
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect)
-                        rects.emplace_back(calcRect(tileRect, box, id >> 31 & 1));
+                        entities.emplace_back(new Tilebox(calcRect(tileRect, box, id >> 31 & 1)));
                 }
             }
         }
@@ -147,17 +149,13 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
 }
 
 void Tilemap :: update(const float& deltaTime) {
+    player.update(deltaTime);
+    for(const auto &entity : entities) entity -> update(player, deltaTime);
     for(auto &layer : layers) layer.update(deltaTime);
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
     for(const auto &layer : layers) layer.render(target);
-    for(const auto &rect : rects) {
-        sf :: RectangleShape outline;
-        outline.setPosition({rect.left, rect.top});
-        outline.setSize({rect.width, rect.height});
-        outline.setFillColor(sf :: Color :: Transparent);
-        outline.setOutlineThickness(-1.f);
-        outline.setOutlineColor(sf :: Color :: Green);
-        target -> draw(outline);
-    }
+    for(const auto &entity : entities) entity -> render(target);
+    
+    player.render(target);
 }

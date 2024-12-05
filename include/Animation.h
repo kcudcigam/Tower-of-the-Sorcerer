@@ -20,9 +20,8 @@ private:
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
-    Animation flip(bool flip) const;
+    void flip();
     sf :: Vector2i getSize() const;
-    bool empty() const;
     bool end() const;
     void play(sf :: Sprite *sprite, const float &deltaTime);
     void reset();

@@ -1,11 +1,14 @@
 #include "Tilemap.h"
 #include <iostream>
 //Tile
-Tile :: Tile(const sf :: Vector2f &position, const Animation &animation) {
+Tile :: Tile(const sf :: Vector2f &position, const Animation &animation, const float &ysort) : ysort(ysort) {
     this -> setPosition(position), this -> setAnimation(animation);
 }
 Tile :: ~Tile() {
 
+}
+const float& Tile :: getY() const {
+    return this -> ysort;
 }
 void Tile :: setPosition(const sf :: Vector2f &position) {
     this -> sprite.setPosition(position);
@@ -31,14 +34,22 @@ Layer :: Layer() {
 Layer :: ~Layer() {
 
 }
-void Layer :: insert(const sf :: Vector2f &position, const Animation &animation) {
-    this -> tiles.emplace_back(position, animation);
+void Layer :: ysort() {
+    sort(tiles.begin(), tiles.end(), [](const Tile &u, const Tile &v) {return u.getY() < v.getY();});
+}
+void Layer :: insert(const Tile &tile) {
+    this -> tiles.emplace_back(tile);
 }
 void Layer :: update(const float& deltaTime) {
     for(auto &tile : this -> tiles) tile.update(deltaTime);
 }
-void Layer :: render(sf :: RenderTarget* target) const {
-    for(const auto &tile : this -> tiles) tile.render(target);
+void Layer :: beforeRender(sf :: RenderTarget* target, const float &playerY) const {
+    for(const auto &tile : this -> tiles)
+        if(tile.getY() < playerY) tile.render(target);
+}
+void Layer :: afterRender(sf :: RenderTarget* target, const float &playerY) const {
+    for(const auto &tile : this -> tiles)
+        if(!(tile.getY() < playerY)) tile.render(target);
 }
 
 Tilemap :: Tilemap(Resource *resource, const std :: string &file) : player(resource) {
@@ -56,6 +67,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
     const unsigned int bitmask = (1 << 29) - 1;
     std :: vector<Img> imgList; imgList.emplace_back();
     std :: unordered_map<int, std :: vector<sf :: FloatRect> > rectList;
+    std :: unordered_map<unsigned int, int> heightList;
 
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == imgList.size());
@@ -84,6 +96,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                 auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &rect : tile["objectgroup"]["objects"])
                     list.emplace_back(rect["x"].get<float>(), rect["y"].get<float>(), rect["width"].get<float>(), rect["height"].get<float>());
+                if(!list.empty()) heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = 1;
             }
         }
     }
@@ -118,13 +131,16 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                     const unsigned int id = layer["data"][i * y + j].get<int>();
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                    layers.back().insert(position, animation);
+                    float ysort = position.y;
+                    if(heightList.contains(id & bitmask)) ysort += heightList.at(id & bitmask) * size.y;
+                    layers.back().insert(Tile(position, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(const auto &box : rect)
-                            entities.emplace_back(new Tilebox(calcRect(tileRect, box, id >> 31 & 1)));
+                            entities.emplace_back(new Collisionbox(calcRect(tileRect, box, id >> 31 & 1)));
                     }
+                    
                 }
         }
         else if(layer["type"].get<std :: string>() == "objectgroup") {
@@ -136,16 +152,21 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
                 const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y);
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                layers.back().insert(position, animation);
+                float ysort = position.y + size.y;
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position, size);
                     const auto &rect = rectList[id & bitmask];
-                    for(const auto &box : rect)
-                        entities.emplace_back(new Tilebox(calcRect(tileRect, box, id >> 31 & 1)));
+                    for(const auto &box : rect) {
+                        const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
+                        entities.emplace_back(new Collisionbox(tmp));
+                        ysort = tmp.top + tmp.height;
+                    }
                 }
+                layers.back().insert(Tile(position, animation, ysort));
             }
         }
     }
+    for(auto &layer : layers) layer.ysort();
 }
 
 void Tilemap :: update(const float& deltaTime) {
@@ -154,8 +175,15 @@ void Tilemap :: update(const float& deltaTime) {
     for(auto &layer : layers) layer.update(deltaTime);
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
-    for(const auto &layer : layers) layer.render(target);
+    const auto &position = player.getPosition();
+    const sf :: Vector2f &center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
+    const sf :: Vector2f &size = {static_cast<float>(target -> getSize().x), static_cast<float>(target -> getSize().y)};
+    auto view = sf :: View(center, size); view.zoom(0.5f); target -> setView(view);
+
+    const float &playerY = player.getPosition().top + player.getPosition().height;
+    for(const auto &layer : layers) layer.beforeRender(target, playerY);
+    player.render(target);
+    for(const auto &layer : layers) layer.afterRender(target, playerY);
     for(const auto &entity : entities) entity -> render(target);
     
-    player.render(target);
 }

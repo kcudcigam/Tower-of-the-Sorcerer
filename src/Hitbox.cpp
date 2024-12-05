@@ -24,5 +24,5 @@ void Hitbox :: render(sf :: RenderTarget *target) const {
     outline.setFillColor(sf :: Color :: Transparent);
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
-    target -> draw(outline);
+    //target -> draw(outline);
 }

@@ -8,13 +8,12 @@ public:
     virtual void update(Player &player, const float &deltaTime) = 0;
     virtual void render(sf :: RenderTarget *target) const = 0;
 };
-bool checkCollision(Player &player, const sf :: FloatRect &rect);
-class Tilebox : public Entity {
+class Collisionbox : public Entity {
 private:
     sf :: FloatRect rect;
 public:
-    Tilebox(const sf :: FloatRect &rect);
-    virtual ~Tilebox();
+    Collisionbox(const sf :: FloatRect &rect);
+    virtual ~Collisionbox();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target) const;
 };

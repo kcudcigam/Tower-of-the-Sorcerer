@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 //constructor & destructor
-Player :: Player(Resource* resource) : resource(resource), movement(&sprite, {200.f, 150.f}, {600.f, 450.f}, {300.f, 225.f}), hitbox(&sprite, sf :: Vector2f(60.f, 64.f), sf :: Vector2f(20.f, 10.f)) {
+Player :: Player(Resource* resource) : resource(resource), movement(&sprite, {200.f, 150.f}, {600.f, 450.f}, {300.f, 225.f}), hitbox(&sprite, sf :: Vector2f(60.f, 72.f), sf :: Vector2f(20.f, 1.f)) {
     animation.insert("IDLE_LEFT"   , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
     animation.insert("IDLE_RIGHT"  , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
     animation.insert("WALK_LEFT"   , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96}, -1.f, {140.f, 0.f}), 0.06f, true));
@@ -51,10 +51,6 @@ void Player :: update(const float& deltaTime) {
     }
 }
 void Player :: render(sf :: RenderTarget* target) const {
-    const auto &position = this -> getPosition();
-    const sf :: Vector2f &center = {floorf(position.left + position.width / 2 + 0.5), floorf(position.top)};
-    const sf :: Vector2f &size = {static_cast<float>(target -> getSize().x), static_cast<float>(target -> getSize().y)};
-    auto view = sf :: View(center, size); view.zoom(0.5f); target -> setView(view);
     target -> draw(this -> sprite);
     hitbox.render(target);
 }

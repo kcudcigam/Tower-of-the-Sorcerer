@@ -10,10 +10,12 @@ class Tile {
 private:
     sf :: Sprite sprite;
     Animation animation;
+    float ysort;
 public:
-    Tile(const sf :: Vector2f &position = sf :: Vector2f(0.f, 0.f), const Animation &animation = Animation());
+    Tile(const sf :: Vector2f &position = sf :: Vector2f(0.f, 0.f), const Animation &animation = Animation(), const float &ysort = 0.f);
     virtual ~Tile();
     bool empty() const;
+    const float& getY() const;
     void setPosition(const sf :: Vector2f &position);
     void setAnimation(const Animation &animation);
     void update(const float& deltaTime);
@@ -26,9 +28,11 @@ private:
 public:
     Layer();
     virtual ~Layer();
-    void insert(const sf :: Vector2f &position, const Animation &animation);
+    void ysort();
+    void insert(const Tile &tile);
     void update(const float& deltaTime);
-    void render(sf :: RenderTarget* target) const;
+    void beforeRender(sf :: RenderTarget* target, const float &playerY) const;
+    void  afterRender(sf :: RenderTarget* target, const float &playerY) const;
 };
 
 class Tilemap {

@@ -7,14 +7,14 @@ Entity :: ~Entity() {
 
 }
 
-//Tilebox
-Tilebox :: Tilebox(const sf :: FloatRect &rect) : rect(rect) {
+//Collisionbox
+Collisionbox :: Collisionbox(const sf :: FloatRect &rect) : rect(rect) {
 
 }
-Tilebox :: ~Tilebox() {
+Collisionbox :: ~Collisionbox() {
 
 }
-void Tilebox :: update(Player &player, const float &deltaTime) {
+void Collisionbox :: update(Player &player, const float &deltaTime) {
     const auto &position = player.getPosition();
     if(!position.intersects(rect)) return;
     const std :: pair<float, float> dx = {position.left + position.width - rect.left, rect.left + rect.width - position.left};
@@ -30,12 +30,12 @@ void Tilebox :: update(Player &player, const float &deltaTime) {
         player.stopVelocity(false, true);
     }
 }
-void Tilebox :: render(sf :: RenderTarget *target) const {
+void Collisionbox :: render(sf :: RenderTarget *target) const {
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
     outline.setFillColor(sf :: Color :: Transparent);
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
-    target -> draw(outline);
+    //target -> draw(outline);
 }

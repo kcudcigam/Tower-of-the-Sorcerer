@@ -1,13 +1,14 @@
 #include "Player.h"
 #include <iostream>
 //constructor & destructor
-Player :: Player(Resource* resource) : resource(resource), movement(&sprite, {200.f, 150.f}, {600.f, 450.f}, {300.f, 225.f}), hitbox(&sprite, sf :: Vector2f(60.f, 72.f), sf :: Vector2f(20.f, 1.f)) {
+Player :: Player(Resource* resource) : resource(resource), movement(&sprite, {150.f, 100.f}, {600.f, 400.f}, {300.f, 200.f}), hitbox(&sprite, sf :: Vector2f(54.f, 71.f), sf :: Vector2f(30.f, 2.f)) {
     animation.insert("IDLE_LEFT"   , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
     animation.insert("IDLE_RIGHT"  , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
-    animation.insert("WALK_LEFT"   , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96}, -1.f, {140.f, 0.f}), 0.06f, true));
-    animation.insert("WALK_RIGHT"  , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96},  1.f, {0.f, 0.f}), 0.06f, true));
+    animation.insert("WALK_LEFT"   , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
+    animation.insert("WALK_RIGHT"  , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
     animation.insert("ATTACK_LEFT" , Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 2}, {10, 3}, {144, 96}, -1.f, {140.f, 0.f}), 0.1f, false));
     animation.insert("ATTACK_RIGHT", Animation(generateList(this -> resource -> getImg("warrior.png"), {0, 2}, {10, 3}, {144, 96},  1.f, {0.f, 0.f}), 0.1f, false));
+    sprite.setPosition({192.f, 192.f});
 }
 Player :: ~Player() {
 }

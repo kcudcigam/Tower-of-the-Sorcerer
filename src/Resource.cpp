@@ -13,8 +13,8 @@ void Resource :: loadImg(const std :: filesystem :: path &directory) {
         if(std :: filesystem :: is_directory(img)) this -> loadImg(img.path());
         else {
             auto texture = new sf :: Texture(); texture -> loadFromFile(img.path().string());
-            texture -> setSmooth(false);
             this -> img.emplace(img.path().filename().string(), texture);
+            //std :: cerr << img.path().filename().string() << std :: endl;
         }
     }
 }

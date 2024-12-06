@@ -71,7 +71,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
 
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == imgList.size());
-        //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
+        std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
         const int cnt = tileset["tilecount"].get<int>();
         if(tileset.contains("image")) {
             const auto texture = Resource.getImg(getFileName(tileset["image"].get<std :: string>()));
@@ -85,6 +85,8 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
         if(tileset.contains("tiles")) {
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("image")) continue;
+                std :: cerr << tile["image"].get<std :: string>() << std :: endl;
+                std :: cerr << getFileName(tile["image"].get<std :: string>()) << std :: endl;
                 const auto texture = Resource.getImg(getFileName(tile["image"].get<std :: string>()));
                 const int x = tile["imagewidth"].get<int>(), y = tile["imageheight"].get<int>();
                 const int id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
@@ -96,11 +98,17 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                 auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &rect : tile["objectgroup"]["objects"])
                     list.emplace_back(rect["x"].get<float>(), rect["y"].get<float>(), rect["width"].get<float>(), rect["height"].get<float>());
-                if(!list.empty()) heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = 1;
+                //if(!list.empty()) heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = 1;
+            }
+            for(const auto &tile : tileset["tiles"]) {
+                if(!tile.contains("properties")) continue;
+                auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
+                for(const auto &property : tile["properties"])
+                    if(property["name"].get<std :: string>() == "elevation")
+                        heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = property["value"].get<int>();
             }
         }
     }
-
     std :: vector<Animation> animationList(imgList.size());
 
     for(int i = 1; i < static_cast<int>(imgList.size()); i++)  animationList[i] = Animation((std :: vector<Img>){ imgList[i]});
@@ -131,8 +139,8 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                     const unsigned int id = layer["data"][i * y + j].get<int>();
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                    float ysort = position.y;
-                    if(heightList.contains(id & bitmask)) ysort += heightList.at(id & bitmask) * size.y;
+                    float ysort = 0;
+                    if(heightList.contains(id & bitmask)) ysort = position.y + heightList.at(id & bitmask) * size.y;
                     layers.back().insert(Tile(position, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
@@ -159,7 +167,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
                         entities.emplace_back(new Collisionbox(tmp));
-                        ysort = tmp.top + tmp.height;
+                        ysort = std :: max(ysort, tmp.top + tmp.height);
                     }
                 }
                 layers.back().insert(Tile(position, animation, ysort));

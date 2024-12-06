@@ -39,6 +39,7 @@ class Tilemap {
 private:
     //Variables
     Player player;
+    sf :: Vector2i mapSize;
     std :: vector<Layer> layers;
     std :: vector<Entity*> entities;
 

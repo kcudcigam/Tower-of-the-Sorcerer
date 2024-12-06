@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
 class Movement {
 private:
     sf :: Sprite *sprite;
-    sf :: Vector2f maxVelocity, acceleration, deceleration, velocity;
+    sf :: Vector2f velocity;
+    float maxVelocity, acceleration, deceleration;
     unsigned direction;
 public:
-    Movement(sf :: Sprite *sprite, const sf :: Vector2f &maxVelocity, const sf :: Vector2f &acceleration, const sf :: Vector2f &deceleration, const unsigned &direction = 0);
+    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const unsigned &direction = 0);
     virtual ~Movement();  
 
     const unsigned& getDirection() const;

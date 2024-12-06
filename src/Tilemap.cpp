@@ -52,7 +52,7 @@ void Layer :: afterRender(sf :: RenderTarget* target, const float &playerY) cons
         if(!(tile.getY() < playerY)) tile.render(target);
 }
 
-Tilemap :: Tilemap(Resource *resource, const std :: string &file) : player(resource) {
+Tilemap :: Tilemap(Resource *resource, const std :: string &file) : player(resource), mapSize({0, 0}) {
     this -> loadFromFile(*resource -> getMap(file), *resource);
 }
 Tilemap :: ~Tilemap() {
@@ -131,6 +131,8 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
     for(const auto &layer : map["layers"]) {
         if(layer["type"].get<std :: string>() == "tilelayer") {
             const int x = layer["height"].get<int>(), y = layer["width"].get<int>(); layers.emplace_back();
+            mapSize.x = std :: max(mapSize.x, y * map["tilewidth"].get<int>());
+            mapSize.y = std :: max(mapSize.y, x * map["tileheight"].get<int>());
             const auto &size = sf :: Vector2f(map["tilewidth"].get<float>(), map["tileheight"].get<float>());
             for(int i = 0; i < x; i++)
                 for(int j = 0; j < y; j++) {
@@ -173,6 +175,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
         }
     }
     for(auto &layer : layers) layer.ysort();
+    //std :: cerr << mapSize.x << ' ' << mapSize.y << std :: endl;
 }
 
 void Tilemap :: update(const float& deltaTime) {
@@ -182,8 +185,12 @@ void Tilemap :: update(const float& deltaTime) {
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
     const auto &position = player.getPosition();
-    const sf :: Vector2f &center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
+    sf :: Vector2f center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
     const sf :: Vector2f &size = {static_cast<float>(target -> getSize().x), static_cast<float>(target -> getSize().y)};
+    center.x = std :: max(center.x, floorf(size.x / 4.f + 0.5f));
+    center.x = std :: min(center.x, floorf(static_cast<float>(mapSize.x) - size.x / 4.f + 0.5f));
+    center.y = std :: max(center.y, floorf(size.y / 4.f + 0.5f));
+    center.y = std :: min(center.y, floorf(static_cast<float>(mapSize.y) - size.y / 4.f + 0.5f));
     auto view = sf :: View(center, size); view.zoom(0.5f); target -> setView(view);
 
     const float &playerY = player.getPosition().top + player.getPosition().height;

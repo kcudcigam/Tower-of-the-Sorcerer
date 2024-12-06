@@ -67,11 +67,11 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
     const unsigned int bitmask = (1 << 29) - 1;
     std :: vector<Img> imgList; imgList.emplace_back();
     std :: unordered_map<int, std :: vector<sf :: FloatRect> > rectList;
-    std :: unordered_map<unsigned int, int> heightList;
+    std :: unordered_map<unsigned int, int> heightList; 
 
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == imgList.size());
-        std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
+        //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
         const int cnt = tileset["tilecount"].get<int>();
         if(tileset.contains("image")) {
             const auto texture = Resource.getImg(getFileName(tileset["image"].get<std :: string>()));
@@ -85,8 +85,6 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
         if(tileset.contains("tiles")) {
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("image")) continue;
-                std :: cerr << tile["image"].get<std :: string>() << std :: endl;
-                std :: cerr << getFileName(tile["image"].get<std :: string>()) << std :: endl;
                 const auto texture = Resource.getImg(getFileName(tile["image"].get<std :: string>()));
                 const int x = tile["imagewidth"].get<int>(), y = tile["imageheight"].get<int>();
                 const int id = tile["id"].get<int>() + tileset["firstgid"].get<int>();

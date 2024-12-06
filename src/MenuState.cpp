@@ -9,7 +9,7 @@ MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states,
     );
     this -> background.setTexture(this -> getResource() -> getImg("bg.png"));
     subtitle.setFont("pixel.ttf");
-    subtitle.display(L"RPG 游戏 字母测试", 10.f); 
+    subtitle.display(L"需要一把钥匙, 按F键打开", 10.f); 
 }
 MenuState :: ~MenuState() {
 

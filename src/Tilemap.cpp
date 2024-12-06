@@ -184,14 +184,15 @@ void Tilemap :: update(const float& deltaTime) {
     for(auto &layer : layers) layer.update(deltaTime);
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
+    const double &zoom = 0.5f;
     const auto &position = player.getPosition();
     sf :: Vector2f center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
     const sf :: Vector2f &size = {static_cast<float>(target -> getSize().x), static_cast<float>(target -> getSize().y)};
-    center.x = std :: max(center.x, floorf(size.x / 4.f + 0.5f));
-    center.x = std :: min(center.x, floorf(static_cast<float>(mapSize.x) - size.x / 4.f + 0.5f));
-    center.y = std :: max(center.y, floorf(size.y / 4.f + 0.5f));
-    center.y = std :: min(center.y, floorf(static_cast<float>(mapSize.y) - size.y / 4.f + 0.5f));
-    auto view = sf :: View(center, size); view.zoom(0.5f); target -> setView(view);
+    center.x = std :: max(center.x, ceilf(size.x / 2.f * zoom));
+    center.x = std :: min(center.x, floorf(static_cast<float>(mapSize.x) - size.x / 2.f * zoom));
+    center.y = std :: max(center.y, ceilf(size.y / 2.f * zoom));
+    center.y = std :: min(center.y, floorf(static_cast<float>(mapSize.y) - size.y / 2.f * zoom));
+    auto view = sf :: View(center, size); view.zoom(zoom); target -> setView(view);
 
     const float &playerY = player.getPosition().top + player.getPosition().height;
     for(const auto &layer : layers) layer.beforeRender(target, playerY);

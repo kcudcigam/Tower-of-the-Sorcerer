@@ -3,11 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include "State.h"
 #include "GameState.h"
+#include "Subtitle.h"
 class MenuState : public State {
 private:
     //Variables
     sf :: RectangleShape background;
     sf :: Texture backgroundTexture;
+    Subtitle subtitle;
 
 public:
     //constructor & destructor

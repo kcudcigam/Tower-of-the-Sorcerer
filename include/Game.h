@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "MenuState.h"
 #include "Resource.h"
+#include "Subtitle.h"
 class Game {
 private:
     //Variables

@@ -184,6 +184,7 @@ void Tilemap :: update(const float& deltaTime) {
     for(auto &layer : layers) layer.update(deltaTime);
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
+    auto tmpview = target -> getView();
     const double &zoom = 0.5f;
     const auto &position = player.getPosition();
     sf :: Vector2f center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
@@ -199,5 +200,5 @@ void Tilemap :: render(sf :: RenderTarget* target) const {
     player.render(target);
     for(const auto &layer : layers) layer.afterRender(target, playerY);
     for(const auto &entity : entities) entity -> render(target);
-    
+    target -> setView(tmpview);
 }

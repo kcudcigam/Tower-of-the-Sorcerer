@@ -9,7 +9,8 @@ MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states,
     );
     this -> background.setTexture(this -> getResource() -> getImg("bg.png"));
     subtitle.setFont("pixel.ttf");
-    subtitle.display(L"需要一把钥匙, 按F键打开", 10.f); 
+    subtitle.setPosition({this -> getWindow() -> getSize().x / 2.f, this -> getWindow() -> getSize().y / 2.f});
+    subtitle.display(L"需要一把钥匙, 按F键打开", 100000.f); 
 }
 MenuState :: ~MenuState() {
 

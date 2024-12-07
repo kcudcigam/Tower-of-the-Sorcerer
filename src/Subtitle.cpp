@@ -14,6 +14,8 @@ void Subtitle :: setPosition(const sf :: Vector2f &position) {
 }
 void Subtitle :: display(const std :: wstring &sentence, const float &duration) {
     this -> text.setString(sentence);
+    const sf::FloatRect &textRect = text.getLocalBounds();
+    text.setOrigin(textRect.left + textRect.width / 2.f, textRect.top  + textRect.height / 2.f);
     countdown = duration;
 }
 void Subtitle :: clear() {

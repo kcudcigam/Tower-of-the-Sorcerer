@@ -1,10 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "Hitbox.h"
-#include "Animation.h"
+#include "SFML/Graphics.hpp"
+#include "Json.hpp"
 #include "Resource.h"
+#include "Player.h"
 #include "Entity.h"
-#include "json.hpp"
 
 class Tile {
 private:
@@ -32,23 +31,19 @@ public:
     void insert(const Tile &tile);
     void update(const float& deltaTime);
     void beforeRender(sf :: RenderTarget* target, const float &playerY) const;
-    void  afterRender(sf :: RenderTarget* target, const float &playerY) const;
+    void afterRender(sf :: RenderTarget* target, const float &playerY) const;
 };
 
 class Tilemap {
 private:
-    //Variables
     Player player;
     sf :: Vector2i mapSize;
     std :: vector<Layer> layers;
     std :: vector<Entity*> entities;
-
 public:
-    //constructor & destructor
-    Tilemap(Resource* resource, const std :: string &file);
+    Tilemap(const std :: string &file);
     virtual ~Tilemap();
-    //funtions
-    void loadFromFile(const json &map, const Resource &Resource);
+    void loadFromFile(const json &map);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;
 };

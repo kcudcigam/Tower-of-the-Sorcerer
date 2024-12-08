@@ -1,28 +1,46 @@
 #pragma once
-#include <iostream>
-#include <vector>
 #include <stack>
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "Resource.h"
+#include "Subtitle.h"
+#include "Tilemap.h"
+
 class State {
 private:
-    //Variables
-   
     sf :: RenderWindow* window;
     std :: vector<sf :: Texture> texture;
     std :: stack<State*>* states;
-    Resource* resource;
     bool isEnd;
 public:
-    //constructor & destructor
-    State(sf :: RenderWindow* window, std :: stack<State*>* states, Resource* resource);
+    State(sf :: RenderWindow* window, std :: stack<State*>* states);
     virtual ~State();
-    //funtions
     void quit();
     const bool& end() const;
-    Resource* getResource() const;
     sf :: RenderWindow* getWindow() const;
     std :: stack<State*>* stateStack() const;
     virtual void update(const float& deltaTime) = 0;
-    virtual void render(sf :: RenderTarget* target = nullptr) = 0;
+    virtual void render(sf :: RenderTarget* target) = 0;
+};
+
+class MenuState : public State {
+private:
+    sf :: RectangleShape background;
+    sf :: Texture backgroundTexture;
+public:
+    MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    ~MenuState();
+    void checkForQuit();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
+};
+
+class GameState : public State {
+private:
+    Tilemap map;
+public:
+    GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map);
+    ~GameState();
+    void checkForQuit();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
 };

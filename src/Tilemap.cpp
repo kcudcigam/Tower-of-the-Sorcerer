@@ -1,5 +1,7 @@
 #include "Tilemap.h"
 #include <iostream>
+extern Resource resource;
+
 //Tile
 Tile :: Tile(const sf :: Vector2f &position, const Animation &animation, const float &ysort) : ysort(ysort) {
     this -> setPosition(position), this -> setAnimation(animation);
@@ -52,13 +54,14 @@ void Layer :: afterRender(sf :: RenderTarget* target, const float &playerY) cons
         if(!(tile.getY() < playerY)) tile.render(target);
 }
 
-Tilemap :: Tilemap(Resource *resource, const std :: string &file) : player(resource), mapSize({0, 0}) {
-    this -> loadFromFile(*resource -> getMap(file), *resource);
+//Tilemap
+Tilemap :: Tilemap(const std :: string &file) : mapSize({0, 0}) {
+    this -> loadFromFile(*resource.getMap(file));
 }
 Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
 }
-void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
+void Tilemap :: loadFromFile(const json &map) {
 
     auto getFileName = [](const std :: string &path) {
         return path.substr(path.find_last_of("\\/") + 1);
@@ -74,7 +77,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
         //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
         const int cnt = tileset["tilecount"].get<int>();
         if(tileset.contains("image")) {
-            const auto texture = Resource.getImg(getFileName(tileset["image"].get<std :: string>()));
+            const auto texture = resource.getImg(getFileName(tileset["image"].get<std :: string>()));
             const int column = tileset["columns"].get<int>(), row = cnt / column;
             sf :: Vector2i size(tileset["tilewidth"], tileset["tileheight"]);
             for(int i = 0; i < row; i++) {
@@ -85,7 +88,7 @@ void Tilemap :: loadFromFile(const json &map, const Resource &Resource) {
         if(tileset.contains("tiles")) {
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("image")) continue;
-                const auto texture = Resource.getImg(getFileName(tile["image"].get<std :: string>()));
+                const auto texture = resource.getImg(getFileName(tile["image"].get<std :: string>()));
                 const int x = tile["imagewidth"].get<int>(), y = tile["imageheight"].get<int>();
                 const int id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
                 assert((int)imgList.size() <= id); 

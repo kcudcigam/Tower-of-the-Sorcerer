@@ -1,14 +1,13 @@
-#include <cmath>
 #include "Animation.h"
-#include<iostream>
+
 //Img
 Img :: Img(sf :: Texture* texture, const sf :: IntRect &rect, const float &scale, const sf :: Vector2f &origin)
 : texture(texture), rect(rect), scale(scale), origin(origin) {
 
 }
 void Img :: flip() {
-    this -> scale *= -1.f; this -> origin.x *= -1.f;
-    this -> origin.x += this -> rect.width;
+    scale *= -1.f; origin.x *= -1.f;
+    origin.x += rect.width;
 }
 std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &start, const sf :: Vector2i &end, const sf :: Vector2i &size, const float &scale, const sf :: Vector2f &origin) {
     std :: vector<Img> imgList;
@@ -19,13 +18,13 @@ std :: vector<Img> generateList(sf :: Texture* texture, const sf :: Vector2i &st
     return imgList;
 }
 sf :: Vector2i Img :: getSize() const {
-    return sf :: Vector2i(this -> rect.width, this -> rect.height);
+    return sf :: Vector2i(rect.width, rect.height);
 }
 
 //Animation
 Animation :: Animation(const std :: vector<Img> &list, const float &animationTime, bool loop)
 : list(list), animationTime(animationTime), loop(loop) {
-    this -> reset();
+    reset();
 }
 Animation :: ~Animation() {
 
@@ -34,30 +33,28 @@ void Animation :: flip() {
     for(auto &img : list) img.flip();
 }
 sf :: Vector2i Animation :: getSize() const {
-    return this -> list.back().getSize();
+    return list.back().getSize();
 }
 bool Animation :: end() const {
-    return this -> position == this -> list.size();
+    return it == list.size();
 }
-
 void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
-    if(this -> end()) return;
-    this -> currentTime += deltaTime;
-    if(this -> currentTime > this -> animationTime) {
-        this -> currentTime = 0.f;
-        this -> position++;
+    if(end()) return;
+    currentTime += deltaTime;
+    if(currentTime > animationTime) {
+        currentTime = 0.f, it++;
     }
-    if(this -> end()) {
-        if(this -> loop) this -> position = 0;
+    if(end()) {
+        if(loop) it = 0;
         else return;
     }
-    sprite -> setTexture(*this -> list[this -> position].texture);
-    sprite -> setTextureRect(this -> list[this -> position].rect);
-    sprite -> setOrigin(this -> list[this -> position].origin);
-    sprite -> setScale(this -> list[this -> position].scale, fabs(this -> list[this -> position].scale));
+    sprite -> setTexture(*list[it].texture);
+    sprite -> setTextureRect(list[it].rect);
+    sprite -> setOrigin(list[it].origin);
+    sprite -> setScale(list[it].scale, fabs(list[it].scale));
 }
 void Animation :: reset() {
-    currentTime = 0.f; this -> position = 0;
+    currentTime = 0.f; it = 0;
 }
 
 //AnimationSet
@@ -68,28 +65,28 @@ AnimationSet :: ~AnimationSet() {
 
 }
 void AnimationSet :: insert(const std :: string &key, const Animation &value) {
-    this -> animation.emplace(key, value);
-    this -> animation.at(key).reset();
+    animation.emplace(key, value);
+    animation.at(key).reset();
 }
 bool AnimationSet :: hasPriority() {
-    return this -> priority != "" && !this -> animation.at(priority).end();
+    return priority != "" && !animation.at(priority).end();
 }
 void AnimationSet :: updatePriority() {
-    if(this -> priority != "" && !this -> hasPriority()) this -> animation.at(this -> priority).reset(), this -> priority = "";
+    if(priority != "" && !hasPriority()) animation.at(priority).reset(), priority = "";
 }
 void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &deltaTime) {
 
     if(hasPriority()) key = priority;
     
     if(currentAnimation != key) {
-        if(currentAnimation != "") this -> animation.at(currentAnimation).reset();
+        if(currentAnimation != "") animation.at(currentAnimation).reset();
         currentAnimation = key;
     }
     
-    this -> animation.at(key).play(sprite, deltaTime);
+    animation.at(key).play(sprite, deltaTime);
     updatePriority();
 }
 void AnimationSet :: setPriority(const std :: string &key) {
-    this -> priority = key;
+    priority = key;
 }
 

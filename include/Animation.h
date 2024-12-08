@@ -1,5 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <cmath>
+#include "SFML/Graphics.hpp"
+
 struct Img {
     sf :: Texture* texture;
     sf :: IntRect rect;
@@ -15,7 +17,7 @@ class Animation {
 private:
     float currentTime, animationTime;
     std :: vector<Img> list;
-    size_t position;
+    size_t it;
     bool loop;
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
@@ -31,8 +33,6 @@ class AnimationSet {
 private:
     std :: map<std :: string, Animation> animation;
     std :: string priority, currentAnimation;
-
-    //std :: vector<Animation> playlist;
 public:
     AnimationSet();
     virtual ~AnimationSet();

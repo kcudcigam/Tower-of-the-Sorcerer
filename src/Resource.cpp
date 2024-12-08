@@ -1,18 +1,20 @@
-#include "Resource.h"
 #include <iostream>
-Resource :: Resource(const std :: filesystem ::path &directory) {
-    this -> loadImg(directory / "image");
-    this -> loadMap(directory / "tilemap");
-    this -> loadFont(directory / "font");
+#include "Resource.h"
+
+//Resource
+Resource :: Resource(const std :: filesystem :: path &directory) {
+    loadImg(directory / "image");
+    loadMap(directory / "tilemap");
+    loadFont(directory / "font");
 }
 Resource :: ~Resource() {
-    for(auto it : this -> img) delete it.second;
-    for(auto it : this -> map) delete it.second;
-    for(auto it : this -> font) delete it.second;
+    for(auto it : img) delete it.second;
+    for(auto it : map) delete it.second;
+    for(auto it : font) delete it.second;
 }
 void Resource :: loadImg(const std :: filesystem :: path &directory) {
     for (const auto &img : std :: filesystem :: directory_iterator(directory)) {
-        if(std :: filesystem :: is_directory(img)) this -> loadImg(img.path());
+        if(std :: filesystem :: is_directory(img)) loadImg(img.path());
         else {
             auto texture = new sf :: Texture(); texture -> loadFromFile(img.path().string());
             this -> img.emplace(img.path().filename().string(), texture);
@@ -28,16 +30,16 @@ void Resource :: loadMap(const std :: filesystem ::path &directory) {
 }
 void Resource :: loadFont(const std :: filesystem ::path &directory) {
     for (const auto &file : std :: filesystem :: directory_iterator(directory)) {
-        auto ttf = new sf :: Font(); ttf -> loadFromFile(file.path().string());
-        this -> font.emplace(file.path().filename().string(), ttf);
+        auto font = new sf :: Font(); font -> loadFromFile(file.path().string());
+        this -> font.emplace(file.path().filename().string(), font);
     }
 }
 sf :: Texture* Resource :: getImg(const std :: string &file) const {
-    return this -> img.at(file);
+    return img.at(file);
 }
 json* Resource :: getMap(const std :: string &file) const {
-    return this -> map.at(file);
+    return map.at(file);
 }
 sf :: Font* Resource :: getFont(const std :: string &file) const {
-    return this -> font.at(file);
+    return font.at(file);
 }

@@ -48,9 +48,7 @@ void MenuState :: render(sf :: RenderTarget* target) {
 
 //GameState
 GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map) : State(window, states), map(map) {
-    subtitle.setFont("pixel.ttf");
-    subtitle.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y - 100.f});
-    subtitle.display(L"需要一把钥匙, 按F键打开", 1000.f);
+    
 }
 GameState :: ~GameState() {
 
@@ -61,6 +59,7 @@ void GameState :: checkForQuit() {
 void GameState :: update(const float &deltaTime) {
     checkForQuit();
     map.update(deltaTime);
+    subtitle.update(deltaTime);
 }
 void GameState :: render(sf :: RenderTarget* target) {
     map.render(target);

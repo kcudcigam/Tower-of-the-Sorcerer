@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Resource.h"
 #include "Subtitle.h"
-Resource resource("../resource");
+Resource resource;
 Subtitle subtitle;
 int main() {
     Game process;

@@ -18,11 +18,14 @@ private:
     float currentTime, animationTime;
     std :: vector<Img> list;
     size_t it;
-    bool loop;
+    bool loop, paused;
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
+    void setLoop(bool loop = true);
     void flip();
+    void pause();
+    void run();
     sf :: Vector2i getSize() const;
     bool end() const;
     void play(sf :: Sprite *sprite, const float &deltaTime);
@@ -41,4 +44,5 @@ public:
     bool hasPriority();
     void updatePriority();
     void setPriority(const std :: string &key);
+    Animation getAnimation(const std :: string &key) const;
 };

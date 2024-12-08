@@ -45,13 +45,9 @@ void Layer :: insert(const Tile &tile) {
 void Layer :: update(const float& deltaTime) {
     for(auto &tile : this -> tiles) tile.update(deltaTime);
 }
-void Layer :: beforeRender(sf :: RenderTarget* target, const float &playerY) const {
+void Layer :: render(sf :: RenderTarget* target, const float &y) const {
     for(const auto &tile : this -> tiles)
-        if(tile.getY() < playerY) tile.render(target);
-}
-void Layer :: afterRender(sf :: RenderTarget* target, const float &playerY) const {
-    for(const auto &tile : this -> tiles)
-        if(!(tile.getY() < playerY)) tile.render(target);
+        if(!(tile.getY() < y)) tile.render(target);
 }
 
 //Tilemap
@@ -126,11 +122,24 @@ void Tilemap :: loadFromFile(const json &map) {
             }
         }
     }
-
+    for(const auto &layer : map["layers"]) {
+        if(layer["name"].get<std :: string>() != "entities") continue;
+        for(const auto &object : layer["objects"]) {
+            const unsigned int id = object["gid"].get<unsigned int>();
+            auto animation = animationList[id & bitmask];
+            if(id >> 31 & 1) animation.flip();
+            std :: map<std :: string, std :: string> properties;
+            for(const auto &property : object["properties"]) {
+                properties[property["name"].get<std :: string>()] = property["value"].get<std :: string>();
+            }
+            //std :: cerr << properties["type"] << ' ' << properties["action"] << std :: endl;
+            if(!properties.contains("loop")) animation.setLoop(false);
+            resource.addAction(properties["type"], properties["action"], animation);
+        }
+    }
     auto calcRect = [](const sf :: FloatRect &position, const sf :: FloatRect &box, bool flip) {
         return sf :: FloatRect(position.left + (flip ? position.width - box.width - box.left : box.left), position.top + box.top, box.width, box.height);
     };
-    
     for(const auto &layer : map["layers"]) {
         if(layer["type"].get<std :: string>() == "tilelayer") {
             const int x = layer["height"].get<int>(), y = layer["width"].get<int>(); layers.emplace_back();
@@ -149,31 +158,42 @@ void Tilemap :: loadFromFile(const json &map) {
                         const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(const auto &box : rect)
-                            entities.emplace_back(new Collisionbox(calcRect(tileRect, box, id >> 31 & 1)));
+                            entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
                     }
                     
                 }
         }
-        else if(layer["type"].get<std :: string>() == "objectgroup") {
-            //std :: cerr << layer["name"].get<std :: string>() << std :: endl;
-            layers.emplace_back();
+        else if(layer["type"].get<std :: string>() == "objectgroup" && layer["name"].get<std :: string>() != "entities") {
+            const bool interactive = (layer["name"].get<std :: string>() == "interactive");
+            if(!interactive) layers.emplace_back();
             for(const auto &object : layer["objects"]) {
                 if(!object.contains("gid")) continue;
                 const unsigned int id = object["gid"].get<unsigned int>();
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
                 const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y);
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                float ysort = position.y + size.y;
+                float ysort = 0.f; std :: vector<CollisionBox*> boxList;
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
-                        entities.emplace_back(new Collisionbox(tmp));
+                        boxList.emplace_back(new CollisionBox(tmp));
                         ysort = std :: max(ysort, tmp.top + tmp.height);
                     }
                 }
-                layers.back().insert(Tile(position, animation, ysort));
+                if(ysort == 0.f) ysort = position.y + size.y;
+                if(!interactive) {
+                    entities.insert(entities.end(), boxList.begin(), boxList.end());
+                    layers.back().insert(Tile(position, animation, ysort));
+                    continue;
+                }
+                std :: map<std :: string, std :: string> properties;
+                for(const auto &property : object["properties"])
+                    properties[property["name"].get<std :: string>()] = property["value"].get<std :: string>();
+                if(properties["type"] == "treasure") {
+                    entities.emplace_back(new Treasure(position, boxList, ysort));
+                }
             }
         }
     }
@@ -187,7 +207,7 @@ void Tilemap :: update(const float& deltaTime) {
     for(auto &layer : layers) layer.update(deltaTime);
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
-    auto tmpview = target -> getView();
+    const auto originView = target -> getView();
     const double &zoom = 0.5f;
     const auto &position = player.getPosition();
     sf :: Vector2f center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
@@ -199,9 +219,10 @@ void Tilemap :: render(sf :: RenderTarget* target) const {
     auto view = sf :: View(center, size); view.zoom(zoom); target -> setView(view);
 
     const float &playerY = player.getPosition().top + player.getPosition().height;
-    for(const auto &layer : layers) layer.beforeRender(target, playerY);
+    for(const auto &layer : layers) layer.render(target, 0.f);
+    for(const auto &entity : entities) entity -> render(target, 0.f);
     player.render(target);
-    for(const auto &layer : layers) layer.afterRender(target, playerY);
-    for(const auto &entity : entities) entity -> render(target);
-    target -> setView(tmpview);
+    for(const auto &layer : layers) layer.render(target, playerY);
+    for(const auto &entity : entities) entity -> render(target, playerY);
+    target -> setView(originView);
 }

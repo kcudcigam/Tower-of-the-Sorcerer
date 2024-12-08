@@ -48,7 +48,7 @@
          "name":"pit",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -99,7 +99,7 @@
          "name":"wall-1",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -150,7 +150,7 @@
          "name":"Tile Layer 6",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -201,7 +201,7 @@
          "name":"Tile Layer 5",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -252,7 +252,7 @@
          "name":"Tile Layer 7",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -354,7 +354,7 @@
          "name":"prison cells2",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -456,7 +456,7 @@
          "name":"props1",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -576,12 +576,201 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":20,
+         "name":"interactive",
+         "objects":[
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":113.333,
+                 "y":881.333
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":113.333,
+                 "y":881.333
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":21,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":113.333,
+                 "y":881.333
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":22,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":684,
+                 "y":570
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":23,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1102,
+                 "y":468
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":24,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1686,
+                 "y":686
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":25,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1104,
+                 "y":856
+                }, 
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":26,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1816,
+                 "y":1008
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"entities",
+         "objects":[
+                {
+                 "gid":9009,
+                 "height":64,
+                 "id":14,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "type":"string",
+                         "value":"open"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"treasure"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":63.3333,
+                 "y":104.667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":19,
- "nextobjectid":14,
+ "nextlayerid":21,
+ "nextobjectid":27,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -60344,6 +60533,103 @@
                  "imagewidth":128
                 }],
          "tilewidth":160
+        }, 
+        {
+         "columns":14,
+         "firstgid":9009,
+         "image":"..\/image\/prison\/treasure chest lvl 3-opening animation-standard style.png",
+         "imageheight":64,
+         "imagewidth":896,
+         "margin":0,
+         "name":"treasure chest lvl 3-opening animation-standard style",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":64,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":10
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":11
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":12
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":13
+                        }],
+                 "id":0,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":18.3636,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":31.7273,
+                             "x":17.5455,
+                             "y":30.6364
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                }],
+         "tilewidth":64
         }],
  "tilewidth":32,
  "type":"map",

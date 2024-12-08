@@ -30,8 +30,7 @@ public:
     void ysort();
     void insert(const Tile &tile);
     void update(const float& deltaTime);
-    void beforeRender(sf :: RenderTarget* target, const float &playerY) const;
-    void afterRender(sf :: RenderTarget* target, const float &playerY) const;
+    void render(sf :: RenderTarget* target, const float &y) const;
 };
 
 class Tilemap {

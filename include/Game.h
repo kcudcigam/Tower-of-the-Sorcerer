@@ -1,6 +1,7 @@
 #pragma once
 #include <stack>
 #include "SFML/Graphics.hpp"
+#include "Subtitle.h"
 #include "State.h"
 
 class Game {

@@ -2,15 +2,21 @@
 #include "Resource.h"
 
 //Resource
-Resource :: Resource(const std :: filesystem :: path &directory) {
-    loadImg(directory / "image");
-    loadMap(directory / "tilemap");
-    loadFont(directory / "font");
+Resource :: Resource() {
+
 }
 Resource :: ~Resource() {
     for(auto it : img) delete it.second;
     for(auto it : map) delete it.second;
     for(auto it : font) delete it.second;
+}
+void Resource :: loadFrom(const std :: filesystem :: path &directory) {
+    loadImg(directory / "image");
+    loadMap(directory / "tilemap");
+    loadFont(directory / "font");
+}
+void Resource :: addAction(const std :: string &name, const std :: string &action, const Animation &animation) {
+    entity[name].insert(action, animation);
 }
 void Resource :: loadImg(const std :: filesystem :: path &directory) {
     for (const auto &img : std :: filesystem :: directory_iterator(directory)) {
@@ -42,4 +48,7 @@ json* Resource :: getMap(const std :: string &file) const {
 }
 sf :: Font* Resource :: getFont(const std :: string &file) const {
     return font.at(file);
+}
+AnimationSet Resource :: getEntity(const std :: string &name) const {
+    return entity.at(name);
 }

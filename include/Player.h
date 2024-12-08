@@ -45,6 +45,7 @@ public:
     virtual ~Player();
     Hitbox& getHitbox();
     sf :: FloatRect getPosition() const;
+    sf :: Vector2f getCenter() const;
     void setPosition(const sf :: Vector2f &position);
     void stopVelocity(const bool &x = true, const bool &y = true);
     void update(const float& deltaTime);

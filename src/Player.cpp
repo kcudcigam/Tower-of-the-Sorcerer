@@ -83,6 +83,9 @@ Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f), hitbox(&sprite, sf 
 }
 Player :: ~Player() {
 }
+sf :: Vector2f Player :: getCenter() const {
+	return hitbox.getPosition() + hitbox.getSize() / 2.f;
+}
 sf :: FloatRect Player :: getPosition() const {
     return sf :: FloatRect(hitbox.getPosition(), hitbox.getSize());
 }

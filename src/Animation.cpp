@@ -23,11 +23,20 @@ sf :: Vector2i Img :: getSize() const {
 
 //Animation
 Animation :: Animation(const std :: vector<Img> &list, const float &animationTime, bool loop)
-: list(list), animationTime(animationTime), loop(loop) {
+: list(list), animationTime(animationTime), loop(loop), paused(false) {
     reset();
 }
 Animation :: ~Animation() {
 
+}
+void Animation :: setLoop(bool loop) {
+    this -> loop = loop;
+}
+void Animation :: pause() {
+    paused = true;
+}
+void Animation :: run() {
+    paused = false;
 }
 void Animation :: flip() {
     for(auto &img : list) img.flip();
@@ -40,7 +49,7 @@ bool Animation :: end() const {
 }
 void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
     if(end()) return;
-    currentTime += deltaTime;
+    if(!paused) currentTime += deltaTime;
     if(currentTime > animationTime) {
         currentTime = 0.f, it++;
     }
@@ -88,5 +97,8 @@ void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &
 }
 void AnimationSet :: setPriority(const std :: string &key) {
     priority = key;
+}
+Animation AnimationSet :: getAnimation(const std :: string &key) const {
+    return animation.at(key);
 }
 

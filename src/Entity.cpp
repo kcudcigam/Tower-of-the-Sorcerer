@@ -75,7 +75,7 @@ void Treasure :: update(Player &player, const float &deltaTime) {
             animation.run(), opened = true;
     }
     if(animation.end() && !display) {
-        subtitle.display(L"获得一把宝剑, 攻击力大幅提升", 1.6f);
+        subtitle.display(L"获得一把宝剑, 攻击力得到大幅提升", 1.5f);
         display = true;
     }
     animation.play(&sprite, deltaTime);

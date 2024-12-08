@@ -58,8 +58,8 @@ void GameState :: checkForQuit() {
 }
 void GameState :: update(const float &deltaTime) {
     checkForQuit();
-    map.update(deltaTime);
     subtitle.update(deltaTime);
+    map.update(deltaTime);
 }
 void GameState :: render(sf :: RenderTarget* target) {
     map.render(target);

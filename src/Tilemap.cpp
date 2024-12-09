@@ -194,6 +194,12 @@ void Tilemap :: loadFromFile(const json &map) {
                 if(properties["type"] == "treasure") {
                     entities.emplace_back(new Treasure(position, boxList, ysort));
                 }
+                else if(properties["type"] == "door") {
+                    entities.emplace_back(new Door(position, boxList, ysort));
+                }
+                else {
+                    entities.emplace_back(new Monster(properties["type"], position, boxList, ysort));
+                }
             }
         }
     }

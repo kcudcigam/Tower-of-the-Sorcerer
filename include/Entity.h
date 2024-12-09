@@ -36,3 +36,32 @@ public:
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y) const;
 };
+
+class Door : public Entity {
+private:
+    sf :: Sprite sprite;
+    std :: vector<CollisionBox*> boxList;
+    Animation animation;
+    float ysort;
+    bool activate, opened, display;
+public:
+    Door(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    virtual ~Door();
+    void update(Player &player, const float &deltaTime);
+    void render(sf :: RenderTarget *target, const float &y) const;
+};
+
+class Monster : public Entity {
+private:
+    std :: string type;
+    sf :: Sprite sprite;
+    std :: vector<CollisionBox*> boxList;
+    Animation animation;
+    float ysort;
+    bool activate;
+public:
+    Monster(const std :: string &type, const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    virtual ~Monster();
+    void update(Player &player, const float &deltaTime);
+    void render(sf :: RenderTarget *target, const float &y) const;
+};

@@ -44,8 +44,8 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
     outline.setFillColor(sf :: Color :: Transparent);
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
-    target -> draw(outline);
-    */
+    target -> draw(outline);*/
+    
 }
 
 //Treasure
@@ -57,7 +57,7 @@ Treasure :: Treasure(const sf :: Vector2f &position, const std :: vector<Collisi
     animation.pause();
 }
 Treasure :: ~Treasure() {
-
+    for(auto box : boxList) delete box;
 }
 void Treasure :: update(Player &player, const float &deltaTime) {
     for(auto box : boxList) box -> update(player, deltaTime);
@@ -81,6 +81,77 @@ void Treasure :: update(Player &player, const float &deltaTime) {
     animation.play(&sprite, deltaTime);
 }
 void Treasure :: render(sf :: RenderTarget *target, const float &y) const {
+    if(ysort < y) return;
+    target -> draw(sprite);
+}
+
+const float dDoor = 35.f;
+Door :: Door(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+ : boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
+    sprite.setPosition(position);
+    animation = resource.getEntity("door").getAnimation("open");
+    animation.pause();
+}
+Door :: ~Door() {
+    for(auto box : boxList) delete box;
+}
+void Door :: update(Player &player, const float &deltaTime) {
+    for(auto box : boxList) box -> update(player, deltaTime);
+    if(!opened) {
+        const sf :: Vector2f &position = boxList.back() -> getCenter();
+        auto len = [](const sf :: Vector2f &u) {
+            return sqrtf(u.x * u.x + u.y * u.y);
+        };
+        if(len(position - player.getCenter()) < dDoor) {
+            subtitle.display(L"按F键消耗一把钥匙打开门", 0.1f);
+            activate = true;
+        }
+        else activate = false;
+        if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+            animation.run(), opened = true;
+            delete boxList.back(); boxList.pop_back();
+        }
+    }
+    if(animation.end() && !display) {
+        subtitle.display(L"门已打开", 1.5f);
+        display = true;
+    }
+    animation.play(&sprite, deltaTime);
+}
+void Door :: render(sf :: RenderTarget *target, const float &y) const {
+    //for(auto box : boxList) box -> render(target, y);
+    if(ysort < y) return;
+    target -> draw(sprite);
+}
+
+
+const float dMonster = 35.f;
+Monster :: Monster(const std :: string &type, const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+ : type(type), boxList(boxList), activate(false), ysort(ysort) {
+    sprite.setPosition(position);
+    animation = resource.getEntity(type).getAnimation("idle");
+}
+Monster :: ~Monster() {
+    for(auto box : boxList) delete box;
+}
+void Monster :: update(Player &player, const float &deltaTime) {
+    for(auto box : boxList) box -> update(player, deltaTime);
+    const sf :: Vector2f &position = boxList.back() -> getCenter();
+    auto len = [](const sf :: Vector2f &u) {
+        return sqrtf(u.x * u.x + u.y * u.y);
+    };
+    if(len(position - player.getCenter()) < dMonster) {
+        subtitle.display(L"按F键挑战boss", 0.1f);
+        activate = true;
+    }
+    else activate = false;
+    if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+        subtitle.display(L"加载竞技场", 0.1f);
+    }
+    animation.play(&sprite, deltaTime);
+}
+void Monster :: render(sf :: RenderTarget *target, const float &y) const {
+    //for(auto box : boxList) box -> render(target, y);
     if(ysort < y) return;
     target -> draw(sprite);
 }

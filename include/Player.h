@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "Resource.h"
 #include "Animation.h"
+#include "Attribute.h"
 
 class Movement {
 private:
@@ -39,11 +40,13 @@ private:
     sf :: Sprite sprite;
     Movement movement;
     AnimationSet animation;
+    Attribute attribute;
     Hitbox hitbox;
 public:
     Player();
     virtual ~Player();
     Hitbox& getHitbox();
+    Attribute getAttribute() const;
     sf :: FloatRect getPosition() const;
     sf :: Vector2f getCenter() const;
     void setPosition(const sf :: Vector2f &position);

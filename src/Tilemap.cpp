@@ -65,9 +65,9 @@ void Tilemap :: loadFromFile(const json &map) {
 
     const unsigned int bitmask = (1 << 29) - 1;
     std :: vector<Img> imgList; imgList.emplace_back();
-    std :: unordered_map<int, std :: vector<sf :: FloatRect> > rectList;
-    std :: unordered_map<unsigned int, int> heightList; 
-
+    std :: unordered_map<unsigned int, std :: vector<sf :: FloatRect> > rectList;
+    std :: unordered_map<unsigned int, std :: map<std :: string, const json&> > propertyList;
+    
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == imgList.size());
         //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
@@ -95,19 +95,16 @@ void Tilemap :: loadFromFile(const json &map) {
                 auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &rect : tile["objectgroup"]["objects"])
                     list.emplace_back(rect["x"].get<float>(), rect["y"].get<float>(), rect["width"].get<float>(), rect["height"].get<float>());
-                //if(!list.empty()) heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = 1;
             }
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("properties")) continue;
                 auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &property : tile["properties"])
-                    if(property["name"].get<std :: string>() == "elevation")
-                        heightList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = property["value"].get<int>();
+                    propertyList[tile["id"].get<int>() + tileset["firstgid"].get<int>()].emplace(property["name"].get<std :: string>(), property["value"]);
             }
         }
     }
     std :: vector<Animation> animationList(imgList.size());
-
     for(int i = 1; i < static_cast<int>(imgList.size()); i++)  animationList[i] = Animation((std :: vector<Img>){ imgList[i]});
     for(const auto &tileset : map["tilesets"]) {
         if(tileset.contains("tiles")) {
@@ -152,7 +149,8 @@ void Tilemap :: loadFromFile(const json &map) {
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
                     float ysort = 0;
-                    if(heightList.contains(id & bitmask)) ysort = position.y + heightList.at(id & bitmask) * size.y;
+                    if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("elevation"))
+                        ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y;
                     layers.back().insert(Tile(position, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
@@ -231,4 +229,5 @@ void Tilemap :: render(sf :: RenderTarget* target) const {
     for(const auto &layer : layers) layer.render(target, playerY);
     for(const auto &entity : entities) entity -> render(target, playerY);
     target -> setView(originView);
+    player.getAttribute().render(target, {10.f, 10.f}, {"health", "attack", "defence", "key"}, "green");
 }

@@ -44,8 +44,8 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
     outline.setFillColor(sf :: Color :: Transparent);
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
-    target -> draw(outline);*/
-    
+    target -> draw(outline);
+    */
 }
 
 //Treasure
@@ -108,6 +108,7 @@ void Door :: update(Player &player, const float &deltaTime) {
         }
         else activate = false;
         if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+            
             animation.run(), opened = true;
             delete boxList.back(); boxList.pop_back();
         }
@@ -141,7 +142,7 @@ void Monster :: update(Player &player, const float &deltaTime) {
         return sqrtf(u.x * u.x + u.y * u.y);
     };
     if(len(position - player.getCenter()) < dMonster) {
-        subtitle.display(L"按F键挑战boss", 0.1f);
+        subtitle.display(L"按F键挑战boss123456789", 0.1f);
         activate = true;
     }
     else activate = false;

@@ -45,14 +45,15 @@ void Layer :: insert(const Tile &tile) {
 void Layer :: update(const float& deltaTime) {
     for(auto &tile : this -> tiles) tile.update(deltaTime);
 }
-void Layer :: render(sf :: RenderTarget* target, const float &y) const {
+void Layer :: render(sf :: RenderTarget* target, const float &y, const bool &flag) const {
     for(const auto &tile : this -> tiles)
-        if(!(tile.getY() < y)) tile.render(target);
+        if((tile.getY() < y) ^ flag) tile.render(target);
 }
 
 //Tilemap
-Tilemap :: Tilemap(const std :: string &file) : mapSize({0, 0}) {
+Tilemap :: Tilemap(const std :: string &file, const Attribute &attribute) : mapSize({0, 0}), player(attribute) {
     this -> loadFromFile(*resource.getMap(file));
+    player.initAnimation();
 }
 Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
@@ -142,28 +143,32 @@ void Tilemap :: loadFromFile(const json &map) {
             }
         }
     }
-
+    
     for(const auto &tileset : map["tilesets"]) {
         if(!tileset.contains("tiles")) continue;
         for(const auto &tile : tileset["tiles"]) {
             const unsigned int &id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
             if(!propertyList.contains(id)) continue;
             const auto &list = propertyList[id];
-            if(list.at("type").get<std :: string>() != "monster") continue; 
-            const std :: string &name = list.at("name").get<std :: string>();
-            if(!monsters.contains(name)) monsters.emplace(name, Monster(to_wstring(name)));
+            if(!list.contains("type")) continue;
             Animation animation = animationList[id];
-            if(list.contains("flip")) animation.flip();
             if(!list.contains("loop")) animation.setLoop(false);
-            monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
-            for(const std :: string &attribute : {"health", "attack", "defence"})
-                if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
+            if(list.at("type").get<std :: string>() == "monster") {
+                const std :: string &name = list.at("name").get<std :: string>();
+                if(!monsters.contains(name)) monsters.emplace(name, Monster(to_wstring(name)));
+                monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
+                for(const std :: string &attribute : {"health", "attack", "defence"})
+                    if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
+            }
+            else if(list.at("type").get<std :: string>() == "player")
+                player.insertAnimation(list.at("action").get<std :: string>(), animation);
         }
     }
-    
     auto calcRect = [](const sf :: FloatRect &position, const sf :: FloatRect &box, bool flip) {
         return sf :: FloatRect(position.left + (flip ? position.width - box.width - box.left : box.left), position.top + box.top, box.width, box.height);
     };
+    
+
     for(const auto &layer : map["layers"]) {
         if(layer["type"].get<std :: string>() == "tilelayer") {
             const int x = layer["height"].get<int>(), y = layer["width"].get<int>(); layers.emplace_back();
@@ -174,14 +179,14 @@ void Tilemap :: loadFromFile(const json &map) {
                 for(int j = 0; j < y; j++) {
                     const unsigned int id = layer["data"][i * y + j].get<int>();
                     const auto &origin = imgList[id & bitmask].origin;
-                    const auto &position = sf :: Vector2f(j * size.x, i * size.y) + origin;
+                    const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
                     float ysort = 0;
                     if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("elevation"))
                         ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y;
-                    layers.back().insert(Tile(position, animation, ysort));
+                    layers.back().insert(Tile(position + origin, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
-                        const auto tileRect = sf :: FloatRect(position - origin, size);
+                        const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(auto box : rect) {
                             entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
@@ -200,22 +205,24 @@ void Tilemap :: loadFromFile(const json &map) {
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
                 const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y) + origin;
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                float ysort = position.y + size.y; std :: vector<CollisionBox*> boxList;
+
+                float ysort = position.y - origin.y + size.y; std :: vector<CollisionBox> boxList;
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position - origin, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
-                        boxList.emplace_back(new CollisionBox(tmp));
+                        if(!interactive) entities.emplace_back(new CollisionBox(tmp));
+                        else boxList.emplace_back(CollisionBox(tmp));
                         ysort = tmp.top + tmp.height;
                     }
                 }
+
                 if(!interactive) {
-                    entities.insert(entities.end(), boxList.begin(), boxList.end());
                     layers.back().insert(Tile(position, animation, ysort));
                     continue;
                 }
-                
+    
                 const std :: map<std :: string, const json&> &properties = propertyList.at(id & bitmask);
                 if(!properties.contains("loop")) animation.setLoop(false);
                 const std :: string &type = properties.at("type").get<std :: string>();
@@ -228,6 +235,10 @@ void Tilemap :: loadFromFile(const json &map) {
                 else if(type == "monster") {
                     monsters.at(properties.at("name").get<std :: string>()).add();
                     entities.emplace_back(new MonsterLink(properties.at("name").get<std :: string>(), position, animation, boxList, ysort));
+                }
+                else if(type == "player") {
+                    player.setPosition(position);
+                    player.setHitbox(boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize());
                 }
             }
         }
@@ -243,22 +254,22 @@ void Tilemap :: update(const float& deltaTime) {
 }
 void Tilemap :: render(sf :: RenderTarget* target) const {
     const auto originView = target -> getView();
-    const double &zoom = 0.5f;
-    const auto &position = player.getPosition();
-    sf :: Vector2f center = {floorf(position.left + position.width / 2.f + 0.5f), floorf(position.top + 0.5f)};
+    const float &zoom = 0.5f;
+    sf :: Vector2f center = {std :: floor(player.getPosition().x + 0.5f), std :: floor(player.getPosition().y + 0.5f)};
     const sf :: Vector2f &size = {static_cast<float>(target -> getSize().x), static_cast<float>(target -> getSize().y)};
-    center.x = std :: max(center.x, ceilf(size.x / 2.f * zoom));
-    center.x = std :: min(center.x, floorf(static_cast<float>(mapSize.x) - size.x / 2.f * zoom));
-    center.y = std :: max(center.y, ceilf(size.y / 2.f * zoom));
-    center.y = std :: min(center.y, floorf(static_cast<float>(mapSize.y) - size.y / 2.f * zoom));
+    center.x = std :: max(center.x, std :: ceil(size.x / 2.f * zoom));
+    center.x = std :: min(center.x, std :: floor(static_cast<float>(mapSize.x) - size.x / 2.f * zoom));
+    center.y = std :: max(center.y, std :: ceil(size.y / 2.f * zoom));
+    center.y = std :: min(center.y, std :: floor(static_cast<float>(mapSize.y) - size.y / 2.f * zoom));
     auto view = sf :: View(center, size); view.zoom(zoom); target -> setView(view);
 
-    const float &playerY = player.getPosition().top + player.getPosition().height;
-    for(const auto &layer : layers) layer.render(target, 0.f);
-    for(const auto &entity : entities) entity -> render(target, 0.f);
+    const float &playerY = player.getPosition().y;
+    for(const auto &layer : layers) layer.render(target, playerY, false);
+    for(const auto &entity : entities) entity -> render(target, playerY, false);
     player.render(target);
-    for(const auto &layer : layers) layer.render(target, playerY);
-    for(const auto &entity : entities) entity -> render(target, playerY);
+    for(const auto &layer : layers) layer.render(target, playerY, true);
+    for(const auto &entity : entities) entity -> render(target, playerY, true);
     target -> setView(originView);
+
     player.getAttribute().render(target, {10.f, 10.f}, {"health", "attack", "defence", "key"}, "green");
 }

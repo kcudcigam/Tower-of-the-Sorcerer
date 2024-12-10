@@ -38,7 +38,7 @@ class GameState : public State {
 private:
     Tilemap map;
 public:
-    GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map);
+    GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map, const Attribute &attribute);
     ~GameState();
     void checkForQuit();
     void update(const float& deltaTime);

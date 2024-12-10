@@ -40,14 +40,14 @@ void MenuState :: checkForQuit() {
 void MenuState :: update(const float &deltaTime) {
     checkForQuit();
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
-        stateStack() -> push(new GameState(getWindow(), stateStack(), "prison1.json"));
+        stateStack() -> push(new GameState(getWindow(), stateStack(), "prison.json", Attribute(100, 50, 5, 0)));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
 }
 
 //GameState
-GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map) : State(window, states), map(map) {
+GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map, const Attribute &attribute) : State(window, states), map(map, attribute) {
     
 }
 GameState :: ~GameState() {

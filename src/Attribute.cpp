@@ -1,9 +1,9 @@
 #include "Attribute.h"
 extern Resource resource;
 extern Subtitle subtitle;
-Attribute :: Attribute(const int &health, const int &attack, const int &defence) {
+Attribute :: Attribute(const int &health, const int &attack, const int &defence, const int &key) {
     set("max_health", health), set("health", health);
-    set("attack", attack), set("defence", defence);
+    set("attack", attack), set("defence", defence), set("key", key);
 }
 Attribute :: ~Attribute() {
 

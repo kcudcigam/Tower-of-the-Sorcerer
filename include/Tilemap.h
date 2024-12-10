@@ -33,7 +33,7 @@ public:
     void ysort();
     void insert(const Tile &tile);
     void update(const float& deltaTime);
-    void render(sf :: RenderTarget* target, const float &y) const;
+    void render(sf :: RenderTarget* target, const float &y, const bool &flag) const;
 };
 
 class Tilemap {
@@ -44,7 +44,7 @@ private:
     std :: vector<Entity*> entities;
     std :: map<std :: string, Monster> monsters;
 public:
-    Tilemap(const std :: string &file);
+    Tilemap(const std :: string &file, const Attribute &attribute);
     virtual ~Tilemap();
     std :: vector<Monster> getMonster() const;
     void loadFromFile(const json &map);

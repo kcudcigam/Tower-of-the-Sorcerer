@@ -2,6 +2,10 @@
 extern Resource resource;
 extern Subtitle subtitle;
 
+float len(const sf :: Vector2f &u) {
+    return std :: sqrt(u.x * u.x + u.y * u.y);
+}
+
 //Entity
 Entity :: Entity() {
 
@@ -17,27 +21,30 @@ CollisionBox :: CollisionBox(const sf :: FloatRect &rect) : rect(rect) {
 CollisionBox :: ~CollisionBox() {
 
 }
+const sf :: FloatRect& CollisionBox :: getBox() const {
+    return rect;
+}
 sf :: Vector2f CollisionBox :: getCenter() const {
     return sf :: Vector2f(rect.left + rect.width / 2.f, rect.top + rect.height / 2.f);
 }
 void CollisionBox :: update(Player &player, const float &deltaTime) {
-    const auto &position = player.getPosition();
-    if(!position.intersects(rect)) return;
-    const std :: pair<float, float> dx = {position.left + position.width - rect.left, rect.left + rect.width - position.left};
-    const std :: pair<float, float> dy = {position.top + position.height - rect.top, rect.top + rect.height - position.top};
+    const auto &hitbox = player.getHitbox();
+    if(!hitbox.intersects(rect)) return;
+    const std :: pair<float, float> dx = {hitbox.left + hitbox.width - rect.left, rect.left + rect.width - hitbox.left};
+    const std :: pair<float, float> dy = {hitbox.top + hitbox.height - rect.top, rect.top + rect.height - hitbox.top};
     if(std :: min(dx.first, dx.second) < std :: min(dy.first, dy.second)) {
-        if(dx.first < dx.second) player.setPosition({rect.left - position.width, position.top});
-        else player.setPosition({rect.left + rect.width, position.top});
+        if(dx.first < dx.second) player.setHitboxPosition({rect.left - hitbox.width, hitbox.top});
+        else player.setHitboxPosition({rect.left + rect.width, hitbox.top});
         player.stopVelocity(true, false);
     }
     else {
-        if(dy.first < dy.second) player.setPosition({position.left, rect.top - position.height});
-        else player.setPosition({position.left, rect.top + rect.height});
+        if(dy.first < dy.second) player.setHitboxPosition({hitbox.left, rect.top - hitbox.height});
+        else player.setHitboxPosition({hitbox.left, rect.top + rect.height});
         player.stopVelocity(false, true);
     }
 }
-void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
-    
+void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
+    /*
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
@@ -45,27 +52,26 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
     target -> draw(outline);
+    */
     
 }
 
 //Treasure
 const float dTreasure = 35.f;
-Treasure :: Treasure(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+Treasure :: Treasure(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
  : animation(animation), boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
     sprite.setPosition(position);
     this -> animation.pause();
 }
 Treasure :: ~Treasure() {
-    for(auto box : boxList) delete box;
+
 }
 void Treasure :: update(Player &player, const float &deltaTime) {
-    for(auto box : boxList) box -> update(player, deltaTime);
+    for(auto box : boxList) box.update(player, deltaTime);
     if(!opened) {
-        const sf :: Vector2f &position = boxList.back() -> getCenter();
-        auto len = [](const sf :: Vector2f &u) {
-            return sqrtf(u.x * u.x + u.y * u.y);
-        };
-        if(len(position - player.getCenter()) < dTreasure) {
+        const sf :: Vector2f &position = boxList.back().getCenter();
+        
+        if(len(position - player.getPosition()) < dTreasure) {
             subtitle.display(L"按F键打开宝箱", 0.1f);
             activate = true;
         }
@@ -79,35 +85,30 @@ void Treasure :: update(Player &player, const float &deltaTime) {
     }
     animation.play(&sprite, deltaTime);
 }
-void Treasure :: render(sf :: RenderTarget *target, const float &y) const {
-    if(ysort < y) return;
+void Treasure :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
+    if((y < ysort) ^ flag) return;
     target -> draw(sprite);
 }
 
 const float dDoor = 35.f;
-Door :: Door(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+Door :: Door(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
  : animation(animation), boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
     sprite.setPosition(position); this -> animation.pause();
 }
 Door :: ~Door() {
-    for(auto box : boxList) delete box;
+
 }
 void Door :: update(Player &player, const float &deltaTime) {
-    for(auto box : boxList) box -> update(player, deltaTime);
+    for(auto box : boxList) box.update(player, deltaTime);
     if(!opened) {
-        const sf :: Vector2f &position = boxList.back() -> getCenter();
-        auto len = [](const sf :: Vector2f &u) {
-            return sqrtf(u.x * u.x + u.y * u.y);
-        };
-        if(len(position - player.getCenter()) < dDoor) {
+        const sf :: Vector2f &position = boxList.back().getCenter();
+        if(len(position - player.getPosition()) < dDoor) {
             subtitle.display(L"按F键消耗一把钥匙打开门", 0.1f);
             activate = true;
         }
         else activate = false;
         if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
-            
-            animation.run(), opened = true;
-            delete boxList.back(); boxList.pop_back();
+            animation.run(), opened = true, boxList.pop_back();
         }
     }
     if(animation.end() && !display) {
@@ -116,29 +117,26 @@ void Door :: update(Player &player, const float &deltaTime) {
     }
     animation.play(&sprite, deltaTime);
 }
-void Door :: render(sf :: RenderTarget *target, const float &y) const {
+void Door :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
     //for(auto box : boxList) box -> render(target, y);
-    if(ysort < y) return;
+    if((y < ysort) ^ flag) return;
     target -> draw(sprite);
 }
 
 
 const float dMonster = 40.f;
-MonsterLink :: MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+MonsterLink :: MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
  : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), ysort(ysort) {
     sprite.setPosition(position);
 }
 MonsterLink :: ~MonsterLink() {
-    for(auto box : boxList) delete box;
+
 }
 void MonsterLink :: update(Player &player, const float &deltaTime) {
     if(challenged) return;
-    for(auto box : boxList) box -> update(player, deltaTime);
-    const sf :: Vector2f &position = boxList.back() -> getCenter();
-    auto len = [](const sf :: Vector2f &u) {
-        return sqrtf(u.x * u.x + u.y * u.y);
-    };
-    if(len(position - player.getCenter()) < dMonster) {
+    for(auto box : boxList) box.update(player, deltaTime);
+    const sf :: Vector2f &position = boxList.back().getCenter();
+    if(len(position - player.getPosition()) < dMonster) {
         subtitle.display(L"按F键开启挑战", 0.1f);
         activate = true;
     }
@@ -149,8 +147,8 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
     }
     animation.play(&sprite, deltaTime);
 }
-void MonsterLink :: render(sf :: RenderTarget *target, const float &y) const {
+void MonsterLink :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
     //for(auto box : boxList) box -> render(target, y);
-    if(ysort < y || challenged) return;
+    if(((y < ysort) ^ flag) || challenged) return;
     target -> draw(sprite);
 }

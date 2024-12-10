@@ -1,5 +1,4 @@
 #pragma once
-#include <cmath>
 #include "SFML/Graphics.hpp"
 #include "Resource.h"
 #include "Animation.h"
@@ -10,11 +9,11 @@ private:
     sf :: Sprite *sprite;
     sf :: Vector2f velocity;
     float maxVelocity, acceleration, deceleration;
-    unsigned direction;
+    bool direction;
 public:
-    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const unsigned &direction = 0);
+    Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const bool &direction = false);
     virtual ~Movement();  
-    const unsigned& getDirection() const;
+    const bool& getDirection() const;
     const sf :: Vector2f& getVelocity() const;
     void stopVelocity(const bool &x, const bool &y);
     void move(const float &x, const float &y, const float &deltaTime);
@@ -41,15 +40,18 @@ private:
     Movement movement;
     AnimationSet animation;
     Attribute attribute;
-    Hitbox hitbox;
+    sf :: FloatRect hitbox;
 public:
-    Player();
+    Player(const Attribute &attribute);
     virtual ~Player();
-    Hitbox& getHitbox();
-    Attribute getAttribute() const;
-    sf :: FloatRect getPosition() const;
-    sf :: Vector2f getCenter() const;
+    sf :: FloatRect getHitbox() const;
+    const Attribute& getAttribute() const;
+    const sf :: Vector2f& getPosition() const;
+    void initAnimation();
+    void insertAnimation(const std :: string &key, const Animation &animation);
+    void setHitbox(const sf :: Vector2f &position, const sf :: Vector2f &size);
     void setPosition(const sf :: Vector2f &position);
+    void setHitboxPosition(const sf :: Vector2f &position);
     void stopVelocity(const bool &x = true, const bool &y = true);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;

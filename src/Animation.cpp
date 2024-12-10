@@ -60,7 +60,7 @@ void Animation :: play(sf :: Sprite *sprite, const float &deltaTime, const float
     sprite -> setTexture(*list[it].texture);
     sprite -> setTextureRect(list[it].rect);
     sprite -> setOrigin(list[it].origin);
-    sprite -> setScale(list[it].scale * scale, fabs(list[it].scale) * scale);
+    sprite -> setScale(list[it].scale * scale, std :: abs(list[it].scale) * scale);
 }
 void Animation :: reset() {
     currentTime = 0.f; it = 0;
@@ -77,7 +77,7 @@ void AnimationSet :: insert(const std :: string &key, const Animation &value) {
     animation.emplace(key, value);
     animation.at(key).reset();
 }
-bool AnimationSet :: hasPriority() {
+bool AnimationSet :: hasPriority() const {
     return priority != "" && !animation.at(priority).end();
 }
 void AnimationSet :: updatePriority() {
@@ -97,6 +97,9 @@ void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &
 }
 void AnimationSet :: setPriority(const std :: string &key) {
     priority = key;
+}
+bool AnimationSet :: contains(const std :: string &key) const {
+    return animation.contains(key);
 }
 Animation AnimationSet :: getAnimation(const std :: string &key) const {
     return animation.at(key);

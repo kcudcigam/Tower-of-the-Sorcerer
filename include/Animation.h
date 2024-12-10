@@ -1,5 +1,4 @@
 #pragma once
-#include <cmath>
 #include "SFML/Graphics.hpp"
 
 struct Img {
@@ -22,7 +21,6 @@ private:
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
-    void setScale(const float &scale);
     void setLoop(bool loop = true);
     void flip();
     void pause();
@@ -42,9 +40,9 @@ public:
     virtual ~AnimationSet();
     void insert(const std :: string &key, const Animation &value);
     void play(sf :: Sprite *sprite, std :: string key, const float &deltaTime, const float &scale = 1.f);
-    void setScale(const float &scale);
-    bool hasPriority();
+    bool hasPriority() const;
     void updatePriority();
     void setPriority(const std :: string &key);
+    bool contains(const std :: string &key) const;
     Animation getAnimation(const std :: string &key) const;
 };

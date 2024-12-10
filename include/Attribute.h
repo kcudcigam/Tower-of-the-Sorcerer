@@ -7,7 +7,7 @@ class Attribute{
 private:
     std :: map<std :: string, int> attribute;
 public:
-    Attribute(const int &health = 0, const int &attack = 0, const int &defence = 0);
+    Attribute(const int &health = 0, const int &attack = 0, const int &defence = 0, const int &key = 0);
     virtual ~Attribute();
     void set(const std :: string &type, const int &value);
     void add(const std :: string &type, const int &value);

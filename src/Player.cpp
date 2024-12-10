@@ -73,6 +73,7 @@ void Hitbox :: render(sf :: RenderTarget *target) const {
 
 //Player
 Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f), hitbox(&sprite, sf :: Vector2f(54.f, 70.f), sf :: Vector2f(30.f, 2.f)), attribute(50, 20, 5) {
+    attribute.set("key", 0);
     animation.insert("IDLE_LEFT"   , Animation(generateList(resource.getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
     animation.insert("IDLE_RIGHT"  , Animation(generateList(resource.getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
     animation.insert("WALK_LEFT"   , Animation(generateList(resource.getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));

@@ -57,10 +57,27 @@ Tilemap :: Tilemap(const std :: string &file) : mapSize({0, 0}) {
 Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
 }
+
+std :: vector<const Monster*> Tilemap :: getMonster() const {
+    std :: vector<const Monster*> mapMonster;
+    for(const auto &monster : monsters)
+        if(monster.second.any()) mapMonster.emplace_back(&monster.second);
+    return mapMonster;
+}  
 void Tilemap :: loadFromFile(const json &map) {
 
     auto getFileName = [](const std :: string &path) {
         return path.substr(path.find_last_of("\\/") + 1);
+    };
+    auto to_wstring = [](const std :: string &s){
+        setlocale(LC_ALL, "chs"); 
+        const char* source = s.c_str();
+        const size_t &size = MultiByteToWideChar(CP_UTF8, 0, source, strlen(source), NULL, 0);
+        wchar_t *dest = new wchar_t[size + 1]; 
+        MultiByteToWideChar(CP_UTF8, 0, source, strlen(source), dest, size);
+        dest[size] = 0; std :: wstring result = dest; delete []dest;
+        setlocale(LC_ALL, "C");
+        return result;
     };
 
     const unsigned int bitmask = (1 << 29) - 1;
@@ -98,9 +115,9 @@ void Tilemap :: loadFromFile(const json &map) {
             }
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("properties")) continue;
-                auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
+                auto &list = propertyList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &property : tile["properties"])
-                    propertyList[tile["id"].get<int>() + tileset["firstgid"].get<int>()].emplace(property["name"].get<std :: string>(), property["value"]);
+                    list.emplace(property["name"].get<std :: string>(), property["value"]);
             }
         }
     }
@@ -119,21 +136,23 @@ void Tilemap :: loadFromFile(const json &map) {
             }
         }
     }
-    for(const auto &layer : map["layers"]) {
-        if(layer["name"].get<std :: string>() != "entities") continue;
-        for(const auto &object : layer["objects"]) {
-            const unsigned int id = object["gid"].get<unsigned int>();
-            auto animation = animationList[id & bitmask];
-            if(id >> 31 & 1) animation.flip();
-            std :: map<std :: string, std :: string> properties;
-            for(const auto &property : object["properties"]) {
-                properties[property["name"].get<std :: string>()] = property["value"].get<std :: string>();
-            }
-            //std :: cerr << properties["type"] << ' ' << properties["action"] << std :: endl;
-            if(!properties.contains("loop")) animation.setLoop(false);
-            resource.addAction(properties["type"], properties["action"], animation);
+
+    for(const auto &tileset : map["tilesets"]) {
+        if(!tileset.contains("tiles")) continue;
+        for(const auto &tile : tileset["tiles"]) {
+            const unsigned int &id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
+            if(!propertyList.contains(id) || propertyList[id].at("type").get<std :: string>() != "monster") continue; 
+            const auto &list = propertyList[id];
+            const std :: string &name = list.at("name").get<std :: string>();
+            if(!monsters.contains(name)) monsters.emplace(name, Monster(to_wstring(name)));
+            Animation animation = animationList[id];
+            if(list.contains("flip")) animation.flip();
+            monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
+            for(const std :: string &attribute : {"health", "attack", "defence"})
+                if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
         }
     }
+    
     auto calcRect = [](const sf :: FloatRect &position, const sf :: FloatRect &box, bool flip) {
         return sf :: FloatRect(position.left + (flip ? position.width - box.width - box.left : box.left), position.top + box.top, box.width, box.height);
     };
@@ -161,7 +180,7 @@ void Tilemap :: loadFromFile(const json &map) {
                     
                 }
         }
-        else if(layer["type"].get<std :: string>() == "objectgroup" && layer["name"].get<std :: string>() != "entities") {
+        else if(layer["type"].get<std :: string>() == "objectgroup") {
             const bool interactive = (layer["name"].get<std :: string>() == "interactive");
             if(!interactive) layers.emplace_back();
             for(const auto &object : layer["objects"]) {
@@ -170,33 +189,33 @@ void Tilemap :: loadFromFile(const json &map) {
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
                 const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y);
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                float ysort = 0.f; std :: vector<CollisionBox*> boxList;
+                float ysort = position.y + size.y; std :: vector<CollisionBox*> boxList;
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
                         boxList.emplace_back(new CollisionBox(tmp));
-                        ysort = std :: max(ysort, tmp.top + tmp.height);
+                        ysort = tmp.top + tmp.height;
                     }
                 }
-                if(ysort == 0.f) ysort = position.y + size.y;
                 if(!interactive) {
                     entities.insert(entities.end(), boxList.begin(), boxList.end());
                     layers.back().insert(Tile(position, animation, ysort));
                     continue;
                 }
-                std :: map<std :: string, std :: string> properties;
-                for(const auto &property : object["properties"])
-                    properties[property["name"].get<std :: string>()] = property["value"].get<std :: string>();
-                if(properties["type"] == "treasure") {
-                    entities.emplace_back(new Treasure(position, boxList, ysort));
+                
+                const std :: map<std :: string, const json&> &properties = propertyList.at(id & bitmask);
+                const std :: string &type = properties.at("type").get<std :: string>();
+                if(type == "treasure") {
+                    entities.emplace_back(new Treasure(position, animation, boxList, ysort));
                 }
-                else if(properties["type"] == "door") {
-                    entities.emplace_back(new Door(position, boxList, ysort));
+                else if(type == "door") {
+                    entities.emplace_back(new Door(position, animation, boxList, ysort));
                 }
-                else {
-                    entities.emplace_back(new Monster(properties["type"], position, boxList, ysort));
+                else if(type == "monster") {
+                    Monster& monster = monsters.at(properties.at("name").get<std :: string>()); monster.add();
+                    entities.emplace_back(new MonsterLink(monster.getName(), position, animation, boxList, ysort));
                 }
             }
         }

@@ -40,7 +40,7 @@ void MenuState :: checkForQuit() {
 void MenuState :: update(const float &deltaTime) {
     checkForQuit();
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
-        stateStack() -> push(new GameState(getWindow(), stateStack(), "prison.json"));
+        stateStack() -> push(new GameState(getWindow(), stateStack(), "prison1.json"));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     target -> draw(background);

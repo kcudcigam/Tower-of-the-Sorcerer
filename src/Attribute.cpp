@@ -3,7 +3,7 @@ extern Resource resource;
 extern Subtitle subtitle;
 Attribute :: Attribute(const int &health, const int &attack, const int &defence) {
     set("max_health", health), set("health", health);
-    set("attack", attack), set("defence", defence), set("key", 0);
+    set("attack", attack), set("defence", defence);
 }
 Attribute :: ~Attribute() {
 

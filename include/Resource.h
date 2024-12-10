@@ -18,10 +18,8 @@ public:
     Resource();
     virtual ~Resource();
     void loadFrom(const std :: filesystem :: path &directory);
-    void addAction(const std :: string &name, const std :: string &action, const Animation &animation);
     sf :: Texture* getImg(const std :: string &file) const;
     json* getMap(const std :: string &file) const;
     sf :: Font* getFont(const std :: string &file) const;
-    AnimationSet getEntity(const std :: string &name) const;
     
 };

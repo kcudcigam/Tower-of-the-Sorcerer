@@ -50,11 +50,10 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
 
 //Treasure
 const float dTreasure = 35.f;
-Treasure :: Treasure(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort)
- : boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
+Treasure :: Treasure(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+ : animation(animation), boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
     sprite.setPosition(position);
-    animation = resource.getEntity("treasure").getAnimation("open");
-    animation.pause();
+    this -> animation.pause();
 }
 Treasure :: ~Treasure() {
     for(auto box : boxList) delete box;
@@ -86,11 +85,9 @@ void Treasure :: render(sf :: RenderTarget *target, const float &y) const {
 }
 
 const float dDoor = 35.f;
-Door :: Door(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort)
- : boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
-    sprite.setPosition(position);
-    animation = resource.getEntity("door").getAnimation("open");
-    animation.pause();
+Door :: Door(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+ : animation(animation), boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
+    sprite.setPosition(position); this -> animation.pause();
 }
 Door :: ~Door() {
     for(auto box : boxList) delete box;
@@ -126,33 +123,34 @@ void Door :: render(sf :: RenderTarget *target, const float &y) const {
 }
 
 
-const float dMonster = 35.f;
-Monster :: Monster(const std :: string &type, const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort)
- : type(type), boxList(boxList), activate(false), ysort(ysort) {
+const float dMonster = 40.f;
+MonsterLink :: MonsterLink(const std :: wstring &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+ : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), ysort(ysort) {
     sprite.setPosition(position);
-    animation = resource.getEntity(type).getAnimation("idle");
 }
-Monster :: ~Monster() {
+MonsterLink :: ~MonsterLink() {
     for(auto box : boxList) delete box;
 }
-void Monster :: update(Player &player, const float &deltaTime) {
+void MonsterLink :: update(Player &player, const float &deltaTime) {
+    if(challenged) return;
     for(auto box : boxList) box -> update(player, deltaTime);
     const sf :: Vector2f &position = boxList.back() -> getCenter();
     auto len = [](const sf :: Vector2f &u) {
         return sqrtf(u.x * u.x + u.y * u.y);
     };
     if(len(position - player.getCenter()) < dMonster) {
-        subtitle.display(L"按F键挑战boss123456789", 0.1f);
+        subtitle.display(L"按F键挑战boss", 0.1f);
         activate = true;
     }
     else activate = false;
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
-        subtitle.display(L"加载竞技场", 0.1f);
+        subtitle.display(L"加载竞技场" + name, 2.f);
+        challenged = true;
     }
     animation.play(&sprite, deltaTime);
 }
-void Monster :: render(sf :: RenderTarget *target, const float &y) const {
+void MonsterLink :: render(sf :: RenderTarget *target, const float &y) const {
     //for(auto box : boxList) box -> render(target, y);
-    if(ysort < y) return;
+    if(ysort < y || challenged) return;
     target -> draw(sprite);
 }

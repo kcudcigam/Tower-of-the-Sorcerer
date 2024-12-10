@@ -31,7 +31,7 @@ private:
     float ysort;
     bool activate, opened, display;
 public:
-    Treasure(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    Treasure(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort);
     virtual ~Treasure();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y) const;
@@ -45,23 +45,23 @@ private:
     float ysort;
     bool activate, opened, display;
 public:
-    Door(const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    Door(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort);
     virtual ~Door();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y) const;
 };
 
-class Monster : public Entity {
+class MonsterLink : public Entity {
 private:
-    std :: string type;
+    std :: wstring name;
     sf :: Sprite sprite;
     std :: vector<CollisionBox*> boxList;
     Animation animation;
     float ysort;
-    bool activate;
+    bool activate, challenged;
 public:
-    Monster(const std :: string &type, const sf :: Vector2f &position, const std :: vector<CollisionBox*> &boxList, const float &ysort);
-    virtual ~Monster();
+    MonsterLink(const std :: wstring &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    virtual ~MonsterLink();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y) const;
 };

@@ -1,9 +1,12 @@
 #pragma once
+#include <Windows.h>
 #include "SFML/Graphics.hpp"
 #include "Json.hpp"
 #include "Resource.h"
 #include "Player.h"
 #include "Entity.h"
+#include "Monster.h"
+
 
 class Tile {
 private:
@@ -39,9 +42,11 @@ private:
     sf :: Vector2i mapSize;
     std :: vector<Layer> layers;
     std :: vector<Entity*> entities;
+    std :: map<std :: string, Monster> monsters;
 public:
     Tilemap(const std :: string &file);
     virtual ~Tilemap();
+    std :: vector<const Monster*> getMonster() const;
     void loadFromFile(const json &map);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;

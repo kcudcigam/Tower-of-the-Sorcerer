@@ -15,9 +15,6 @@ void Resource :: loadFrom(const std :: filesystem :: path &directory) {
     loadMap(directory / "tilemap");
     loadFont(directory / "font");
 }
-void Resource :: addAction(const std :: string &name, const std :: string &action, const Animation &animation) {
-    entity[name].insert(action, animation);
-}
 void Resource :: loadImg(const std :: filesystem :: path &directory) {
     for (const auto &img : std :: filesystem :: directory_iterator(directory)) {
         if(std :: filesystem :: is_directory(img)) loadImg(img.path());
@@ -48,7 +45,4 @@ json* Resource :: getMap(const std :: string &file) const {
 }
 sf :: Font* Resource :: getFont(const std :: string &file) const {
     return font.at(file);
-}
-AnimationSet Resource :: getEntity(const std :: string &name) const {
-    return entity.at(name);
 }

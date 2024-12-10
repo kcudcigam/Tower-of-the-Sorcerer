@@ -22,13 +22,14 @@ private:
 public:
     Animation(const std :: vector<Img> &list = (std :: vector<Img>){}, const float &animationTime = 0, bool loop = true);
     virtual ~Animation();
+    void setScale(const float &scale);
     void setLoop(bool loop = true);
     void flip();
     void pause();
     void run();
     sf :: Vector2i getSize() const;
     bool end() const;
-    void play(sf :: Sprite *sprite, const float &deltaTime);
+    void play(sf :: Sprite *sprite, const float &deltaTime, const float &scale = 1.f);
     void reset();
 };
 
@@ -40,7 +41,8 @@ public:
     AnimationSet();
     virtual ~AnimationSet();
     void insert(const std :: string &key, const Animation &value);
-    void play(sf :: Sprite *sprite, std :: string key, const float &deltaTime);
+    void play(sf :: Sprite *sprite, std :: string key, const float &deltaTime, const float &scale = 1.f);
+    void setScale(const float &scale);
     bool hasPriority();
     void updatePriority();
     void setPriority(const std :: string &key);

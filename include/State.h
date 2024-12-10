@@ -44,3 +44,17 @@ public:
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };
+
+class DictionaryState : public State {
+private:
+    sf :: Sprite sprite;
+    sf :: RectangleShape background;
+    std :: vector<Monster> monsters;
+    sf :: Text text;
+    size_t it; bool leftPress, rightPress;
+public:
+    DictionaryState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: vector<Monster> &monsters);
+    ~DictionaryState();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
+};

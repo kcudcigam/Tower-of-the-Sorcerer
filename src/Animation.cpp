@@ -47,7 +47,7 @@ sf :: Vector2i Animation :: getSize() const {
 bool Animation :: end() const {
     return it == list.size();
 }
-void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
+void Animation :: play(sf :: Sprite *sprite, const float &deltaTime, const float &scale) {
     if(end()) return;
     if(!paused) currentTime += deltaTime;
     if(currentTime > animationTime) {
@@ -60,7 +60,7 @@ void Animation :: play(sf :: Sprite *sprite, const float &deltaTime) {
     sprite -> setTexture(*list[it].texture);
     sprite -> setTextureRect(list[it].rect);
     sprite -> setOrigin(list[it].origin);
-    sprite -> setScale(list[it].scale, fabs(list[it].scale));
+    sprite -> setScale(list[it].scale * scale, fabs(list[it].scale) * scale);
 }
 void Animation :: reset() {
     currentTime = 0.f; it = 0;
@@ -83,7 +83,7 @@ bool AnimationSet :: hasPriority() {
 void AnimationSet :: updatePriority() {
     if(priority != "" && !hasPriority()) animation.at(priority).reset(), priority = "";
 }
-void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &deltaTime) {
+void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &deltaTime, const float &scale) {
 
     if(hasPriority()) key = priority;
     
@@ -92,7 +92,7 @@ void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &
         currentAnimation = key;
     }
     
-    animation.at(key).play(sprite, deltaTime);
+    animation.at(key).play(sprite, deltaTime, scale);
     updatePriority();
 }
 void AnimationSet :: setPriority(const std :: string &key) {

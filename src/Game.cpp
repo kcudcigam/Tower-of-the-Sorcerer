@@ -3,7 +3,7 @@ extern Resource resource;
 extern Subtitle subtitle;
 
 //Game
-Game :: Game() : window(sf :: VideoMode(1280, 960), "The Sorcerer") {
+Game :: Game() : window(sf :: VideoMode(1280, 720), "The Sorcerer") {
     window.setFramerateLimit(120);
     window.setVerticalSyncEnabled(false);
     resource.loadFrom("../resource");

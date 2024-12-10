@@ -12,10 +12,10 @@ bool Monster :: any() const {
 const std :: wstring& Monster :: getName() const {
     return name;
 }
-const Attribute& Monster :: getAttribute() const {
+Attribute& Monster :: getAttribute() {
     return attribute;
 }
-const AnimationSet& Monster :: getAnimation() const {
+AnimationSet& Monster :: getAnimation() {
     return animation;
 }
 void Monster :: insertAction(const std :: string &key, const Animation &action) {

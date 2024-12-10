@@ -46,7 +46,7 @@ private:
 public:
     Tilemap(const std :: string &file);
     virtual ~Tilemap();
-    std :: vector<const Monster*> getMonster() const;
+    std :: vector<Monster> getMonster() const;
     void loadFromFile(const json &map);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;

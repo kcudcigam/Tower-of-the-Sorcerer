@@ -37,7 +37,7 @@ void CollisionBox :: update(Player &player, const float &deltaTime) {
     }
 }
 void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
-    /*
+    
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
@@ -45,7 +45,7 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y) const {
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
     target -> draw(outline);
-    */
+    
 }
 
 //Treasure

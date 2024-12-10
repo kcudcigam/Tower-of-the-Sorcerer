@@ -58,10 +58,10 @@ Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
 }
 
-std :: vector<const Monster*> Tilemap :: getMonster() const {
-    std :: vector<const Monster*> mapMonster;
+std :: vector<Monster> Tilemap :: getMonster() const {
+    std :: vector<Monster> mapMonster;
     for(const auto &monster : monsters)
-        if(monster.second.any()) mapMonster.emplace_back(&monster.second);
+        if(monster.second.any()) mapMonster.emplace_back(monster.second);
     return mapMonster;
 }  
 void Tilemap :: loadFromFile(const json &map) {
@@ -112,6 +112,7 @@ void Tilemap :: loadFromFile(const json &map) {
                 auto &list = rectList[tile["id"].get<int>() + tileset["firstgid"].get<int>()];
                 for(const auto &rect : tile["objectgroup"]["objects"])
                     list.emplace_back(rect["x"].get<float>(), rect["y"].get<float>(), rect["width"].get<float>(), rect["height"].get<float>());
+                imgList[tile["id"].get<int>() + tileset["firstgid"].get<int>()].origin = {list.back().left + list.back().width / 2.f, list.back().top + list.back().height};
             }
             for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("properties")) continue;
@@ -126,10 +127,15 @@ void Tilemap :: loadFromFile(const json &map) {
     for(const auto &tileset : map["tilesets"]) {
         if(tileset.contains("tiles")) {
             for(const auto &tile : tileset["tiles"]) {
+                if(!tile.contains("objectgroup")) continue;
+            }
+            for(const auto &tile : tileset["tiles"]) {
                 if(!tile.contains("animation")) continue;
                 std :: vector<Img> list; float duration = 0.f;
+                const sf :: Vector2f &origin = imgList[tile["id"].get<int>() + tileset["firstgid"].get<int>()].origin;
                 for(const auto &img : tile["animation"]) {
                     list.emplace_back(imgList[img["tileid"].get<int>() + tileset["firstgid"].get<int>()]);
+                    list.back().origin = origin;
                     duration = img["duration"].get<int>() / 1000.f;
                 }
                 animationList[tile["id"].get<int>() + tileset["firstgid"].get<int>()] = Animation(list, duration, true);
@@ -167,17 +173,19 @@ void Tilemap :: loadFromFile(const json &map) {
             for(int i = 0; i < x; i++)
                 for(int j = 0; j < y; j++) {
                     const unsigned int id = layer["data"][i * y + j].get<int>();
-                    const auto &position = sf :: Vector2f(j * size.x, i * size.y);
+                    const auto &origin = imgList[id & bitmask].origin;
+                    const auto &position = sf :: Vector2f(j * size.x, i * size.y) + origin;
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
                     float ysort = 0;
                     if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("elevation"))
                         ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y;
                     layers.back().insert(Tile(position, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
-                        const auto tileRect = sf :: FloatRect(position, size);
+                        const auto tileRect = sf :: FloatRect(position - origin, size);
                         const auto &rect = rectList[id & bitmask];
-                        for(const auto &box : rect)
+                        for(auto box : rect) {
                             entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
+                        }
                     }
                     
                 }
@@ -188,12 +196,13 @@ void Tilemap :: loadFromFile(const json &map) {
             for(const auto &object : layer["objects"]) {
                 if(!object.contains("gid")) continue;
                 const unsigned int id = object["gid"].get<unsigned int>();
+                const auto &origin = imgList[id & bitmask].origin;
                 const auto &size = sf :: Vector2f(object["width"].get<float>(), object["height"].get<float>());
-                const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y);
+                const auto &position = sf :: Vector2f(object["x"].get<float>(), object["y"].get<float>() - size.y) + origin;
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
                 float ysort = position.y + size.y; std :: vector<CollisionBox*> boxList;
                 if(rectList.contains(id & bitmask)) {
-                    const auto tileRect = sf :: FloatRect(position, size);
+                    const auto tileRect = sf :: FloatRect(position - origin, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);

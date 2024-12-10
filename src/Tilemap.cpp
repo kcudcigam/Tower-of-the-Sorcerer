@@ -141,12 +141,14 @@ void Tilemap :: loadFromFile(const json &map) {
         if(!tileset.contains("tiles")) continue;
         for(const auto &tile : tileset["tiles"]) {
             const unsigned int &id = tile["id"].get<int>() + tileset["firstgid"].get<int>();
-            if(!propertyList.contains(id) || propertyList[id].at("type").get<std :: string>() != "monster") continue; 
+            if(!propertyList.contains(id)) continue;
             const auto &list = propertyList[id];
+            if(list.at("type").get<std :: string>() != "monster") continue; 
             const std :: string &name = list.at("name").get<std :: string>();
             if(!monsters.contains(name)) monsters.emplace(name, Monster(to_wstring(name)));
             Animation animation = animationList[id];
             if(list.contains("flip")) animation.flip();
+            if(!list.contains("loop")) animation.setLoop(false);
             monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
             for(const std :: string &attribute : {"health", "attack", "defence"})
                 if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
@@ -206,6 +208,7 @@ void Tilemap :: loadFromFile(const json &map) {
                 }
                 
                 const std :: map<std :: string, const json&> &properties = propertyList.at(id & bitmask);
+                if(!properties.contains("loop")) animation.setLoop(false);
                 const std :: string &type = properties.at("type").get<std :: string>();
                 if(type == "treasure") {
                     entities.emplace_back(new Treasure(position, animation, boxList, ysort));
@@ -214,8 +217,8 @@ void Tilemap :: loadFromFile(const json &map) {
                     entities.emplace_back(new Door(position, animation, boxList, ysort));
                 }
                 else if(type == "monster") {
-                    Monster& monster = monsters.at(properties.at("name").get<std :: string>()); monster.add();
-                    entities.emplace_back(new MonsterLink(monster.getName(), position, animation, boxList, ysort));
+                    monsters.at(properties.at("name").get<std :: string>()).add();
+                    entities.emplace_back(new MonsterLink(properties.at("name").get<std :: string>(), position, animation, boxList, ysort));
                 }
             }
         }

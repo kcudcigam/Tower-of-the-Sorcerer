@@ -53,14 +53,14 @@ public:
 
 class MonsterLink : public Entity {
 private:
-    std :: wstring name;
+    std :: string name;
     sf :: Sprite sprite;
     std :: vector<CollisionBox*> boxList;
     Animation animation;
     float ysort;
     bool activate, challenged;
 public:
-    MonsterLink(const std :: wstring &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort);
+    MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort);
     virtual ~MonsterLink();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y) const;

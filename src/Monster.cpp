@@ -1,13 +1,13 @@
 #include "Monster.h"
 //Monster
-Monster :: Monster(const std :: wstring &name) : name(name) {
+Monster :: Monster(const std :: wstring &name) : name(name), cnt({0, 0}) {
 
 }
 Monster :: ~Monster() {
 
 }
 bool Monster :: any() const {
-    return cnt.first > 0;
+    return cnt.second > 0;
 }
 const std :: wstring& Monster :: getName() const {
     return name;
@@ -29,5 +29,5 @@ void Monster :: add() {
     cnt.first++, cnt.second++;
 }
 void Monster :: del() {
-    assert(any()); cnt.first--;
+    assert(cnt.first > 0); cnt.first--;
 }

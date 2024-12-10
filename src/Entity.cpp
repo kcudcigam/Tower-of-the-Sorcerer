@@ -124,7 +124,7 @@ void Door :: render(sf :: RenderTarget *target, const float &y) const {
 
 
 const float dMonster = 40.f;
-MonsterLink :: MonsterLink(const std :: wstring &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
+MonsterLink :: MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox*> &boxList, const float &ysort)
  : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), ysort(ysort) {
     sprite.setPosition(position);
 }
@@ -139,12 +139,12 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
         return sqrtf(u.x * u.x + u.y * u.y);
     };
     if(len(position - player.getCenter()) < dMonster) {
-        subtitle.display(L"按F键挑战boss", 0.1f);
+        subtitle.display(L"按F键开启挑战", 0.1f);
         activate = true;
     }
     else activate = false;
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
-        subtitle.display(L"加载竞技场" + name, 2.f);
+        subtitle.display(L"加载竞技场", 2.f);
         challenged = true;
     }
     animation.play(&sprite, deltaTime);

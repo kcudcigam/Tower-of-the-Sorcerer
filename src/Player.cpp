@@ -48,17 +48,13 @@ void Movement :: update(const float &deltaTime) {
 
 //Player
 Player :: Player(const Attribute &attribute) : attribute(attribute), movement(&sprite, 160.f, 600.f, 300.f) {
-    /*
-    animation.insert("IDLE_LEFT"   , Animation(generateList(resource.getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
-    animation.insert("IDLE_RIGHT"  , Animation(generateList(resource.getImg("warrior.png"), {0, 0}, {15, 0}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
-    animation.insert("WALK_LEFT"   , Animation(generateList(resource.getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96}, -1.f, {140.f, 0.f}), 0.08f, true));
-    animation.insert("WALK_RIGHT"  , Animation(generateList(resource.getImg("warrior.png"), {0, 1}, { 7, 1}, {144, 96},  1.f, {0.f, 0.f}), 0.08f, true));
-    animation.insert("ATTACK_LEFT" , Animation(generateList(resource.getImg("warrior.png"), {0, 2}, {10, 3}, {144, 96}, -1.f, {140.f, 0.f}), 0.1f, false));
-    animation.insert("ATTACK_RIGHT", Animation(generateList(resource.getImg("warrior.png"), {0, 2}, {10, 3}, {144, 96},  1.f, {0.f, 0.f}), 0.1f, false));
-    sprite.setPosition({192.f, 192.f});*/
+
 }
 Player :: ~Player() {
 
+}
+Attribute& Player :: attributeReference() {
+    return attribute;
 }
 const Attribute& Player :: getAttribute() const {
     return attribute;
@@ -84,19 +80,17 @@ const std :: string& Player :: getBattle() const {
 void Player :: setBattle(const std :: string &monster) {
     battle = monster;
 }
+Animation Player :: getAnimation(const std :: string &key) const {
+    return animation.getAnimation(key);
+}
 void Player :: stopVelocity(const bool &x, const bool &y) {
     movement.stopVelocity(x, y);
 }
 void Player :: initAnimation() {
-    auto flip = [](Animation u) {u.flip(); return u;};
-    if(!animation.contains("walk_left"))  animation.insert("walk_left", flip(animation.getAnimation("walk_right")));
-    if(!animation.contains("walk_right")) animation.insert("walk_right", flip(animation.getAnimation("walk_left")));
-
-    if(!animation.contains("idle_left"))  animation.insert("idle_left", flip(animation.getAnimation("idle_right")));
-    if(!animation.contains("idle_right")) animation.insert("idle_right", flip(animation.getAnimation("idle_left")));
-
-    if(!animation.contains("hurt_left"))  animation.insert("hurt_left", flip(animation.getAnimation("hurt_right")));
-    if(!animation.contains("hurt_right")) animation.insert("hurt_right", flip(animation.getAnimation("hurt_left")));
+    animation.insert("walk_left", flip(animation.getAnimation("walk_right")));
+    animation.insert("idle_left", flip(animation.getAnimation("idle_right")));
+    animation.insert("hurt_left", flip(animation.getAnimation("hurt_right")));
+    animation.insert("attack_left", flip(animation.getAnimation("attack_right")));
 }
 void Player :: addTag(const std :: string &tag, const float &duration) {
     if(!tags.contains(tag)) {

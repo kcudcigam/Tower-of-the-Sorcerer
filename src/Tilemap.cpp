@@ -59,12 +59,18 @@ Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
 }
 
-std :: vector<Monster> Tilemap :: getMonster() const {
+std :: vector<Monster> Tilemap :: getMonsterList() const {
     std :: vector<Monster> mapMonster;
     for(const auto &monster : monsters)
         if(monster.second.any()) mapMonster.emplace_back(monster.second);
     return mapMonster;
-}  
+}
+Player& Tilemap :: PlayerReference() {
+    return player;
+}
+Monster& Tilemap :: MonsterReference(const std :: string &name) {
+    return monsters.at(name);
+}
 void Tilemap :: loadFromFile(const json &map) {
 
     auto getFileName = [](const std :: string &path) {

@@ -8,6 +8,9 @@ Attribute :: Attribute(const int &health, const int &attack, const int &defence,
 Attribute :: ~Attribute() {
 
 }
+bool Attribute :: dead() const {
+    return get("health") == 0;
+}
 void Attribute :: set(const std :: string &type, const int &value) {
     attribute[type] = value;
 }

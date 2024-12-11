@@ -22,6 +22,9 @@ sf :: Vector2i Img :: getSize() const {
 }
 
 //Animation
+Animation flip(Animation animation) {
+    animation.flip(); return animation;
+};
 Animation :: Animation(const std :: vector<Img> &list, const float &animationTime, bool loop)
 : list(list), animationTime(animationTime), loop(loop), paused(false) {
     reset();
@@ -104,4 +107,5 @@ bool AnimationSet :: contains(const std :: string &key) const {
 Animation AnimationSet :: getAnimation(const std :: string &key) const {
     return animation.at(key);
 }
+
 

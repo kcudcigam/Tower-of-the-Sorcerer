@@ -40,6 +40,8 @@ public:
     const Attribute& getAttribute() const;
     const sf :: Vector2f& getPosition() const;
     const std :: string& getBattle() const;
+    Attribute& attributeReference();
+    Animation getAnimation(const std :: string &key) const;
     void setBattle(const std :: string &monster);
     void initAnimation();
     void addTag(const std :: string &tag, const float &duration);

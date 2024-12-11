@@ -9,6 +9,7 @@ private:
 public:
     Attribute(const int &health = 0, const int &attack = 0, const int &defence = 0, const int &key = 0);
     virtual ~Attribute();
+    bool dead() const;
     void set(const std :: string &type, const int &value);
     void add(const std :: string &type, const int &value);
     int get(const std :: string &type) const;

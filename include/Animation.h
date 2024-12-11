@@ -30,6 +30,7 @@ public:
     void play(sf :: Sprite *sprite, const float &deltaTime, const float &scale = 1.f);
     void reset();
 };
+Animation flip(Animation animation);
 
 class AnimationSet {
 private:

@@ -14,8 +14,8 @@ public:
     virtual ~Monster();
 
     const std :: wstring& getName() const;
-    Attribute& getAttribute();
-    AnimationSet& getAnimation();
+    Attribute& attributeReference();
+    AnimationSet& animationSetReference();
     bool any() const;
     void insertAction(const std :: string &key, const Animation &action);
     void setAttribute(const std :: string &key, const int &value);

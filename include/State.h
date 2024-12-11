@@ -58,3 +58,26 @@ public:
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };
+
+class BattleState : public State {
+private:
+    struct Object {
+        sf :: Sprite sprite;
+        AnimationSet animation;
+        std :: wstring name;
+        Attribute attribute;
+        std :: string color;
+        int turns;
+        void update(const float &deltaTime);
+        void render(sf :: RenderTarget* target);
+    }object[2];
+    Player& player; bool turn;
+    sf :: RectangleShape background;
+    float timer;
+    void play(Object &u, Object &v);
+public:
+    BattleState(sf :: RenderWindow* window, std :: stack<State*>* states, Player &player, Monster &monster);
+    ~BattleState();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
+};

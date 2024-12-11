@@ -99,6 +99,7 @@ void AnimationSet :: play(sf :: Sprite *sprite, std :: string key, const float &
     updatePriority();
 }
 void AnimationSet :: setPriority(const std :: string &key) {
+    if(priority != "") animation.at(priority).reset();
     priority = key;
 }
 bool AnimationSet :: contains(const std :: string &key) const {

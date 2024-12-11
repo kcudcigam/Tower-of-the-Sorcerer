@@ -147,7 +147,6 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
     }
     else activate = false;
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
-        subtitle.display(L"加载竞技场", 2.f);
         player.setBattle(name);
         challenged = true;
     }

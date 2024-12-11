@@ -24,12 +24,12 @@ void Game :: update() {
     deltaTime = clock.restart().asSeconds();
     if(!states.empty()) {
         states.top() -> update(deltaTime);
-        if(states.top() -> end()) {
+        if(!states.empty() && states.top() -> end()) {
             delete states.top();
             states.pop();
         }
     }
-    else window.close();
+    else states.push(new MenuState(&window, &states));
 }
 void Game :: render() {
     window.clear();

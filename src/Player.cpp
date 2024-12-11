@@ -91,6 +91,7 @@ void Player :: initAnimation() {
     animation.insert("idle_left", flip(animation.getAnimation("idle_right")));
     animation.insert("hurt_left", flip(animation.getAnimation("hurt_right")));
     animation.insert("attack_left", flip(animation.getAnimation("attack_right")));
+    animation.insert("dead_left", flip(animation.getAnimation("dead_right")));
 }
 void Player :: addTag(const std :: string &tag, const float &duration) {
     if(!tags.contains(tag)) {

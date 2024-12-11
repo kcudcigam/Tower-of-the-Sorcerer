@@ -65,10 +65,10 @@ std :: vector<Monster> Tilemap :: getMonsterList() const {
         if(monster.second.any()) mapMonster.emplace_back(monster.second);
     return mapMonster;
 }
-Player& Tilemap :: PlayerReference() {
+Player& Tilemap :: playerReference() {
     return player;
 }
-Monster& Tilemap :: MonsterReference(const std :: string &name) {
+Monster& Tilemap :: monsterReference(const std :: string &name) {
     return monsters.at(name);
 }
 void Tilemap :: loadFromFile(const json &map) {

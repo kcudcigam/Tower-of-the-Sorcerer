@@ -47,8 +47,8 @@ public:
     Tilemap(const std :: string &file, const Attribute &attribute);
     virtual ~Tilemap();
     std :: vector<Monster> getMonsterList() const;
-    Player& PlayerReference();
-    Monster& MonsterReference(const std :: string &name);
+    Player& playerReference();
+    Monster& monsterReference(const std :: string &name);
     void loadFromFile(const json &map);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;

@@ -65864,15 +65864,15 @@
                      "name":"",
                      "objects":[
                             {
-                             "height":3.25,
+                             "height":3,
                              "id":1,
                              "name":"",
                              "rotation":0,
                              "type":"",
                              "visible":true,
-                             "width":26.75,
-                             "x":50.5,
-                             "y":89.75
+                             "width":27,
+                             "x":50,
+                             "y":90
                             }],
                      "opacity":1,
                      "type":"objectgroup",
@@ -65889,17 +65889,17 @@
                         {
                          "name":"attack",
                          "type":"int",
-                         "value":200
+                         "value":20
                         }, 
                         {
                          "name":"defence",
                          "type":"int",
-                         "value":50
+                         "value":5
                         }, 
                         {
                          "name":"health",
                          "type":"int",
-                         "value":1000
+                         "value":200
                         }, 
                         {
                          "name":"loop",
@@ -65988,6 +65988,29 @@
                          "tileid":50
                         }],
                  "id":34,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":3,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":27,
+                             "x":50,
+                             "y":90
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",
@@ -66052,6 +66075,29 @@
                          "tileid":61
                         }],
                  "id":51,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":3,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":27,
+                             "x":50,
+                             "y":90
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",
@@ -66124,6 +66170,29 @@
                          "tileid":80
                         }],
                  "id":68,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":3,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":27,
+                             "x":50,
+                             "y":90
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",
@@ -66203,8 +66272,8 @@
                              "rotation":0,
                              "type":"",
                              "visible":true,
-                             "width":37.5,
-                             "x":85.5,
+                             "width":38,
+                             "x":86,
                              "y":142
                             }],
                      "opacity":1,
@@ -66227,12 +66296,12 @@
                         {
                          "name":"defence",
                          "type":"int",
-                         "value":2
+                         "value":5
                         }, 
                         {
                          "name":"health",
                          "type":"int",
-                         "value":10
+                         "value":100
                         }, 
                         {
                          "name":"loop",
@@ -66317,6 +66386,29 @@
                          "tileid":70
                         }],
                  "id":32,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":6,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":38,
+                             "x":86,
+                             "y":142
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",
@@ -66369,6 +66461,29 @@
                          "tileid":103
                         }],
                  "id":96,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":6,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":38,
+                             "x":86,
+                             "y":142
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",
@@ -66441,6 +66556,29 @@
                          "tileid":124
                         }],
                  "id":112,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":6,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":38,
+                             "x":86,
+                             "y":142
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
                  "properties":[
                         {
                          "name":"action",

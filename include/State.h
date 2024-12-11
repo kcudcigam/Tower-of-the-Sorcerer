@@ -4,11 +4,11 @@
 #include "Resource.h"
 #include "Subtitle.h"
 #include "Tilemap.h"
+#include "Shade.h"
 
 class State {
 private:
     sf :: RenderWindow* window;
-    std :: vector<sf :: Texture> texture;
     std :: stack<State*>* states;
     bool isEnd;
 public:
@@ -25,7 +25,6 @@ public:
 class MenuState : public State {
 private:
     sf :: RectangleShape background;
-    sf :: Texture backgroundTexture;
 public:
     MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);
     ~MenuState();
@@ -37,10 +36,14 @@ public:
 class GameState : public State {
 private:
     Tilemap map;
+    Shade startShade, endShade;
+    State* newState;
 public:
     GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map, const Attribute &attribute);
     ~GameState();
     void checkForQuit();
+    void login();
+    void logout(State* state);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };
@@ -64,20 +67,32 @@ private:
     struct Object {
         sf :: Sprite sprite;
         AnimationSet animation;
-        std :: wstring name;
+        sf :: Text name;
         Attribute attribute;
         std :: string color;
+        std :: wstring wname;
         int turns;
         void update(const float &deltaTime);
         void render(sf :: RenderTarget* target);
     }object[2];
     Player& player; bool turn;
     sf :: RectangleShape background;
-    float timer;
+    bool inAttack, inHurt;
+    float startTimer, endTimer;
     void play(Object &u, Object &v);
 public:
     BattleState(sf :: RenderWindow* window, std :: stack<State*>* states, Player &player, Monster &monster);
     ~BattleState();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
+};
+
+class DeadState : public State {
+private:
+    sf :: RectangleShape background;
+public:
+    DeadState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    ~DeadState();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };

@@ -139,9 +139,7 @@ void Player :: update(const float& deltaTime) {
         movement.move(0.f,  1.f, deltaTime);
     movement.update(deltaTime);
 
-    //std :: cerr << (movement ->
-    
-     getVelocity().x) << ' ' << (movement -> getVelocity().y) << std :: endl;
+    //std :: cerr << (movement -> getVelocity().x) << ' ' << (movement -> getVelocity().y) << std :: endl;
     if(movement.getVelocity() != sf :: Vector2f(0.f, 0.f)) {
         if(movement.getDirection())
             animation.play(&sprite, "walk_right", deltaTime);

@@ -181,15 +181,17 @@ void Tilemap :: loadFromFile(const json &map) {
                     const auto &origin = imgList[id & bitmask].origin;
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                    float ysort = 0; bool ground = true;
+                    float ysort = 0; bool ground = false; std :: string tag = "";
                     if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("elevation"))
-                        ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y, ground = false;
+                        ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y;
+                    if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("ground")) ground = true;
+                    if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("tag")) tag = propertyList[id & bitmask].at("tag");
                     layers.back().insert(Tile(position + origin, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(auto box : rect) {
-                            if(!ground) entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
+                            entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1), (ground ? "groundHitbox" : "bodyHitbox"), tag));
                         }
                     }
                     
@@ -207,13 +209,17 @@ void Tilemap :: loadFromFile(const json &map) {
                 auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
 
                 float ysort = position.y - origin.y + size.y; std :: vector<CollisionBox> boxList;
+                bool ground = false; std :: string tag = "";
+                if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("ground")) ground = true;
+                if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("tag")) tag = propertyList[id & bitmask].at("tag");
+
                 if(rectList.contains(id & bitmask)) {
                     const auto tileRect = sf :: FloatRect(position - origin, size);
                     const auto &rect = rectList[id & bitmask];
                     for(const auto &box : rect) {
                         const auto &tmp = calcRect(tileRect, box, id >> 31 & 1);
-                        if(!interactive) entities.emplace_back(new CollisionBox(tmp));
-                        else boxList.emplace_back(CollisionBox(tmp));
+                        if(!interactive) entities.emplace_back(new CollisionBox(tmp, (ground ? "groundHitbox" : "bodyHitbox"), tag));
+                        else boxList.emplace_back(CollisionBox(tmp, (ground ? "groundHitbox" : "bodyHitbox"), tag));
                         ysort = tmp.top + tmp.height;
                     }
                 }
@@ -238,7 +244,8 @@ void Tilemap :: loadFromFile(const json &map) {
                 }
                 else if(type == "player") {
                     player.setPosition(position);
-                    player.setHitbox("groundHitbox", boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize());
+                    player.setHitbox("groundHitbox", boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize()); boxList.pop_back();
+                    player.setHitbox("bodyHitbox", boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize());
                 }
             }
         }

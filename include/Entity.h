@@ -15,11 +15,12 @@ public:
 class CollisionBox : public Entity {
 private:
     sf :: FloatRect rect;
-    std :: string playerBox;
+    std :: string playerBox, tag;
 public:
-    CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox = "groundHitbox");
+    CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox, const std :: string &tag);
     virtual ~CollisionBox();
     sf :: Vector2f getCenter() const;
+    const std :: string& getTag() const;
     const sf :: FloatRect& getBox() const;
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;

@@ -15,11 +15,14 @@ Entity :: ~Entity() {
 }
 
 //CollisionBox
-CollisionBox :: CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox) : rect(rect), playerBox(playerBox) {
+CollisionBox :: CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox, const std :: string &tag) : rect(rect), playerBox(playerBox), tag(tag) {
 
 }
 CollisionBox :: ~CollisionBox() {
 
+}
+const std :: string& CollisionBox :: getTag() const {
+    return tag;
 }
 const sf :: FloatRect& CollisionBox :: getBox() const {
     return rect;
@@ -30,6 +33,7 @@ sf :: Vector2f CollisionBox :: getCenter() const {
 void CollisionBox :: update(Player &player, const float &deltaTime) {
     const auto &hitbox = player.getHitbox(playerBox);
     if(!hitbox.intersects(rect)) return;
+    if(tag != "") {player.addTag(tag, 0.3f); return;}
     const std :: pair<float, float> dx = {hitbox.left + hitbox.width - rect.left, rect.left + rect.width - hitbox.left};
     const std :: pair<float, float> dy = {hitbox.top + hitbox.height - rect.top, rect.top + rect.height - hitbox.top};
     if(std :: min(dx.first, dx.second) < std :: min(dy.first, dy.second)) {
@@ -42,10 +46,10 @@ void CollisionBox :: update(Player &player, const float &deltaTime) {
         else player.setHitboxPosition(playerBox, {hitbox.left, rect.top + rect.height});
         player.stopVelocity(false, true);
     }
-    player.addTag("lava", 0.1f);
+    //if(tag != "") player.addTag(tag, 0.1f);
 }
 void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
-    /*
+    
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
@@ -53,7 +57,7 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bo
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
     target -> draw(outline);
-    */
+    
     
 }
 

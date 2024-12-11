@@ -104,5 +104,5 @@ void DictionaryState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
     target -> draw(sprite);
     target -> draw(text);
-    monsters[it].getAttribute().render(target, {getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 150.f}, {"health", "attack", "defence"}, "brown");
+    monsters[it].getAttribute().render(target, {getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 150.f}, {"max_health", "attack", "defence"}, "brown");
 }

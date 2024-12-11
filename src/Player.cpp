@@ -117,6 +117,7 @@ void Player :: addEffect(const std :: string &tag) {
     if(tag == "lava") {
         animation.setPriority(movement.getDirection() ? "hurt_right" : "hurt_left");
         attribute.add("health", -10);
+        addTag("busy", 0.4f);
     }
     else if(tag == "busy") movement.setPause(true);
 }
@@ -138,7 +139,9 @@ void Player :: update(const float& deltaTime) {
         movement.move(0.f,  1.f, deltaTime);
     movement.update(deltaTime);
 
-    //std :: cerr << (movement -> getVelocity().x) << ' ' << (movement -> getVelocity().y) << std :: endl;
+    //std :: cerr << (movement ->
+    
+     getVelocity().x) << ' ' << (movement -> getVelocity().y) << std :: endl;
     if(movement.getVelocity() != sf :: Vector2f(0.f, 0.f)) {
         if(movement.getDirection())
             animation.play(&sprite, "walk_right", deltaTime);

@@ -15,8 +15,9 @@ public:
 class CollisionBox : public Entity {
 private:
     sf :: FloatRect rect;
+    std :: string playerBox;
 public:
-    CollisionBox(const sf :: FloatRect &rect);
+    CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox = "groundHitbox");
     virtual ~CollisionBox();
     sf :: Vector2f getCenter() const;
     const sf :: FloatRect& getBox() const;

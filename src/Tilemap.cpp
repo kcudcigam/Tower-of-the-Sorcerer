@@ -181,15 +181,15 @@ void Tilemap :: loadFromFile(const json &map) {
                     const auto &origin = imgList[id & bitmask].origin;
                     const auto &position = sf :: Vector2f(j * size.x, i * size.y);
                     auto animation = animationList[id & bitmask]; if(id >> 31 & 1) animation.flip();
-                    float ysort = 0;
+                    float ysort = 0; bool ground = true;
                     if(propertyList.contains(id & bitmask) && propertyList[id & bitmask].contains("elevation"))
-                        ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y;
+                        ysort = position.y + propertyList[id & bitmask].at("elevation").get<int>() * size.y, ground = false;
                     layers.back().insert(Tile(position + origin, animation, ysort));
                     if(rectList.contains(id & bitmask)) {
                         const auto tileRect = sf :: FloatRect(position, size);
                         const auto &rect = rectList[id & bitmask];
                         for(auto box : rect) {
-                            entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
+                            if(!ground) entities.emplace_back(new CollisionBox(calcRect(tileRect, box, id >> 31 & 1)));
                         }
                     }
                     
@@ -238,7 +238,7 @@ void Tilemap :: loadFromFile(const json &map) {
                 }
                 else if(type == "player") {
                     player.setPosition(position);
-                    player.setHitbox(boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize());
+                    player.setHitbox("groundHitbox", boxList.back().getBox().getPosition() - position, boxList.back().getBox().getSize());
                 }
             }
         }

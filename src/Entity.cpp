@@ -15,7 +15,7 @@ Entity :: ~Entity() {
 }
 
 //CollisionBox
-CollisionBox :: CollisionBox(const sf :: FloatRect &rect) : rect(rect) {
+CollisionBox :: CollisionBox(const sf :: FloatRect &rect, const std :: string &playerBox) : rect(rect), playerBox(playerBox) {
 
 }
 CollisionBox :: ~CollisionBox() {
@@ -28,20 +28,21 @@ sf :: Vector2f CollisionBox :: getCenter() const {
     return sf :: Vector2f(rect.left + rect.width / 2.f, rect.top + rect.height / 2.f);
 }
 void CollisionBox :: update(Player &player, const float &deltaTime) {
-    const auto &hitbox = player.getHitbox();
+    const auto &hitbox = player.getHitbox(playerBox);
     if(!hitbox.intersects(rect)) return;
     const std :: pair<float, float> dx = {hitbox.left + hitbox.width - rect.left, rect.left + rect.width - hitbox.left};
     const std :: pair<float, float> dy = {hitbox.top + hitbox.height - rect.top, rect.top + rect.height - hitbox.top};
     if(std :: min(dx.first, dx.second) < std :: min(dy.first, dy.second)) {
-        if(dx.first < dx.second) player.setHitboxPosition({rect.left - hitbox.width, hitbox.top});
-        else player.setHitboxPosition({rect.left + rect.width, hitbox.top});
+        if(dx.first < dx.second) player.setHitboxPosition(playerBox, {rect.left - hitbox.width, hitbox.top});
+        else player.setHitboxPosition(playerBox, {rect.left + rect.width, hitbox.top});
         player.stopVelocity(true, false);
     }
     else {
-        if(dy.first < dy.second) player.setHitboxPosition({hitbox.left, rect.top - hitbox.height});
-        else player.setHitboxPosition({hitbox.left, rect.top + rect.height});
+        if(dy.first < dy.second) player.setHitboxPosition(playerBox, {hitbox.left, rect.top - hitbox.height});
+        else player.setHitboxPosition(playerBox, {hitbox.left, rect.top + rect.height});
         player.stopVelocity(false, true);
     }
+    player.addTag("lava", 0.1f);
 }
 void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
     /*

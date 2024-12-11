@@ -3,11 +3,14 @@ extern Resource resource;
 
 //Movement
 Movement :: Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const bool &direction)
-: sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration), velocity(sf :: Vector2f(0.f, 0.f)), direction(direction) {
+: sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration), velocity(sf :: Vector2f(0.f, 0.f)), direction(direction), paused(false) {
 
 }
 Movement :: ~Movement() {
 
+}
+void Movement :: setPause(bool flag) {
+    paused = flag;
 }
 const bool& Movement :: getDirection() const {
     return direction;
@@ -20,6 +23,7 @@ void Movement :: stopVelocity(const bool &x = true, const bool &y = true) {
     if(y) velocity.y = 0.f;
 }
 void Movement :: move(const float &x, const float &y, const float &deltaTime) {
+    if(paused) return;
     auto limit = [](float &u, float &v, const float &maxVelocity) {
         u = std :: min(u,  maxVelocity); u = std :: max(u, -maxVelocity);
         const float &w = std :: sqrt(maxVelocity * maxVelocity - u * u);
@@ -41,26 +45,6 @@ void Movement :: update(const float &deltaTime) {
     sprite -> move(velocity * deltaTime);
 }
 
-//Hitbox
-Hitbox :: Hitbox(sf::Sprite *sprite, const sf :: Vector2f &offset, const sf :: Vector2f &size) : sprite(sprite), box(offset, size) {
-    
-}
-Hitbox :: ~Hitbox() {
-
-}
-sf :: Vector2f Hitbox :: getPosition() const {
-	return box.getPosition() + sprite -> getPosition();
-}
-sf :: Vector2f Hitbox :: getOffset() const {
-	return box.getPosition();
-}
-sf :: Vector2f Hitbox :: getSize() const {
-	return box.getSize();
-}
-void Hitbox :: render(sf :: RenderTarget *target) const {
-    
-    //target -> draw(outline);
-}
 
 //Player
 Player :: Player(const Attribute &attribute) : attribute(attribute), movement(&sprite, 160.f, 600.f, 300.f) {
@@ -79,20 +63,26 @@ Player :: ~Player() {
 const Attribute& Player :: getAttribute() const {
     return attribute;
 }
-sf :: FloatRect Player :: getHitbox() const {
-	return sf :: FloatRect(hitbox.getPosition() + sprite.getPosition(), hitbox.getSize());
+sf :: FloatRect Player :: getHitbox(const std :: string &type) const {
+	return sf :: FloatRect(hitbox.at(type).getPosition() + sprite.getPosition(), hitbox.at(type).getSize());
 }
 const sf :: Vector2f& Player :: getPosition() const {
     return sprite.getPosition();
 }
-void Player :: setHitbox(const sf :: Vector2f &position, const sf :: Vector2f &size) {
-    hitbox = sf :: FloatRect(position, size);
+void Player :: setHitbox(const std :: string &type, const sf :: Vector2f &position, const sf :: Vector2f &size) {
+    hitbox[type] = sf :: FloatRect(position, size);
 }
 void Player :: setPosition(const sf :: Vector2f &position) {
     sprite.setPosition(position);
 }
-void Player :: setHitboxPosition(const sf :: Vector2f &position) {
-    sprite.setPosition(position - hitbox.getPosition());
+void Player :: setHitboxPosition(const std :: string &type, const sf :: Vector2f &position) {
+    sprite.setPosition(position - hitbox[type].getPosition());
+}
+const std :: string& Player :: getBattle() const {
+    return battle;
+}
+void Player :: setBattle(const std :: string &monster) {
+    battle = monster;
 }
 void Player :: stopVelocity(const bool &x, const bool &y) {
     movement.stopVelocity(x, y);
@@ -107,6 +97,31 @@ void Player :: initAnimation() {
 
     if(!animation.contains("hurt_left"))  animation.insert("hurt_left", flip(animation.getAnimation("hurt_right")));
     if(!animation.contains("hurt_right")) animation.insert("hurt_right", flip(animation.getAnimation("hurt_left")));
+}
+void Player :: addTag(const std :: string &tag, const float &duration) {
+    if(!tags.contains(tag)) {
+        tags.emplace(tag, duration);
+        addEffect(tag);
+    }
+}
+void Player :: updateTag(const float &deltaTime) {
+    std :: map<std :: string, float> tmp;
+    for(auto tag : tags) {
+        tag.second -= deltaTime;
+        if(tag.second > 0.f) tmp.emplace(tag.first, tag.second);
+        else delEffect(tag.first);
+    }
+    swap(tmp, tags);
+}
+void Player :: addEffect(const std :: string &tag) {
+    if(tag == "lava") {
+        animation.setPriority(movement.getDirection() ? "hurt_right" : "hurt_left");
+        attribute.add("health", -10);
+    }
+    else if(tag == "busy") movement.setPause(true);
+}
+void Player :: delEffect(const std :: string &tag) {
+    if(tag == "busy") movement.setPause(false);
 }
 void Player :: insertAnimation(const std :: string &key, const Animation &animation) {
     this -> animation.insert(key, animation);
@@ -134,6 +149,7 @@ void Player :: update(const float& deltaTime) {
             animation.play(&sprite, "idle_right", deltaTime);
         else animation.play(&sprite, "idle_left", deltaTime);
     }
+    updateTag(deltaTime);
 }
 void Player :: render(sf :: RenderTarget* target) const {
     target -> draw(sprite);

@@ -130,8 +130,9 @@ private:
     }object[2];
     bool turn;
     sf :: RectangleShape background;
-    bool inAttack, inHurt;
+    bool inAttack, inHurt, end;
     float startTimer, endTimer;
+    Shade endShade;
     void play(Object &u, Object &v);
 public:
     BattleState(sf :: RenderWindow* window, Stack<State>* states, Player &player, Monster &monster);

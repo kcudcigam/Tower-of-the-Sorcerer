@@ -143,8 +143,8 @@ void BattleState :: Object :: render(sf :: RenderTarget* target) {
 
 const float battleDuration = 2.f;
 BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Player &player, Monster &monster)
- : State(window, states), turn(false), inAttack(false), inHurt(true), startTimer(0.5f), endTimer(0.5f) {
-    subtitle.clear();
+ : State(window, states), turn(false), inAttack(false), inHurt(true), end(false), startTimer(0.5f), endTimer(0.5f), endShade(0.5f, false) {
+    subtitle.clear(); endShade.reset(); endShade.pause();
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
         static_cast<float>(getWindow() -> getSize().y)
@@ -180,9 +180,18 @@ void BattleState :: play(Object &u, Object &v) {
     else subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 但未产生伤害", 5.f);
 }
 void BattleState :: update(const float& deltaTime) {
+    if(end) {
+        endShade.update(deltaTime);
+        if(endShade.end()) stateStack() -> push(new DeadState(getWindow(), stateStack()));
+        return;
+    }
     object[0].update(deltaTime), object[1].update(deltaTime), subtitle.update(deltaTime);
     startTimer = std :: max(0.f, startTimer - deltaTime); if(startTimer > 0.f) return;
-    if((object[0].attribute.dead() && !object[0].animation.hasPriority()) || (object[1].attribute.dead() && !object[1].animation.hasPriority())) {
+    if(object[0].attribute.dead() && !object[0].animation.hasPriority()) {
+        endShade.run(); end = true;
+        return;
+    }
+    if(object[1].attribute.dead() && !object[1].animation.hasPriority()) {
         endTimer = std :: max(0.f, endTimer - deltaTime); if(endTimer > 0.f) return;
         subtitle.clear(); stateStack() -> pop();
         static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, L"你击败了" + object[1].wname + L"并获得");
@@ -205,6 +214,7 @@ void BattleState :: render(sf :: RenderTarget* target) {
     object[0].render(target);
     object[1].render(target);
     subtitle.render(target);
+    endShade.render(target);
 }
 
 //DeadState

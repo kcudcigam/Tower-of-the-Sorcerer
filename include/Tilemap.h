@@ -43,12 +43,17 @@ private:
     std :: vector<Layer> layers;
     std :: vector<Entity*> entities;
     std :: map<std :: string, Monster> monsters;
+    std :: wstring name, welcome;
+    std :: string next;
 public:
     Tilemap(const std :: string &file);
     virtual ~Tilemap();
     std :: vector<Monster> getMonsterList() const;
     Player& playerReference();
     Monster& monsterReference(const std :: string &name);
+    const std :: string& getNext() const;
+    const std :: wstring& getWelcome() const;
+    const std :: wstring& getName() const;
     void loadFromFile(const json &map);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target) const;

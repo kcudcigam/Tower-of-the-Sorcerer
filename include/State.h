@@ -39,18 +39,20 @@ public:
         delete topState; topState = newTop;
     }
     void push(T* newState) {
-        assert(back.find(newState) == back.end());
+        if(back.find(newState) != back.end()) {
+            topState = newState; return;
+        }
         next[topState].emplace_back(newState);
         back[newState] = topState;
         topState = newState;
     }
-    void backward() {
+    T* getBackward() {
         assert(topState != menu);
-        topState = back[topState];
+        return back[topState];
     }
-    void forward() {
+    T* getForward() {
         assert(hasForward());
-        topState = next[topState].back();
+        return next[topState].back();
     }
     void clear() {
         for(auto state : back) delete state.first;
@@ -63,12 +65,9 @@ class State {
 private:
     sf :: RenderWindow* window;
     Stack<State>* states;
-    bool isEnd;
 public:
     State(sf :: RenderWindow* window, Stack<State>* states);
     virtual ~State();
-    void quit();
-    const bool& end() const;
     sf :: RenderWindow* getWindow() const;
     Stack<State>* stateStack() const;
     virtual void update(const float& deltaTime) = 0;
@@ -81,7 +80,6 @@ private:
 public:
     MenuState(sf :: RenderWindow* window, Stack<State>* states);
     ~MenuState();
-    void checkForQuit();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };
@@ -94,7 +92,7 @@ private:
 public:
     GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute);
     ~GameState();
-    void checkForQuit();
+    const std :: wstring& getName() const;
     void login(const Attribute &attribute = Attribute(), const std :: wstring &text = L"");
     void logout(State* state);
     void update(const float& deltaTime);

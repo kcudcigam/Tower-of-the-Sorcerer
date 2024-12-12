@@ -12,6 +12,9 @@ Movement :: ~Movement() {
 void Movement :: setPause(bool flag) {
     paused = flag;
 }
+void Movement :: setDirection(bool flag) {
+    direction = flag;
+}
 const bool& Movement :: getDirection() const {
     return direction;
 }
@@ -47,7 +50,7 @@ void Movement :: update(const float &deltaTime) {
 
 
 //Player
-Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f), isDead(false) {
+Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f, true), isDead(false) {
 
 }
 Player :: ~Player() {
@@ -77,11 +80,23 @@ void Player :: setPosition(const sf :: Vector2f &position) {
 void Player :: setHitboxPosition(const std :: string &type, const sf :: Vector2f &position) {
     sprite.setPosition(position - hitbox[type].getPosition());
 }
+void Player :: setDirection(bool flag) {
+    movement.setDirection(flag);
+}
 const std :: string& Player :: getBattle() const {
     return battle;
 }
+const std :: string& Player :: getLocation() const {
+    return location;
+}
 void Player :: setBattle(const std :: string &monster) {
     battle = monster;
+}
+void Player :: setLocation(const std :: string &location) {
+    this -> location = location;
+}
+void Player :: setHidden(bool flag) {
+    hidden = flag;
 }
 Animation Player :: getAnimation(const std :: string &key) const {
     return animation.getAnimation(key);
@@ -155,7 +170,7 @@ void Player :: update(const float& deltaTime) {
     updateTag(deltaTime);
 }
 void Player :: render(sf :: RenderTarget* target) const {
-    target -> draw(sprite);
+    if(!hidden) target -> draw(sprite);
     /*
     sf :: RectangleShape outline;
     outline.setPosition(getHitbox().getPosition());

@@ -68,3 +68,17 @@ public:
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;
 };
+
+class Entrance : public Entity {
+private:
+    sf :: Sprite sprite;
+    std :: vector<CollisionBox> boxList;
+    Animation animation;
+    float ysort;
+    bool opened, forward, activate, opening;
+public:
+    Entrance(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, bool forward);
+    virtual ~Entrance();
+    void update(Player &player, const float &deltaTime);
+    void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;
+};

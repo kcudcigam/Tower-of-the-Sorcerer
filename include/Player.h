@@ -14,6 +14,7 @@ public:
     Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const bool &direction = false);
     virtual ~Movement();  
     void setPause(bool flag);
+    void setDirection(bool flag);
     const bool& getDirection() const;
     const sf :: Vector2f& getVelocity() const;
     void stopVelocity(const bool &x, const bool &y);
@@ -29,8 +30,8 @@ private:
     Attribute attribute;
     std :: map<std :: string, float> tags;
     std :: map<std :: string, sf :: FloatRect> hitbox;
-    std :: string battle;
-    bool isDead;
+    std :: string battle, location;
+    bool isDead, hidden;
     void updateTag(const float &deltaTime);
     void addEffect(const std :: string &tag);
     void delEffect(const std :: string &tag);
@@ -42,9 +43,13 @@ public:
     const Attribute& getAttribute() const;
     const sf :: Vector2f& getPosition() const;
     const std :: string& getBattle() const;
+    const std :: string& getLocation() const;
     Attribute& attributeReference();
     Animation getAnimation(const std :: string &key) const;
+    void setHidden(bool flag);
     void setBattle(const std :: string &monster);
+    void setLocation(const std :: string &location);
+    void setDirection(bool flag);
     void initAnimation();
     void addTag(const std :: string &tag, const float &duration);
     void insertAnimation(const std :: string &key, const Animation &animation);

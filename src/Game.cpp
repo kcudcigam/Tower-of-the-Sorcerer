@@ -20,10 +20,6 @@ void Game :: update() {
     }
     deltaTime = clock.restart().asSeconds();
     states.top() -> update(deltaTime);
-    if(states.top() -> end()) {
-        delete states.top();
-        states.pop();
-    }
 }
 void Game :: render() {
     window.clear();

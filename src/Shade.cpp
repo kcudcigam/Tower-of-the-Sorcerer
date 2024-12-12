@@ -4,6 +4,7 @@ Shade :: Shade(const float &duration, const bool &lighter) : duration(duration),
     reset();
 }
 void Shade :: reset() {
+    paused = false;
     if(lighter) background.setFillColor(sf :: Color :: Black), alpha = 255.f;
     else background.setFillColor(sf :: Color :: Transparent), alpha = 0.f;
 }

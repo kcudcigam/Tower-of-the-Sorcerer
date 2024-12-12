@@ -49,7 +49,7 @@ void CollisionBox :: update(Player &player, const float &deltaTime) {
     //if(tag != "") player.addTag(tag, 0.1f);
 }
 void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
-    
+    /*
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
@@ -57,8 +57,7 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bo
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
     target -> draw(outline);
-    
-    
+    */
 }
 
 //Treasure
@@ -140,7 +139,8 @@ MonsterLink :: ~MonsterLink() {
 void MonsterLink :: update(Player &player, const float &deltaTime) {
     if(beaten) return;
     if(challenged) {
-        if(player.getBattle() == "") beaten = true; return;
+        if(player.getBattle() == "") beaten = true;
+        return;
     }
     for(auto box : boxList) box.update(player, deltaTime);
     const sf :: Vector2f &position = boxList.back().getCenter();
@@ -158,5 +158,52 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
 void MonsterLink :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
     //for(auto box : boxList) box -> render(target, y);
     if(((y < ysort) ^ flag) || beaten) return;
+    target -> draw(sprite);
+}
+
+const float dEntrance = 50.f;
+Entrance :: Entrance(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, bool forward)
+: animation(animation), boxList(boxList), forward(forward), activate(false), opening(false), opened(false) {
+    sprite.setPosition(position);
+    ysort = this -> boxList.back().getBox().top + this -> boxList.back().getBox().height;
+    if(forward) this -> animation.pause();
+    else this -> animation.run(), opening = true;
+}
+Entrance :: ~Entrance() {
+
+}
+void Entrance :: update(Player &player, const float &deltaTime) {
+    animation.play(&sprite, deltaTime);
+    if(animation.end() && !opened) {
+        opened = true, boxList.pop_back();
+    }
+    if(opened) {
+        if(boxList[0].getBox().intersects(player.getHitbox("bodyHitbox"))) {
+            player.setPosition(boxList[0].getCenter() + sf :: Vector2f(0.f, 60.f));
+            player.setLocation(forward ? "forward" : "backward");
+            player.setHidden(true), player.setDirection(true), player.stopVelocity(true, true);
+            subtitle.clear();
+            return;
+        }
+        for(auto &box : boxList) box.update(player, deltaTime);
+        const sf :: Vector2f &position = boxList[0].getCenter();
+        if(len(position - player.getPosition()) < dEntrance) subtitle.display(forward ? L"进入下一层" : L"回到上一层", 0.1f);
+    }
+    else {
+        boxList.back().update(player, deltaTime);
+        if(opening) return;
+        const sf :: Vector2f &position = boxList.back().getCenter();
+        if(len(position - player.getPosition()) < dEntrance) {
+            subtitle.display(L"按F键打开通往下一层大门", 0.1f);
+            activate = true;
+        }
+        else activate = false;
+        if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+            animation.run(), opening = true;
+        }
+    }
+}
+void Entrance :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
+    if((y < ysort) ^ flag) return;
     target -> draw(sprite);
 }

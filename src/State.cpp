@@ -3,7 +3,7 @@ extern Resource resource;
 extern Subtitle subtitle;
 
 //State
-State :: State(sf :: RenderWindow* window, Stack<State>* states) : window(window ), states(states), isEnd(false) {
+State :: State(sf :: RenderWindow* window, Stack<State>* states) : window(window ), states(states) {
 }
 State :: ~State() {
     
@@ -13,12 +13,6 @@ sf :: RenderWindow* State :: getWindow() const {
 }
 Stack<State>* State :: stateStack() const {
     return states;
-}
-const bool& State :: end() const{
-    return isEnd;
-}
-void State :: quit() {
-    isEnd = true;
 }
 
 //MenuState
@@ -34,11 +28,9 @@ MenuState :: MenuState(sf :: RenderWindow* window, Stack<State>* states) : State
 MenuState :: ~MenuState() {
 
 }
-void MenuState :: checkForQuit() {
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape)) quit();
-}
 void MenuState :: update(const float &deltaTime) {
-    checkForQuit();
+    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape)) stateStack() -> pop();
+
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
         stateStack() -> push(new GameState(getWindow(), stateStack(), "prison.json", Attribute(100, 50, 5, 0)));
 }
@@ -48,29 +40,35 @@ void MenuState :: render(sf :: RenderTarget* target) {
 
 //GameState
 GameState :: GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute)
- : State(window, states), map(map), startShade(1.f, true), endShade(0.5f, false), newState(nullptr) {
-    login(attribute);
+ : State(window, states), map(map), startShade(0.5f, true), endShade(0.5f, false), newState(nullptr) {
+    login(attribute, this -> map.getWelcome());
 }
 GameState :: ~GameState() {
 
 }
 void GameState :: login(const Attribute &attribute, const std :: wstring &text) {
-    if(text != L"") subtitle.display(text, 1.5f);
+    if(text != L"") subtitle.display(text, 2.f);
     if(!attribute.dead()) map.playerReference().attributeReference() = attribute;
     startShade.reset(), endShade.reset(); endShade.pause();
     map.playerReference().setBattle(""); 
+    map.playerReference().setLocation(""); 
+    map.playerReference().setHidden(false); 
     this -> map.playerReference().addTag("busy", 0.5f);
+}
+const std :: wstring& GameState :: getName() const {
+    return map.getName();
 }
 void GameState :: logout(State* state) {
     newState = state; endShade.run();
 }
 void GameState :: update(const float &deltaTime) {
     startShade.update(deltaTime), endShade.update(deltaTime);
-    //std :: cerr << deltaTime << std :: endl;
     if(endShade.end() && newState != nullptr) {
         endShade.reset(); endShade.pause();
         stateStack() -> push(newState);
-        newState = nullptr; return;
+        newState = nullptr;
+        
+        return;
     }
     subtitle.update(deltaTime);
     if(newState != nullptr) return;
@@ -78,7 +76,25 @@ void GameState :: update(const float &deltaTime) {
     if(map.playerReference().dead()) {
         logout(new DeadState(getWindow(), stateStack())); return;
     }
-    else if(map.playerReference().getAttribute().dead()) return;
+    if(map.playerReference().getAttribute().dead()) return;
+
+    if(map.playerReference().getLocation() != "") {
+        if(map.playerReference().getLocation() == "forward") {
+            if(stateStack() -> hasForward()) {
+                GameState* forward = static_cast<GameState*>(stateStack() -> getForward());
+                forward -> login(map.playerReference().attributeReference(), L"你来到了" + forward -> getName());
+                logout(stateStack() -> getForward());
+            }
+            else logout(new GameState(getWindow(), stateStack(), map.getNext(), map.playerReference().attributeReference()));
+        }
+        else {
+            GameState* backward = static_cast<GameState*>(stateStack() -> getBackward());
+            backward -> login(map.playerReference().attributeReference(), L"你回到了" + backward -> getName());
+            logout(stateStack() -> getBackward());
+        }
+        return;
+    }
+
     if(map.playerReference().getBattle() != "") {
         logout(new BattleState(getWindow(), stateStack(), map.playerReference(), map.monsterReference(map.playerReference().getBattle()))); return;
     }
@@ -88,7 +104,7 @@ void GameState :: update(const float &deltaTime) {
 }
 void GameState :: render(sf :: RenderTarget* target) {
     map.render(target);
-    subtitle.render(target);
+    if(newState == nullptr && startShade.end()) subtitle.render(target);
     startShade.render(target);
     endShade.render(target);
 }

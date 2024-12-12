@@ -58,7 +58,15 @@ Tilemap :: Tilemap(const std :: string &file) : mapSize({0, 0}) {
 Tilemap :: ~Tilemap() {
     for(const auto &entity : entities) delete entity;
 }
-
+const std :: string& Tilemap :: getNext() const {
+    return next;
+}
+const std :: wstring& Tilemap :: getWelcome() const {
+    return welcome;
+}
+const std :: wstring& Tilemap :: getName() const {
+    return name;
+}
 std :: vector<Monster> Tilemap :: getMonsterList() const {
     std :: vector<Monster> mapMonster;
     for(const auto &monster : monsters)
@@ -92,6 +100,13 @@ void Tilemap :: loadFromFile(const json &map) {
     std :: unordered_map<unsigned int, std :: vector<sf :: FloatRect> > rectList;
     std :: unordered_map<unsigned int, std :: map<std :: string, const json&> > propertyList;
     
+    std :: map<std :: string, const json&> mapProperty;
+    for(const auto &property : map["properties"])
+        mapProperty.emplace(property["name"].get<std :: string>(), property["value"]);
+    name = to_wstring(mapProperty.at("name").get<std :: string>());
+    welcome = to_wstring(mapProperty.at("welcome").get<std :: string>());
+    next = mapProperty.at("next").get<std :: string>();
+
     for(const auto &tileset : map["tilesets"]) {
         assert(tileset["firstgid"].get<size_t>() == imgList.size());
         //std :: cerr << tileset["name"].get<std :: string>() << std :: endl;
@@ -243,6 +258,9 @@ void Tilemap :: loadFromFile(const json &map) {
                 }
                 else if(type == "door") {
                     entities.emplace_back(new Door(position, animation, boxList, ysort));
+                }
+                else if(type == "entrance") {
+                    entities.emplace_back(new Entrance(position, animation, boxList, object["properties"][0]["value"].get<bool>()));
                 }
                 else if(type == "monster") {
                     monsters.at(properties.at("name").get<std :: string>()).add();

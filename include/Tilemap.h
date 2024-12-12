@@ -44,7 +44,7 @@ private:
     std :: vector<Entity*> entities;
     std :: map<std :: string, Monster> monsters;
 public:
-    Tilemap(const std :: string &file, const Attribute &attribute);
+    Tilemap(const std :: string &file);
     virtual ~Tilemap();
     std :: vector<Monster> getMonsterList() const;
     Player& playerReference();

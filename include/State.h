@@ -6,18 +6,71 @@
 #include "Tilemap.h"
 #include "Shade.h"
 
+template<typename T> class Stack {
+private:
+    T *topState, *menu;
+    std :: map<T*, T*> back;
+    std :: map<T*, std :: vector<T*> > next;
+public:
+    Stack() : topState(nullptr), menu(nullptr) {
+
+    }
+    virtual ~Stack() {
+        clear(); if(menu != nullptr) delete menu;
+    }
+    T* top() {
+        return topState;
+    }
+    void setMenu(T* menu) {
+        this -> menu = menu, this -> topState = menu;
+    }
+    bool hasForward() const {
+        return next.find(topState) != next.end() && !next.at(topState).empty();
+    }
+    void pop() {
+        assert(topState != menu);
+        if(next.find(topState) != next.end()) {
+            assert(next[topState].empty());
+            next.erase(next.find(topState));
+        }
+        const auto newTop = back[topState];
+        back.erase(back.find(topState));
+        next[newTop].pop_back();
+        delete topState; topState = newTop;
+    }
+    void push(T* newState) {
+        assert(back.find(newState) == back.end());
+        next[topState].emplace_back(newState);
+        back[newState] = topState;
+        topState = newState;
+    }
+    void backward() {
+        assert(topState != menu);
+        topState = back[topState];
+    }
+    void forward() {
+        assert(hasForward());
+        topState = next[topState].back();
+    }
+    void clear() {
+        for(auto state : back) delete state.first;
+        back.clear(), next.clear();
+        topState = menu;
+    }
+};
+
 class State {
 private:
     sf :: RenderWindow* window;
-    std :: stack<State*>* states;
+    Stack<State>* states;
     bool isEnd;
 public:
-    State(sf :: RenderWindow* window, std :: stack<State*>* states);
+    State(sf :: RenderWindow* window, Stack<State>* states);
     virtual ~State();
     void quit();
     const bool& end() const;
     sf :: RenderWindow* getWindow() const;
-    std :: stack<State*>* stateStack() const;
+    Stack<State>* stateStack() const;
     virtual void update(const float& deltaTime) = 0;
     virtual void render(sf :: RenderTarget* target) = 0;
 };
@@ -26,7 +79,7 @@ class MenuState : public State {
 private:
     sf :: RectangleShape background;
 public:
-    MenuState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    MenuState(sf :: RenderWindow* window, Stack<State>* states);
     ~MenuState();
     void checkForQuit();
     void update(const float& deltaTime);
@@ -39,10 +92,10 @@ private:
     Shade startShade, endShade;
     State* newState;
 public:
-    GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map, const Attribute &attribute);
+    GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute);
     ~GameState();
     void checkForQuit();
-    void login();
+    void login(const Attribute &attribute = Attribute(), const std :: wstring &text = L"");
     void logout(State* state);
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
@@ -56,7 +109,7 @@ private:
     sf :: Text text;
     size_t it; bool leftPress, rightPress;
 public:
-    DictionaryState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: vector<Monster> &monsters);
+    DictionaryState(sf :: RenderWindow* window, Stack<State>* states, const std :: vector<Monster> &monsters);
     ~DictionaryState();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
@@ -75,13 +128,13 @@ private:
         void update(const float &deltaTime);
         void render(sf :: RenderTarget* target);
     }object[2];
-    Player& player; bool turn;
+    bool turn;
     sf :: RectangleShape background;
     bool inAttack, inHurt;
     float startTimer, endTimer;
     void play(Object &u, Object &v);
 public:
-    BattleState(sf :: RenderWindow* window, std :: stack<State*>* states, Player &player, Monster &monster);
+    BattleState(sf :: RenderWindow* window, Stack<State>* states, Player &player, Monster &monster);
     ~BattleState();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
@@ -90,8 +143,9 @@ public:
 class DeadState : public State {
 private:
     sf :: RectangleShape background;
+    bool enterPress;
 public:
-    DeadState(sf :: RenderWindow* window, std :: stack<State*>* states);
+    DeadState(sf :: RenderWindow* window, Stack<State>* states);
     ~DeadState();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);

@@ -30,12 +30,14 @@ private:
     std :: map<std :: string, float> tags;
     std :: map<std :: string, sf :: FloatRect> hitbox;
     std :: string battle;
+    bool isDead;
     void updateTag(const float &deltaTime);
     void addEffect(const std :: string &tag);
     void delEffect(const std :: string &tag);
 public:
-    Player(const Attribute &attribute);
+    Player();
     virtual ~Player();
+    bool dead();
     sf :: FloatRect getHitbox(const std :: string &type) const;
     const Attribute& getAttribute() const;
     const sf :: Vector2f& getPosition() const;

@@ -47,11 +47,14 @@ void Movement :: update(const float &deltaTime) {
 
 
 //Player
-Player :: Player(const Attribute &attribute) : attribute(attribute), movement(&sprite, 160.f, 600.f, 300.f) {
+Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f), isDead(false) {
 
 }
 Player :: ~Player() {
 
+}
+bool Player :: dead() {
+    return isDead && !animation.hasPriority();
 }
 Attribute& Player :: attributeReference() {
     return attribute;
@@ -123,7 +126,11 @@ void Player :: insertAnimation(const std :: string &key, const Animation &animat
     this -> animation.insert(key, animation);
 }
 void Player :: update(const float& deltaTime) {
-
+    if(attributeReference().dead() && !isDead) {
+        animation.setPriority(movement.getDirection() ? "dead_right" : "dead_left");   
+        isDead = true;
+    }
+    if(isDead) {animation.play(&sprite, "walk_right", deltaTime); return;}
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: A) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left))
         movement.move(-1.f,  0.f, deltaTime);
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: D) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right))

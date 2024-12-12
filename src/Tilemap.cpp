@@ -51,7 +51,7 @@ void Layer :: render(sf :: RenderTarget* target, const float &y, const bool &fla
 }
 
 //Tilemap
-Tilemap :: Tilemap(const std :: string &file, const Attribute &attribute) : mapSize({0, 0}), player(attribute) {
+Tilemap :: Tilemap(const std :: string &file) : mapSize({0, 0}) {
     this -> loadFromFile(*resource.getMap(file));
     player.initAnimation();
 }

@@ -3,7 +3,7 @@ extern Resource resource;
 extern Subtitle subtitle;
 
 //State
-State :: State(sf :: RenderWindow* window, std :: stack<State*>* states) : window(window ), states(states), isEnd(false) {
+State :: State(sf :: RenderWindow* window, Stack<State>* states) : window(window ), states(states), isEnd(false) {
 }
 State :: ~State() {
     
@@ -11,7 +11,7 @@ State :: ~State() {
 sf :: RenderWindow* State :: getWindow() const {
     return window;
 }
-std :: stack<State*>* State :: stateStack() const {
+Stack<State>* State :: stateStack() const {
     return states;
 }
 const bool& State :: end() const{
@@ -22,7 +22,7 @@ void State :: quit() {
 }
 
 //MenuState
-MenuState :: MenuState(sf :: RenderWindow* window, std :: stack<State*>* states) : State(window, states) {
+MenuState :: MenuState(sf :: RenderWindow* window, Stack<State>* states) : State(window, states) {
     //init background
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
@@ -47,39 +47,43 @@ void MenuState :: render(sf :: RenderTarget* target) {
 }
 
 //GameState
-GameState :: GameState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: string &map, const Attribute &attribute)
- : State(window, states), map(map, attribute), startShade(2.f, true), endShade(1.f, false), newState(nullptr) {
-    login();
+GameState :: GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute)
+ : State(window, states), map(map), startShade(1.f, true), endShade(0.5f, false), newState(nullptr) {
+    login(attribute);
 }
 GameState :: ~GameState() {
 
 }
-void GameState :: login() {
+void GameState :: login(const Attribute &attribute, const std :: wstring &text) {
+    if(text != L"") subtitle.display(text, 1.5f);
+    if(!attribute.dead()) map.playerReference().attributeReference() = attribute;
     startShade.reset(), endShade.reset(); endShade.pause();
-    this -> map.playerReference().addTag("busy", 1.f);
+    map.playerReference().setBattle(""); 
+    this -> map.playerReference().addTag("busy", 0.5f);
 }
 void GameState :: logout(State* state) {
     newState = state; endShade.run();
-    this -> map.playerReference().addTag("busy", 1.f);
 }
 void GameState :: update(const float &deltaTime) {
     startShade.update(deltaTime), endShade.update(deltaTime);
+    //std :: cerr << deltaTime << std :: endl;
     if(endShade.end() && newState != nullptr) {
         endShade.reset(); endShade.pause();
         stateStack() -> push(newState);
         newState = nullptr; return;
     }
-    if(map.playerReference().attributeReference().dead()) {
+    subtitle.update(deltaTime);
+    if(newState != nullptr) return;
+    map.update(deltaTime);
+    if(map.playerReference().dead()) {
         logout(new DeadState(getWindow(), stateStack())); return;
+    }
+    else if(map.playerReference().getAttribute().dead()) return;
+    if(map.playerReference().getBattle() != "") {
+        logout(new BattleState(getWindow(), stateStack(), map.playerReference(), map.monsterReference(map.playerReference().getBattle()))); return;
     }
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: X)) {
         logout(new DictionaryState(getWindow(), stateStack(), map.getMonsterList())); return;
-    }
-    subtitle.update(deltaTime);
-    map.update(deltaTime);
-    if(map.playerReference().getBattle() != "") {
-        logout(new BattleState(getWindow(), stateStack(), map.playerReference(), map.monsterReference(map.playerReference().getBattle())));
-        map.playerReference().setBattle(""); return;
     }
 }
 void GameState :: render(sf :: RenderTarget* target) {
@@ -90,7 +94,7 @@ void GameState :: render(sf :: RenderTarget* target) {
 }
 
 //DictionaryState
-DictionaryState :: DictionaryState(sf :: RenderWindow* window, std :: stack<State*>* states, const std :: vector<Monster> &monsters)
+DictionaryState :: DictionaryState(sf :: RenderWindow* window, Stack<State>* states, const std :: vector<Monster> &monsters)
 : State(window, states), monsters(monsters), it(0), leftPress(false), rightPress(false) {
     assert(monsters.size());
     background.setSize(sf :: Vector2f (
@@ -138,8 +142,8 @@ void BattleState :: Object :: render(sf :: RenderTarget* target) {
 }
 
 const float battleDuration = 2.f;
-BattleState :: BattleState(sf :: RenderWindow* window, std :: stack<State*>* states, Player &player, Monster &monster)
- : State(window, states), player(player), turn(false), inAttack(false), inHurt(true), startTimer(0.5f), endTimer(0.5f) {
+BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Player &player, Monster &monster)
+ : State(window, states), turn(false), inAttack(false), inHurt(true), startTimer(0.5f), endTimer(0.5f) {
     subtitle.clear();
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
@@ -180,8 +184,9 @@ void BattleState :: update(const float& deltaTime) {
     startTimer = std :: max(0.f, startTimer - deltaTime); if(startTimer > 0.f) return;
     if((object[0].attribute.dead() && !object[0].animation.hasPriority()) || (object[1].attribute.dead() && !object[1].animation.hasPriority())) {
         endTimer = std :: max(0.f, endTimer - deltaTime); if(endTimer > 0.f) return;
-        player.attributeReference() = object[0].attribute;
-        subtitle.clear(); stateStack() -> pop(); return;
+        subtitle.clear(); stateStack() -> pop();
+        static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, L"你击败了" + object[1].wname + L"并获得");
+        return;
     }
     if(inAttack && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
         object[turn].animation.setPriority("");
@@ -203,7 +208,7 @@ void BattleState :: render(sf :: RenderTarget* target) {
 }
 
 //DeadState
-DeadState :: DeadState(sf :: RenderWindow* window, std :: stack<State*>* states) : State(window, states) {
+DeadState :: DeadState(sf :: RenderWindow* window, Stack<State>* states) : State(window, states), enterPress(false) {
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
         static_cast<float>(getWindow() -> getSize().y)
@@ -215,10 +220,10 @@ DeadState :: ~DeadState() {
     
 }
 void DeadState :: update(const float& deltaTime) {
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
-        while(!stateStack() -> empty()) stateStack() -> pop();
-        return;
+    if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
+        stateStack() -> clear(); return;
     }
+    enterPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter);
 }
 void DeadState :: render(sf :: RenderTarget* target) {
     target -> draw(background);

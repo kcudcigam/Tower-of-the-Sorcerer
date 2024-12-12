@@ -9,31 +9,25 @@ Game :: Game() : window(sf :: VideoMode(1280, 720), "The Sorcerer") {
     resource.loadFrom("../resource");
     subtitle.setFont("pixel.ttf");
     subtitle.setPosition({window.getSize().x / 2.f, window.getSize().y - 100.f});
-    states.push(new MenuState(&window, &states));
+    states.setMenu(new MenuState(&window, &states));
 }
 Game :: ~Game() {
-    while(!states.empty()) {
-        delete states.top();
-        states.pop();
-    }
+
 }
 void Game :: update() {
     while(window.pollEvent(event)) {
         if(event.type == sf :: Event :: Closed) window.close();
     }
     deltaTime = clock.restart().asSeconds();
-    if(!states.empty()) {
-        states.top() -> update(deltaTime);
-        if(!states.empty() && states.top() -> end()) {
-            delete states.top();
-            states.pop();
-        }
+    states.top() -> update(deltaTime);
+    if(states.top() -> end()) {
+        delete states.top();
+        states.pop();
     }
-    else states.push(new MenuState(&window, &states));
 }
 void Game :: render() {
     window.clear();
-    if(!states.empty()) states.top() -> render(&window);
+    states.top() -> render(&window);
     window.display();
 }
 void Game :: run() {

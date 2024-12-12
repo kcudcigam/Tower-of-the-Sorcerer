@@ -131,14 +131,17 @@ void Door :: render(sf :: RenderTarget *target, const float &y, const bool &flag
 
 const float dMonster = 40.f;
 MonsterLink :: MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
- : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), ysort(ysort) {
+ : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), beaten(false), ysort(ysort) {
     sprite.setPosition(position);
 }
 MonsterLink :: ~MonsterLink() {
 
 }
 void MonsterLink :: update(Player &player, const float &deltaTime) {
-    if(challenged) return;
+    if(beaten) return;
+    if(challenged) {
+        if(player.getBattle() == "") beaten = true; return;
+    }
     for(auto box : boxList) box.update(player, deltaTime);
     const sf :: Vector2f &position = boxList.back().getCenter();
     if(len(position - player.getPosition()) < dMonster) {
@@ -154,6 +157,6 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
 }
 void MonsterLink :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
     //for(auto box : boxList) box -> render(target, y);
-    if(((y < ysort) ^ flag) || challenged) return;
+    if(((y < ysort) ^ flag) || beaten) return;
     target -> draw(sprite);
 }

@@ -3,7 +3,7 @@ extern Resource resource;
 
 //Subtitle
 Subtitle :: Subtitle() {
-    text.setString("");
+    text.setString(L"");
 }
 Subtitle :: ~Subtitle() {
 
@@ -21,7 +21,7 @@ void Subtitle :: display(const std :: wstring &sentence, const float &duration) 
     countdown = duration;
 }
 void Subtitle :: clear() {
-    text.setString("");
+    text.setString(L"");
     countdown = 0.f;
 }
 void Subtitle :: update(const float &deltaTime) {
@@ -29,5 +29,5 @@ void Subtitle :: update(const float &deltaTime) {
     if(countdown <= 0.f) clear();
 }
 void Subtitle :: render(sf :: RenderTarget* target) const {
-    if(text.getString() != "") target -> draw(text);
+    if(text.getString() != L"") target -> draw(text);
 }

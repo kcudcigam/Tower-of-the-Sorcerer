@@ -61,7 +61,7 @@ private:
     std :: vector<CollisionBox> boxList;
     Animation animation;
     float ysort;
-    bool activate, challenged;
+    bool activate, challenged, beaten;
 public:
     MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort);
     virtual ~MonsterLink();

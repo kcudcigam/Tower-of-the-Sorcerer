@@ -10,7 +10,7 @@ private:
     sf :: Event event;
     sf :: Clock clock;
     float deltaTime;
-    std :: stack<State*> states;
+    Stack<State> states;
 public:
     Game();
     virtual ~Game();

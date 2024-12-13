@@ -1,6 +1,7 @@
 #include "Monster.h"
+extern std :: mt19937 rnd;
 //Monster
-Monster :: Monster(const std :: wstring &name) : name(name), cnt({0, 0}), skill("") {
+Monster :: Monster(const std :: wstring &name) : name(name), cnt({0, 0}), skill(""), drop("") {
 
 }
 Monster :: ~Monster() {
@@ -18,8 +19,18 @@ const std :: wstring& Monster :: getName() const {
 const std :: string& Monster :: getSkill() const {
     return skill;
 }
+int Monster :: getDrop() const {
+    if(drop.empty()) return -1;
+    return drop[rnd() % drop.size()] - '0';
+}
+const std :: string& Monster :: getDropList() const {
+    return drop;
+}
 void Monster :: setSkill(const std :: string &skill) {
     this -> skill = skill;
+}
+void Monster :: setDrop(const std :: string &drop) {
+    this -> drop = drop;
 }
 Attribute& Monster :: attributeReference() {
     return attribute;

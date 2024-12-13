@@ -178,9 +178,10 @@ void Tilemap :: loadFromFile(const json &map) {
                 const std :: string &name = list.at("name").get<std :: string>();
                 if(!monsters.contains(name)) monsters.emplace(name, Monster(to_wstring(name)));
                 monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
-                for(const std :: string &attribute : {"health", "attack", "defence"})
+                for(const std :: string &attribute : {"health", "attack", "defence", "score"})
                     if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
                 if(list.contains("skill")) monsters.at(name).setSkill(list.at("skill").get<std :: string>());
+                if(list.contains("drop")) monsters.at(name).setDrop(list.at("drop").get<std :: string>());
             }
             else if(list.at("type").get<std :: string>() == "player")
                 player.insertAnimation(list.at("action").get<std :: string>(), animation);
@@ -258,7 +259,7 @@ void Tilemap :: loadFromFile(const json &map) {
                     entities.emplace_back(new Treasure(position, animation, boxList, ysort));
                 }
                 else if(type == "reward") {
-                    entities.emplace_back(new Reward(properties.at("name").get<std :: string>(), position, animation, ysort));
+                    entities.emplace_back(new Reward(properties.at("id").get<int>(), position, animation, ysort));
                 }
                 else if(type == "door") {
                     entities.emplace_back(new Door(position, animation, boxList, ysort));

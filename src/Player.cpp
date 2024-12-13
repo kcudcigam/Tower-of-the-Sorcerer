@@ -1,6 +1,18 @@
 #include "Player.h"
 extern Resource resource;
 
+//Equip
+Equip getEquipment(const int &id) {
+    switch(id) {
+        case 0: return (Equip){L"钥匙", L"一把钥匙", "key", 1};
+        case 1: return (Equip){L"小血瓶", L"一个小血瓶, 恢复10点血量", "health", 10};
+        case 2: return (Equip){L"大血瓶", L"一个大血瓶, 恢复25点血量", "health", 25};
+        case 3: return (Equip){L"铁剑", L"一把铁剑, 增加20点攻击力", "attack", 20};
+        case 4: return (Equip){L"护符", L"一个护符, 增加10点防御力", "defence", 10};
+        case 5: return (Equip){L"生命之石", L"一块生命之石, 血量上限增加50", "max_health", 50};
+        default: assert(0);
+    }
+}
 //Movement
 Movement :: Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const bool &direction)
 : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration), velocity(sf :: Vector2f(0.f, 0.f)), direction(direction), paused(false) {

@@ -129,6 +129,8 @@ DictionaryState :: DictionaryState(sf :: RenderWindow* window, Stack<State>* sta
     beaten.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 50.f});
     skill.setFont(*resource.getFont("pixel.ttf"));
     skill.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 150.f});
+    drop.setFont(*resource.getFont("pixel.ttf"));
+    drop.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 200.f});
 }
 DictionaryState :: ~DictionaryState() {
 
@@ -146,9 +148,15 @@ void DictionaryState :: update(const float& deltaTime) {
     rightPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right);
     monsters[it].animationSetReference().play(&sprite, "idle", deltaTime, 4.f);
     text.setString(monsters[it].getName());
-    beaten.setString(L"当前击败: " + std :: to_wstring(monsters[it].getCnt().second - monsters[it].getCnt().first) + L"/" + std :: to_wstring(monsters[it].getCnt().second));
+    beaten.setString(L"本关击败: " + std :: to_wstring(monsters[it].getCnt().second - monsters[it].getCnt().first) + L"/" + std :: to_wstring(monsters[it].getCnt().second));
+    skill.setString(L""), drop.setString(L"");
     if(monsters[it].getSkill() == "mental pollution") skill.setString(L"具有吸血特性, 每次对玩家造成伤害后恢复同等血量");
-    else skill.setString(L"");
+    std :: wstring dropList = L"";
+    for(auto drop : monsters[it].getDropList())  {
+        if(!dropList.empty()) dropList += L", ";
+        dropList += getEquipment(drop - '0').name;
+    }
+    if(!dropList.empty()) drop.setString(L"可能掉落: " + dropList);
 }
 void DictionaryState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
@@ -156,6 +164,7 @@ void DictionaryState :: render(sf :: RenderTarget* target) {
     target -> draw(text);
     monsters[it].attributeReference().render(target, {getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 150.f}, {"max_health", "attack", "defence"}, "brown");
     target -> draw(beaten);
+    target -> draw(drop);
     target -> draw(skill);
 }
 
@@ -179,7 +188,9 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
         )
     );
     background.setTexture(resource.getImg("battle-background.png"));
-    monster.del();
+    monster.del(); drop = monster.getDrop();
+    object[0].origin = player.attributeReference().get("health");
+    object[1].origin = monster.attributeReference().get("health");
     object[0].sprite.setPosition(getWindow() -> getSize().x * 0.25f, getWindow() -> getSize().y / 2.f);
     object[1].sprite.setPosition(getWindow() -> getSize().x * 0.75f, getWindow() -> getSize().y / 2.f);
     object[0].attribute = player.attributeReference();
@@ -197,16 +208,29 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
         object[0].animation.insert(action, player.getAnimation(action + "_right"));
         object[1].animation.insert(action, flip(monster.animationSetReference().getAnimation(action)));
     }
+    Animation unloop = player.getAnimation("idle_right"); unloop.setLoop(false);
+    object[0].animation.insert("idle-unloop", unloop);
 }
 BattleState :: ~BattleState() {
 
 }
 void BattleState :: play(Object &u, Object &v) {
+    if(u.turns >= 1 && v.skill == "mental pollution") {
+        u.turns = 0; subtitle.display(v.wname + L"发动精神污染特性, 当前回合你无法进行攻击", 5.f);
+        return;
+    }
     const int damage = std :: max(u.attribute.get("attack") - v.attribute.get("defence"), 0);
     v.attribute.add("health", -damage);
+    const int originHealth = u.attribute.get("health");
+    if(u.skill == "vampire") u.attribute.add("health", damage);
     v.animation.setPriority(v.attribute.dead() ? "dead" : "hurt");
     if(v.attribute.dead()) subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 并击败了" + v.wname, 5.f);
-    else if(damage) subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 并造成" + std :: to_wstring(damage) + L"点伤害", 5.f);
+    else if(damage) {
+        const int deltaHealth = u.attribute.get("health") - originHealth;
+        if(deltaHealth)
+            subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 造成" + std :: to_wstring(damage) + L"点伤害, 并恢复了" + std :: to_wstring(deltaHealth) + L"点血量", 5.f);
+        else subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 并造成" + std :: to_wstring(damage) + L"点伤害", 5.f);
+    }
     else subtitle.display(u.wname + L"对" + v.wname + L"发动了一次攻击, 但未产生伤害", 5.f);
 }
 void BattleState :: update(const float& deltaTime) {
@@ -217,15 +241,28 @@ void BattleState :: update(const float& deltaTime) {
     }
     object[0].update(deltaTime), object[1].update(deltaTime), subtitle.update(deltaTime);
     startTimer = std :: max(0.f, startTimer - deltaTime); if(startTimer > 0.f) return;
+    if(object[1].turns > 3 && object[0].attribute.get("health") >= object[0].origin && object[1].attribute.get("health") >= object[1].origin) {
+        object[0].animation.setPriority(""), object[1].animation.setPriority("");
+        subtitle.display(L"难以决出胜负, " + object[1].wname + L"放弃了与你的战斗", 0.1f);
+        endTimer = std :: max(0.f, endTimer - deltaTime); if(endTimer > 0.f) return;
+        subtitle.clear(); stateStack() -> pop();
+        static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, object[1].wname + L"逃离了魔塔");
+        return;
+    }
     if(object[0].attribute.dead() && !object[0].animation.hasPriority()) {
         endShade.run(); end = true;
-        object[0].attribute.add("score", object[1].attribute.get("score"));
         return;
     }
     if(object[1].attribute.dead() && !object[1].animation.hasPriority()) {
         endTimer = std :: max(0.f, endTimer - deltaTime); if(endTimer > 0.f) return;
         subtitle.clear(); stateStack() -> pop();
-        static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, L"你击败了" + object[1].wname + L"并获得");
+        object[0].attribute.add("score", object[1].attribute.get("score"));
+        if(drop != -1) {
+            const auto &equip = getEquipment(drop);
+            object[0].attribute.add(equip.attribute, equip.value);
+            static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, L"你击败了" + object[1].wname + L"并获得" + equip.description);
+        }
+        else static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, L"你击败了" + object[1].wname);
         return;
     }
     if(inAttack && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
@@ -238,6 +275,9 @@ void BattleState :: update(const float& deltaTime) {
     if(inHurt && !object[turn].animation.hasPriority()) {
         inAttack = true, inHurt = false;
         object[turn].animation.setPriority("attack");
+        object[turn].turns++;
+        if(object[turn].turns >= 1 && object[turn ^ 1].skill == "mental pollution")
+            object[turn].animation.setPriority("idle-unloop");
     }
 }
 void BattleState :: render(sf :: RenderTarget* target) {

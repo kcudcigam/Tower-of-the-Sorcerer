@@ -104,7 +104,7 @@ private:
     sf :: Sprite sprite;
     sf :: RectangleShape background;
     std :: vector<Monster> monsters;
-    sf :: Text text, beaten, skill;
+    sf :: Text text, beaten, drop, skill;
     size_t it; bool leftPress, rightPress;
 public:
     DictionaryState(sf :: RenderWindow* window, Stack<State>* states, const std :: vector<Monster> &monsters);
@@ -122,7 +122,7 @@ private:
         Attribute attribute;
         std :: string color, skill;
         std :: wstring wname;
-        int turns;
+        int turns, origin;
         void update(const float &deltaTime);
         void render(sf :: RenderTarget* target);
     }object[2];
@@ -130,7 +130,7 @@ private:
     sf :: RectangleShape background;
     bool inAttack, inHurt, end;
     float startTimer, endTimer;
-    Shade endShade;
+    Shade endShade; int drop;
     void play(Object &u, Object &v);
 public:
     BattleState(sf :: RenderWindow* window, Stack<State>* states, Player &player, Monster &monster);

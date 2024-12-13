@@ -1,6 +1,7 @@
 #include "Entity.h"
 extern Resource resource;
 extern Subtitle subtitle;
+extern std :: mt19937 rnd;
 
 float len(const sf :: Vector2f &u) {
     return std :: sqrt(u.x * u.x + u.y * u.y);
@@ -84,7 +85,9 @@ void Treasure :: update(Player &player, const float &deltaTime) {
             animation.run(), opened = true;
     }
     if(animation.end() && !display) {
-        subtitle.display(L"获得一把宝剑, 攻击力得到大幅提升", 1.5f);
+        const int id = rnd() % 6;
+        subtitle.display(L"你获得了" + getEquipment(id).description, 1.f);
+        player.attributeReference().add(getEquipment(id).attribute, getEquipment(id).value);
         display = true;
     }
     animation.play(&sprite, deltaTime);
@@ -96,8 +99,8 @@ void Treasure :: render(sf :: RenderTarget *target, const float &y, const bool &
 
 //Reward
 const float dReward = 40.f, maxOffset = 5.f;
-Reward :: Reward(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const float &ysort)
-: name(name), position(position), animation(animation), ysort(ysort), offset(0.f), dOffset(10.f), activate(false), opened(false) {
+Reward :: Reward(const int &id, const sf :: Vector2f &position, const Animation &animation, const float &ysort)
+: id(id), position(position), animation(animation), ysort(ysort), offset(0.f), dOffset(10.f), activate(false), opened(false) {
     this -> animation.pause();
 }
 Reward :: ~Reward() {
@@ -112,12 +115,14 @@ void Reward :: update(Player &player, const float &deltaTime) {
     sprite.setPosition(position - sf :: Vector2f(0.f, offset));
     animation.play(&sprite, deltaTime);
     if(len(position + sf :: Vector2f() - player.getPosition()) < dReward) {
-        subtitle.display(L"按F键拾取宝剑", 0.1f);
+        subtitle.display(L"按F键拾取" + getEquipment(id).name, 0.1f);
         activate = true;
     }
     else activate = false;
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
         opened = true;
+        subtitle.display(L"你获得了" + getEquipment(id).description, 1.f);
+        player.attributeReference().add(getEquipment(id).attribute, getEquipment(id).value);
     }
 }
 void Reward :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
@@ -139,7 +144,7 @@ void Door :: update(Player &player, const float &deltaTime) {
     if(!opened) {
         const sf :: Vector2f &position = boxList.back().getCenter();
         if(len(position - player.getPosition()) < dDoor) {
-            subtitle.display(L"按F键消耗一把钥匙打开门", 0.1f);
+            subtitle.display(L"门被锁上, 按F键消耗一把钥匙打开", 0.1f);
             activate = true;
         }
         else activate = false;
@@ -177,7 +182,7 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
     for(auto box : boxList) box.update(player, deltaTime);
     const sf :: Vector2f &position = boxList.back().getCenter();
     if(len(position - player.getPosition()) < dMonster) {
-        subtitle.display(L"按F键开启挑战", 0.1f);
+        subtitle.display(L"按F键进行战斗", 0.1f);
         activate = true;
     }
     else activate = false;

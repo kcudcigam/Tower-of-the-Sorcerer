@@ -65960,6 +65960,11 @@
                          "value":5
                         }, 
                         {
+                         "name":"drop",
+                         "type":"string",
+                         "value":"24"
+                        }, 
+                        {
                          "name":"health",
                          "type":"int",
                          "value":200
@@ -65973,6 +65978,11 @@
                          "name":"name",
                          "type":"string",
                          "value":"\u9ab7\u9ac5\u9a91\u58eb"
+                        }, 
+                        {
+                         "name":"skill",
+                         "type":"string",
+                         "value":"vampire"
                         }, 
                         {
                          "name":"type",
@@ -66360,6 +66370,11 @@
                          "name":"defence",
                          "type":"int",
                          "value":5
+                        }, 
+                        {
+                         "name":"drop",
+                         "type":"string",
+                         "value":"0135"
                         }, 
                         {
                          "name":"health",
@@ -66847,6 +66862,11 @@
                  "id":103,
                  "properties":[
                         {
+                         "name":"id",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"reward"
@@ -66978,9 +66998,9 @@
                     },
                  "properties":[
                         {
-                         "name":"name",
-                         "type":"string",
-                         "value":"sword"
+                         "name":"id",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"type",
@@ -67136,9 +67156,9 @@
                  "id":424,
                  "properties":[
                         {
-                         "name":"name",
+                         "name":"id",
                          "type":"string",
-                         "value":"key"
+                         "value":"0"
                         }, 
                         {
                          "name":"type",
@@ -67231,9 +67251,9 @@
                  "id":494,
                  "properties":[
                         {
-                         "name":"name",
+                         "name":"id",
                          "type":"string",
-                         "value":"armor"
+                         "value":"4"
                         }, 
                         {
                          "name":"type",
@@ -67371,6 +67391,11 @@
                  "id":679,
                  "properties":[
                         {
+                         "name":"id",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"reward"
@@ -67379,6 +67404,11 @@
                 {
                  "id":680,
                  "properties":[
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }, 
                         {
                          "name":"type",
                          "type":"string",

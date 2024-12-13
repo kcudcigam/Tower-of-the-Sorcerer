@@ -4,6 +4,12 @@
 #include "Animation.h"
 #include "Attribute.h"
 
+struct Equip {
+    std :: wstring name, description;
+    std :: string attribute; int value;    
+};
+Equip getEquipment(const int &id);
+
 class Movement {
 private:
     sf :: Sprite *sprite;

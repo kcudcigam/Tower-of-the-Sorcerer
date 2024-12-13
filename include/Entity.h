@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "SFML/Graphics.hpp"
 #include "Resource.h"
 #include "Subtitle.h"
@@ -42,14 +43,14 @@ public:
 
 class Reward : public Entity {
 private:
-std :: string name;
+    int id;
     sf :: Sprite sprite;
     Animation animation;
     sf :: Vector2f position;
     float ysort, offset, dOffset;
     bool activate, opened;
 public:
-    Reward(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const float &ysort);
+    Reward(const int &id, const sf :: Vector2f &position, const Animation &animation, const float &ysort);
     virtual ~Reward();
     void update(Player &player, const float &deltaTime);
     void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;

@@ -94,6 +94,38 @@ void Treasure :: render(sf :: RenderTarget *target, const float &y, const bool &
     target -> draw(sprite);
 }
 
+//Reward
+const float dReward = 40.f, maxOffset = 5.f;
+Reward :: Reward(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const float &ysort)
+: name(name), position(position), animation(animation), ysort(ysort), offset(0.f), dOffset(10.f), activate(false), opened(false) {
+    this -> animation.pause();
+}
+Reward :: ~Reward() {
+
+}
+void Reward :: update(Player &player, const float &deltaTime) {
+    if(opened) return;
+    offset += dOffset * deltaTime;
+    if(offset > maxOffset || offset < 0.f) dOffset *= -1;
+    offset = std :: max(offset, 0.f);
+    offset = std :: min(offset, maxOffset);
+    sprite.setPosition(position - sf :: Vector2f(0.f, offset));
+    animation.play(&sprite, deltaTime);
+    if(len(position + sf :: Vector2f() - player.getPosition()) < dReward) {
+        subtitle.display(L"按F键拾取宝剑", 0.1f);
+        activate = true;
+    }
+    else activate = false;
+    if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+        opened = true;
+    }
+}
+void Reward :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
+    if((y < ysort) ^ flag || opened) return;
+    target -> draw(sprite);
+}
+
+//Door
 const float dDoor = 35.f;
 Door :: Door(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
  : animation(animation), boxList(boxList), activate(false), opened(false), display(false), ysort(ysort) {
@@ -127,7 +159,7 @@ void Door :: render(sf :: RenderTarget *target, const float &y, const bool &flag
     target -> draw(sprite);
 }
 
-
+//MonsterLink
 const float dMonster = 40.f;
 MonsterLink :: MonsterLink(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, const float &ysort)
  : name(name), animation(animation), boxList(boxList), activate(false), challenged(false), beaten(false), ysort(ysort) {
@@ -161,6 +193,8 @@ void MonsterLink :: render(sf :: RenderTarget *target, const float &y, const boo
     target -> draw(sprite);
 }
 
+
+//Entrance
 const float dEntrance = 50.f;
 Entrance :: Entrance(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, bool forward)
 : animation(animation), boxList(boxList), forward(forward), activate(false), opening(false), opened(false) {

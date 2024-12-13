@@ -104,7 +104,7 @@ private:
     sf :: Sprite sprite;
     sf :: RectangleShape background;
     std :: vector<Monster> monsters;
-    sf :: Text text;
+    sf :: Text text, beaten, skill;
     size_t it; bool leftPress, rightPress;
 public:
     DictionaryState(sf :: RenderWindow* window, Stack<State>* states, const std :: vector<Monster> &monsters);
@@ -120,7 +120,7 @@ private:
         AnimationSet animation;
         sf :: Text name;
         Attribute attribute;
-        std :: string color;
+        std :: string color, skill;
         std :: wstring wname;
         int turns;
         void update(const float &deltaTime);
@@ -139,12 +139,23 @@ public:
     void render(sf :: RenderTarget* target);
 };
 
+class WinState : public State {
+private:
+    sf :: RectangleShape background;
+    bool enterPress;
+public:
+    WinState(sf :: RenderWindow* window, Stack<State>* states, int score);
+    ~WinState();
+    void update(const float& deltaTime);
+    void render(sf :: RenderTarget* target);
+};
+
 class DeadState : public State {
 private:
     sf :: RectangleShape background;
     bool enterPress;
 public:
-    DeadState(sf :: RenderWindow* window, Stack<State>* states);
+    DeadState(sf :: RenderWindow* window, Stack<State>* states, int score);
     ~DeadState();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);

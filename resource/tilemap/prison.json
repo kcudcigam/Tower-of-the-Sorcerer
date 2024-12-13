@@ -48,7 +48,7 @@
          "name":"pit",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -99,7 +99,7 @@
          "name":"wall-1",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -150,7 +150,7 @@
          "name":"Tile Layer 6",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -201,7 +201,7 @@
          "name":"Tile Layer 5",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -252,7 +252,7 @@
          "name":"Tile Layer 7",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -281,8 +281,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 586, 451, 437, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 602, 467, 453, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10477, 10478, 10479, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10541, 10542, 10543, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -456,7 +456,7 @@
          "name":"props1",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -776,6 +776,18 @@
                  "width":96,
                  "x":591.167,
                  "y":469.917
+                }, 
+                {
+                 "gid":9650,
+                 "height":32,
+                 "id":50,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1471.75,
+                 "y":754.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -784,7 +796,7 @@
          "y":0
         }],
  "nextlayerid":21,
- "nextobjectid":43,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -800,7 +812,7 @@
         {
          "name":"next",
          "type":"string",
-         "value":"prison.json"
+         "value":"win"
         }, 
         {
          "name":"welcome",
@@ -65868,7 +65880,7 @@
         {
          "columns":17,
          "firstgid":9177,
-         "image":"..\/image\/monster\/skeleton-variation1-all animations.png",
+         "image":"..\/image\/monster\/skeleton-all animations.png",
          "imageheight":640,
          "imagewidth":2176,
          "margin":0,
@@ -66266,7 +66278,7 @@
         {
          "columns":16,
          "firstgid":9262,
-         "image":"..\/image\/monster\/Mage Skeleton - all animations.png",
+         "image":"..\/image\/monster\/apostle-all animations.png",
          "imageheight":1760,
          "imagewidth":3520,
          "margin":0,
@@ -66363,6 +66375,11 @@
                          "name":"name",
                          "type":"string",
                          "value":"\u6df1\u6e0a\u4f7f\u5f92"
+                        }, 
+                        {
+                         "name":"skill",
+                         "type":"string",
+                         "value":"mental pollution"
                         }, 
                         {
                          "name":"type",
@@ -66813,6 +66830,782 @@
          "tilecount":9,
          "tileheight":128,
          "tilewidth":96
+        }, 
+        {
+         "columns":64,
+         "firstgid":9417,
+         "image":"..\/image\/Atlas-props.png",
+         "imageheight":1536,
+         "imagewidth":2048,
+         "margin":0,
+         "name":"Atlas-props",
+         "spacing":0,
+         "tilecount":3072,
+         "tileheight":32,
+         "tiles":[
+                {
+                 "id":103,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":104,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":105,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":106,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":167,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":168,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":169,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":170,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":171,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":172,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":231,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":232,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":233,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":1,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":1,
+                             "x":16,
+                             "y":50
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sword"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":234,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":235,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":236,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":295,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":296,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":297,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":298,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":299,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":300,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":359,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":360,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":361,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":362,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":363,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":364,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":423,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":424,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"key"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":425,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":426,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":487,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":488,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":489,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":490,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":491,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":492,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":493,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":494,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"armor"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":495,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":551,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":552,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":553,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":554,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":555,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":556,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":615,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":616,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":617,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":618,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":619,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":620,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":621,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":679,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":680,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":681,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":682,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":683,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"reward"
+                        }]
+                }, 
+                {
+                 "id":1060,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":20,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":12,
+                             "x":20,
+                             "y":12
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":1
+                        }]
+                },
+            
+                {
+                 "id":1061,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":20,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":32,
+                             "x":0,
+                             "y":12
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":1
+                        }]
+                }, 
+                {
+                 "id":1062,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":20,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":11,
+                             "x":0,
+                             "y":12
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":1
+                        }]
+                }, 
+                {
+                 "id":1124,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":14,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":12,
+                             "x":20,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":0
+                        }]
+                }, 
+                {
+                 "id":1125,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":14,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":32,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":0
+                        }]
+                }, 
+                {
+                 "id":1126,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":14,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":11,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    },
+                 "properties":[
+                        {
+                         "name":"elevation",
+                         "type":"int",
+                         "value":0
+                        }]
+                }],
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",

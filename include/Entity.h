@@ -40,6 +40,21 @@ public:
     void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;
 };
 
+class Reward : public Entity {
+private:
+std :: string name;
+    sf :: Sprite sprite;
+    Animation animation;
+    sf :: Vector2f position;
+    float ysort, offset, dOffset;
+    bool activate, opened;
+public:
+    Reward(const std :: string &name, const sf :: Vector2f &position, const Animation &animation, const float &ysort);
+    virtual ~Reward();
+    void update(Player &player, const float &deltaTime);
+    void render(sf :: RenderTarget *target, const float &y, const bool &flag) const;
+};
+
 class Door : public Entity {
 private:
     sf :: Sprite sprite;

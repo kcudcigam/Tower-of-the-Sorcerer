@@ -1,6 +1,6 @@
 #include "Monster.h"
 //Monster
-Monster :: Monster(const std :: wstring &name) : name(name), cnt({0, 0}) {
+Monster :: Monster(const std :: wstring &name) : name(name), cnt({0, 0}), skill("") {
 
 }
 Monster :: ~Monster() {
@@ -9,8 +9,17 @@ Monster :: ~Monster() {
 bool Monster :: any() const {
     return cnt.second > 0;
 }
+const std :: pair<int, int>& Monster :: getCnt() const {
+    return cnt;
+}
 const std :: wstring& Monster :: getName() const {
     return name;
+}
+const std :: string& Monster :: getSkill() const {
+    return skill;
+}
+void Monster :: setSkill(const std :: string &skill) {
+    this -> skill = skill;
 }
 Attribute& Monster :: attributeReference() {
     return attribute;

@@ -74,7 +74,7 @@ void GameState :: update(const float &deltaTime) {
     if(newState != nullptr) return;
     map.update(deltaTime);
     if(map.playerReference().dead()) {
-        logout(new DeadState(getWindow(), stateStack())); return;
+        logout(new DeadState(getWindow(), stateStack(), map.playerReference().attributeReference().get("score"))); return;
     }
     if(map.playerReference().getAttribute().dead()) return;
 
@@ -85,7 +85,10 @@ void GameState :: update(const float &deltaTime) {
                 forward -> login(map.playerReference().attributeReference(), L"你来到了" + forward -> getName());
                 logout(stateStack() -> getForward());
             }
-            else logout(new GameState(getWindow(), stateStack(), map.getNext(), map.playerReference().attributeReference()));
+            else {
+                if(map.getNext() == "win") logout(new WinState(getWindow(), stateStack(), map.playerReference().attributeReference().get("score")));
+                else logout(new GameState(getWindow(), stateStack(), map.getNext(), map.playerReference().attributeReference()));
+            }
         }
         else {
             GameState* backward = static_cast<GameState*>(stateStack() -> getBackward());
@@ -99,7 +102,7 @@ void GameState :: update(const float &deltaTime) {
         logout(new BattleState(getWindow(), stateStack(), map.playerReference(), map.monsterReference(map.playerReference().getBattle()))); return;
     }
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: X)) {
-        logout(new DictionaryState(getWindow(), stateStack(), map.getMonsterList())); return;
+        stateStack() -> push(new DictionaryState(getWindow(), stateStack(), map.getMonsterList())); return;
     }
 }
 void GameState :: render(sf :: RenderTarget* target) {
@@ -122,6 +125,10 @@ DictionaryState :: DictionaryState(sf :: RenderWindow* window, Stack<State>* sta
     sprite.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y / 2.f});
     text.setFont(*resource.getFont("pixel.ttf"));
     text.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 100.f});
+    beaten.setFont(*resource.getFont("pixel.ttf"));
+    beaten.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 50.f});
+    skill.setFont(*resource.getFont("pixel.ttf"));
+    skill.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 150.f});
 }
 DictionaryState :: ~DictionaryState() {
 
@@ -139,12 +146,17 @@ void DictionaryState :: update(const float& deltaTime) {
     rightPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right);
     monsters[it].animationSetReference().play(&sprite, "idle", deltaTime, 4.f);
     text.setString(monsters[it].getName());
+    beaten.setString(L"当前击败: " + std :: to_wstring(monsters[it].getCnt().second - monsters[it].getCnt().first) + L"/" + std :: to_wstring(monsters[it].getCnt().second));
+    if(monsters[it].getSkill() == "mental pollution") skill.setString(L"具有吸血特性, 每次对玩家造成伤害后恢复同等血量");
+    else skill.setString(L"");
 }
 void DictionaryState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
     target -> draw(sprite);
     target -> draw(text);
     monsters[it].attributeReference().render(target, {getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 150.f}, {"max_health", "attack", "defence"}, "brown");
+    target -> draw(beaten);
+    target -> draw(skill);
 }
 
 //BattleState
@@ -167,6 +179,7 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
         )
     );
     background.setTexture(resource.getImg("battle-background.png"));
+    monster.del();
     object[0].sprite.setPosition(getWindow() -> getSize().x * 0.25f, getWindow() -> getSize().y / 2.f);
     object[1].sprite.setPosition(getWindow() -> getSize().x * 0.75f, getWindow() -> getSize().y / 2.f);
     object[0].attribute = player.attributeReference();
@@ -179,6 +192,7 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
     object[0].name.setPosition(object[0].sprite.getPosition() + sf :: Vector2f(-50.f, 20.f));
     object[1].name.setPosition(object[1].sprite.getPosition() + sf :: Vector2f(-50.f, 20.f));
     object[0].turns = object[1].turns = 0;
+    object[0].skill = "", object[1].skill = monster.getSkill();
     for(const std :: string &action : {"idle", "attack", "hurt", "dead"}) {
         object[0].animation.insert(action, player.getAnimation(action + "_right"));
         object[1].animation.insert(action, flip(monster.animationSetReference().getAnimation(action)));
@@ -198,13 +212,14 @@ void BattleState :: play(Object &u, Object &v) {
 void BattleState :: update(const float& deltaTime) {
     if(end) {
         endShade.update(deltaTime);
-        if(endShade.end()) stateStack() -> push(new DeadState(getWindow(), stateStack()));
+        if(endShade.end()) stateStack() -> push(new DeadState(getWindow(), stateStack(), object[0].attribute.get("score")));
         return;
     }
     object[0].update(deltaTime), object[1].update(deltaTime), subtitle.update(deltaTime);
     startTimer = std :: max(0.f, startTimer - deltaTime); if(startTimer > 0.f) return;
     if(object[0].attribute.dead() && !object[0].animation.hasPriority()) {
         endShade.run(); end = true;
+        object[0].attribute.add("score", object[1].attribute.get("score"));
         return;
     }
     if(object[1].attribute.dead() && !object[1].animation.hasPriority()) {
@@ -233,8 +248,30 @@ void BattleState :: render(sf :: RenderTarget* target) {
     endShade.render(target);
 }
 
+//WinState
+WinState :: WinState(sf :: RenderWindow* window, Stack<State>* states, int score) : State(window, states), enterPress(false) {
+    background.setSize(sf :: Vector2f (
+        static_cast<float>(getWindow() -> getSize().x), 
+        static_cast<float>(getWindow() -> getSize().y)
+        )
+    );
+    background.setTexture(resource.getImg("win-background.png"));
+}
+WinState :: ~WinState() {
+    
+}
+void WinState :: update(const float& deltaTime) {
+    if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
+        stateStack() -> clear(); return;
+    }
+    enterPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter);
+}
+void WinState :: render(sf :: RenderTarget* target) {
+    target -> draw(background);
+}
+
 //DeadState
-DeadState :: DeadState(sf :: RenderWindow* window, Stack<State>* states) : State(window, states), enterPress(false) {
+DeadState :: DeadState(sf :: RenderWindow* window, Stack<State>* states, int score) : State(window, states), enterPress(false) {
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
         static_cast<float>(getWindow() -> getSize().y)

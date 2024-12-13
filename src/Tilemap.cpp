@@ -180,6 +180,7 @@ void Tilemap :: loadFromFile(const json &map) {
                 monsters.at(name).insertAction(list.at("action").get<std :: string>(), animation);
                 for(const std :: string &attribute : {"health", "attack", "defence"})
                     if(list.contains(attribute)) monsters.at(name).setAttribute(attribute, list.at(attribute).get<int>());
+                if(list.contains("skill")) monsters.at(name).setSkill(list.at("skill").get<std :: string>());
             }
             else if(list.at("type").get<std :: string>() == "player")
                 player.insertAnimation(list.at("action").get<std :: string>(), animation);
@@ -255,6 +256,9 @@ void Tilemap :: loadFromFile(const json &map) {
                 const std :: string &type = properties.at("type").get<std :: string>();
                 if(type == "treasure") {
                     entities.emplace_back(new Treasure(position, animation, boxList, ysort));
+                }
+                else if(type == "reward") {
+                    entities.emplace_back(new Reward(properties.at("name").get<std :: string>(), position, animation, ysort));
                 }
                 else if(type == "door") {
                     entities.emplace_back(new Door(position, animation, boxList, ysort));

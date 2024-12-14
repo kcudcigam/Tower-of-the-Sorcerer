@@ -1,5 +1,5 @@
 #pragma once
-#include <stack>
+#include<iostream>
 #include "SFML/Graphics.hpp"
 #include "Resource.h"
 #include "Subtitle.h"
@@ -9,6 +9,7 @@
 template<typename T> class Stack {
 private:
     T *topState, *menu;
+    std :: vector<T*> rub;
     std :: map<T*, T*> back;
     std :: map<T*, std :: vector<T*> > next;
 public:
@@ -16,7 +17,9 @@ public:
 
     }
     virtual ~Stack() {
-        clear(); if(menu != nullptr) delete menu;
+        clear();
+        for(auto it : rub) delete it;
+        if(menu != nullptr) delete menu;
     }
     T* top() {
         return topState;
@@ -36,7 +39,8 @@ public:
         const auto newTop = back[topState];
         back.erase(back.find(topState));
         next[newTop].pop_back();
-        delete topState; topState = newTop;
+        rub.emplace_back(topState);
+        topState = newTop;
     }
     void push(T* newState) {
         if(back.find(newState) != back.end()) {
@@ -55,7 +59,7 @@ public:
         return next[topState].back();
     }
     void clear() {
-        for(auto state : back) delete state.first;
+        for(auto state : back) rub.emplace_back(state.first);
         back.clear(), next.clear();
         topState = menu;
     }
@@ -142,6 +146,7 @@ public:
 class WinState : public State {
 private:
     sf :: RectangleShape background;
+    sf :: Text text;
     bool enterPress;
 public:
     WinState(sf :: RenderWindow* window, Stack<State>* states, int score);
@@ -153,6 +158,7 @@ public:
 class DeadState : public State {
 private:
     sf :: RectangleShape background;
+    sf :: Text text;
     bool enterPress;
 public:
     DeadState(sf :: RenderWindow* window, Stack<State>* states, int score);

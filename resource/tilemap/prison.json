@@ -786,8 +786,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":1471.75,
-                 "y":754.5
+                 "x":1471.9375,
+                 "y":755.0625
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -923,7 +923,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -976,7 +975,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -1419,7 +1417,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -1462,7 +1459,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -1504,7 +1500,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -2013,7 +2008,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -2485,7 +2479,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -2528,7 +2521,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -2570,7 +2562,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -2602,7 +2593,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -3042,7 +3032,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -3074,7 +3063,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -3118,7 +3106,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -3576,7 +3563,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -8275,7 +8261,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -8308,7 +8293,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -8570,7 +8554,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -8602,7 +8585,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -8654,7 +8636,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -9158,7 +9139,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -9243,7 +9223,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -10108,7 +10087,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -10169,7 +10147,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -10619,7 +10596,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -10651,7 +10627,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -10703,7 +10678,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -11138,7 +11112,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -11170,7 +11143,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -11202,7 +11174,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -12493,7 +12464,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -12801,7 +12771,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13566,7 +13535,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13592,7 +13560,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13643,7 +13610,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13669,7 +13635,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13770,7 +13735,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13946,7 +13910,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13972,7 +13935,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -13998,7 +13960,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14024,7 +13985,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14075,7 +14035,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14326,7 +14285,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14452,7 +14410,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14478,7 +14435,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14579,7 +14535,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14605,7 +14560,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14640,7 +14594,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14677,7 +14630,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14714,7 +14666,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14769,7 +14720,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14872,7 +14822,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14952,7 +14901,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -14989,7 +14937,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15026,7 +14973,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15063,7 +15009,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15112,7 +15057,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15180,7 +15124,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15232,7 +15175,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15275,7 +15217,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15307,7 +15248,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15493,7 +15433,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15530,7 +15469,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15567,7 +15505,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15604,7 +15541,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15641,7 +15577,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15700,7 +15635,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15928,7 +15862,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -15965,7 +15898,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16013,7 +15945,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16050,7 +15981,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16098,7 +16028,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16135,7 +16064,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16167,7 +16095,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16219,7 +16146,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16368,7 +16294,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16407,7 +16332,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16444,7 +16368,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16481,7 +16404,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16567,7 +16489,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16599,7 +16520,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16640,7 +16560,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16666,7 +16585,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16718,7 +16636,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16744,7 +16661,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16920,7 +16836,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16946,7 +16861,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16972,7 +16886,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -16998,7 +16911,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -17383,7 +17295,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -17620,7 +17531,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -17646,7 +17556,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -17950,7 +17859,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -18252,7 +18160,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -19283,7 +19190,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -19740,7 +19646,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -19941,7 +19846,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -20503,7 +20407,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -20671,7 +20574,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -20697,7 +20599,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -21006,7 +20907,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -21392,7 +21292,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -21630,7 +21529,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -21656,7 +21554,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -22571,7 +22468,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23127,7 +23023,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23266,7 +23161,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23298,7 +23192,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23330,7 +23223,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23362,7 +23254,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -23939,7 +23830,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24016,7 +23906,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24057,7 +23946,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24089,7 +23977,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24121,7 +24008,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24153,7 +24039,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24256,7 +24141,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24327,7 +24211,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24359,7 +24242,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24430,7 +24312,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24501,7 +24382,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24533,7 +24413,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24604,7 +24483,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24636,7 +24514,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24730,7 +24607,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24762,7 +24638,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24794,7 +24669,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24826,7 +24700,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24920,7 +24793,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -24980,7 +24852,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25012,7 +24883,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25206,7 +25076,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25287,7 +25156,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25329,7 +25197,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25361,7 +25228,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25404,7 +25270,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25447,7 +25312,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -25878,7 +25742,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26003,7 +25866,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26035,7 +25897,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26061,7 +25922,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26087,7 +25947,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26781,7 +26640,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -26965,7 +26823,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27067,7 +26924,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27138,7 +26994,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27240,7 +27095,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27373,7 +27227,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27405,7 +27258,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27448,7 +27300,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27540,7 +27391,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27572,7 +27422,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27615,7 +27464,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -27656,7 +27504,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -28254,7 +28101,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -28286,7 +28132,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -28445,7 +28290,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -29618,7 +29462,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -29689,7 +29532,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -29830,7 +29672,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -29901,7 +29742,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -29972,7 +29812,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30043,7 +29882,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30075,7 +29913,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30107,7 +29944,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30198,7 +30034,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30258,7 +30093,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -30290,7 +30124,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31326,7 +31159,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31369,7 +31201,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31440,7 +31271,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31545,7 +31375,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31619,7 +31448,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31662,7 +31490,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31733,7 +31560,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31765,7 +31591,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -31797,7 +31622,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32013,7 +31837,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32082,7 +31905,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32142,7 +31964,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32213,7 +32034,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32245,7 +32065,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32305,7 +32124,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32337,7 +32155,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32397,7 +32214,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32592,7 +32408,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32629,7 +32444,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32767,7 +32581,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32804,7 +32617,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32841,7 +32653,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32867,7 +32678,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32943,7 +32753,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -32969,7 +32778,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -33895,7 +33703,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -33921,7 +33728,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -33997,7 +33803,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34034,7 +33839,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34082,7 +33886,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34136,7 +33939,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34291,7 +34093,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34342,7 +34143,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34368,7 +34168,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34394,7 +34193,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34795,7 +34593,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -34971,7 +34768,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35019,7 +34815,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35045,7 +34840,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35171,7 +34965,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35208,7 +35001,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35320,7 +35112,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35346,7 +35137,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -35472,7 +35262,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -36788,7 +36577,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -38189,7 +37977,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -38216,7 +38003,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -38275,7 +38061,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -39375,7 +39160,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -39445,7 +39229,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -40824,7 +40607,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -44239,7 +44021,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -44720,7 +44501,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -44779,7 +44559,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -44850,7 +44629,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -45955,7 +45733,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -45982,7 +45759,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -46041,7 +45817,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -47284,7 +47059,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -47343,7 +47117,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -47414,7 +47187,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -48591,7 +48363,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -49291,7 +49062,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -54454,7 +54224,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -54513,7 +54282,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -55038,7 +54806,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -55145,7 +54912,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -55215,7 +54981,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -55701,7 +55466,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -55870,7 +55634,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -56279,7 +56042,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -56338,7 +56100,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -56445,7 +56206,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -56515,7 +56275,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -57060,7 +56819,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -57119,7 +56877,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -65250,1436 +65007,20 @@
          "tilewidth":160
         }, 
         {
-         "columns":14,
          "firstgid":9009,
-         "image":"..\/image\/prison\/treasure chest lvl 3-opening animation-standard style.png",
-         "imageheight":64,
-         "imagewidth":896,
-         "margin":0,
-         "name":"treasure chest lvl 3-opening animation-standard style",
-         "spacing":0,
-         "tilecount":14,
-         "tileheight":64,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":8
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":9
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":13
-                        }],
-                 "id":0,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":18.3636,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":31.7273,
-                             "x":17.5455,
-                             "y":30.6364
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"treasure"
-                        }]
-                }],
-         "tilewidth":64
+         "source":"..\/..\/..\/treasure chest lvl 3-opening animation-standard style.tsx"
         }, 
         {
-         "columns":22,
          "firstgid":9023,
-         "image":"..\/image\/test\/warrior.png",
-         "imageheight":672,
-         "imagewidth":3168,
-         "margin":0,
-         "name":"warrior",
-         "spacing":0,
-         "tilecount":154,
-         "tileheight":96,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":60,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":8
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":9
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":13
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":14
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":15
-                        }],
-                 "id":0,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":2,
-                             "id":3,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":28,
-                             "x":58,
-                             "y":71
-                            }, 
-                            {
-                             "height":2,
-                             "id":4,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":2,
-                             "x":71,
-                             "y":71
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"idle_right"
-                        }, 
-                        {
-                         "name":"loop",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"player"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":80,
-                         "tileid":22
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":23
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":24
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":25
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":26
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":27
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":28
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":29
-                        }],
-                 "id":22,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":2,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":28,
-                             "x":58,
-                             "y":71
-                            }, 
-                            {
-                             "height":2,
-                             "id":2,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":2,
-                             "x":71,
-                             "y":71
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"walk_right"
-                        }, 
-                        {
-                         "name":"loop",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"player"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":80,
-                         "tileid":88
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":89
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":90
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":91
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":92
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":93
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":94
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":95
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":96
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":97
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":98
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":99
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":100
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":101
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":102
-                        }, 
-                        {
-                         "duration":80,
-                         "tileid":103
-                        }],
-                 "id":88,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":2,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":28,
-                             "x":58,
-                             "y":71
-                            }, 
-                            {
-                             "height":2,
-                             "id":2,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":2,
-                             "x":71,
-                             "y":71
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"attack_right"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"player"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":110
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":111
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":112
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":113
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":114
-                        }],
-                 "id":110,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":2,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":28,
-                             "x":58,
-                             "y":71
-                            }, 
-                            {
-                             "height":2,
-                             "id":2,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":2,
-                             "x":71,
-                             "y":71
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"hurt_right"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"player"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":132
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":133
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":134
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":135
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":136
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":137
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":138
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":139
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":140
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":141
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":142
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":143
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":144
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":145
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":146
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":147
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":148
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":149
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":150
-                        }],
-                 "id":132,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":2,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":28,
-                             "x":58,
-                             "y":71
-                            }, 
-                            {
-                             "height":2,
-                             "id":2,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":2,
-                             "x":71,
-                             "y":71
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"dead_right"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"player"
-                        }]
-                }],
-         "tilewidth":144
+         "source":"..\/..\/..\/warrior.tsx"
         }, 
         {
-         "columns":17,
          "firstgid":9177,
-         "image":"..\/image\/monster\/skeleton-all animations.png",
-         "imageheight":640,
-         "imagewidth":2176,
-         "margin":0,
-         "name":"skeleton-variation1-all animations",
-         "spacing":0,
-         "tilecount":85,
-         "tileheight":128,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":6
-                        }],
-                 "id":0,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":3,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":27,
-                             "x":50,
-                             "y":90
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"idle"
-                        }, 
-                        {
-                         "name":"attack",
-                         "type":"int",
-                         "value":20
-                        }, 
-                        {
-                         "name":"defence",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"drop",
-                         "type":"string",
-                         "value":"24"
-                        }, 
-                        {
-                         "name":"health",
-                         "type":"int",
-                         "value":200
-                        }, 
-                        {
-                         "name":"loop",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u9ab7\u9ac5\u9a91\u58eb"
-                        }, 
-                        {
-                         "name":"skill",
-                         "type":"string",
-                         "value":"vampire"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":34
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":35
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":36
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":37
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":38
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":39
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":40
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":41
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":42
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":43
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":44
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":45
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":46
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":47
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":48
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":49
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":50
-                        }],
-                 "id":34,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":3,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":27,
-                             "x":50,
-                             "y":90
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"attack"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u9ab7\u9ac5\u9a91\u58eb"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":51
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":52
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":53
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":54
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":55
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":56
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":57
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":58
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":59
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":60
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":61
-                        }],
-                 "id":51,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":3,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":27,
-                             "x":50,
-                             "y":90
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"hurt"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u9ab7\u9ac5\u9a91\u58eb"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":68
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":69
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":70
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":71
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":72
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":73
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":74
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":75
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":76
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":77
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":78
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":79
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":80
-                        }],
-                 "id":68,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":3,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":27,
-                             "x":50,
-                             "y":90
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"dead"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u9ab7\u9ac5\u9a91\u58eb"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }],
-         "tilewidth":128
+         "source":"..\/..\/..\/skeleton-variation1-all animations.tsx"
         }, 
         {
-         "columns":16,
          "firstgid":9262,
-         "image":"..\/image\/monster\/apostle-all animations.png",
-         "imageheight":1760,
-         "imagewidth":3520,
-         "margin":0,
-         "name":"Mage Skeleton - all animations",
-         "spacing":0,
-         "tilecount":128,
-         "tileheight":220,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":7
-                        }],
-                 "id":0,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":6,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":38,
-                             "x":86,
-                             "y":142
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"idle"
-                        }, 
-                        {
-                         "name":"attack",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"defence",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"drop",
-                         "type":"string",
-                         "value":"0135"
-                        }, 
-                        {
-                         "name":"health",
-                         "type":"int",
-                         "value":100
-                        }, 
-                        {
-                         "name":"loop",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u6df1\u6e0a\u4f7f\u5f92"
-                        }, 
-                        {
-                         "name":"skill",
-                         "type":"string",
-                         "value":"mental pollution"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":32
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":33
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":34
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":35
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":36
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":49
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":53
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":54
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":55
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":64
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":65
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":66
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":67
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":68
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":69
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":70
-                        }],
-                 "id":32,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":6,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":38,
-                             "x":86,
-                             "y":142
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"attack"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u6df1\u6e0a\u4f7f\u5f92"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":96
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":97
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":98
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":99
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":100
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":101
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":102
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":103
-                        }],
-                 "id":96,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":6,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":38,
-                             "x":86,
-                             "y":142
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"hurt"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u6df1\u6e0a\u4f7f\u5f92"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":112
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":113
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":114
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":115
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":116
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":117
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":118
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":119
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":120
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":121
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":122
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":123
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":124
-                        }],
-                 "id":112,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":6,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":38,
-                             "x":86,
-                             "y":142
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"dead"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"\u6df1\u6e0a\u4f7f\u5f92"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"monster"
-                        }]
-                }],
-         "tilewidth":220
+         "source":"..\/..\/..\/Mage Skeleton - all animations.tsx"
         }, 
         {
          "columns":18,
@@ -66771,7 +65112,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -66847,795 +65187,8 @@
          "tilewidth":96
         }, 
         {
-         "columns":64,
          "firstgid":9417,
-         "image":"..\/image\/Atlas-props.png",
-         "imageheight":1536,
-         "imagewidth":2048,
-         "margin":0,
-         "name":"Atlas-props",
-         "spacing":0,
-         "tilecount":3072,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":103,
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":104,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":105,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":106,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":167,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":168,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":169,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":170,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":171,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":172,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":231,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":232,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":233,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":1,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":1,
-                             "x":16,
-                             "y":50
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":234,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":235,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":236,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":295,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":296,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":297,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":298,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":299,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":300,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":359,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":360,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":361,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":362,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":363,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":364,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":423,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":424,
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"string",
-                         "value":"0"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":425,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":426,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":487,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":488,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":489,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":490,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":491,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":492,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":493,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":494,
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"string",
-                         "value":"4"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":495,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":551,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":552,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":553,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":554,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":555,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":556,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":615,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":616,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":617,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":618,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":619,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":620,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":621,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":679,
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":680,
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"int",
-                         "value":2
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":681,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":682,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":683,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"reward"
-                        }]
-                }, 
-                {
-                 "id":1060,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":20,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":12,
-                             "x":20,
-                             "y":12
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":1
-                        }]
-                },
-            
-                {
-                 "id":1061,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":20,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":32,
-                             "x":0,
-                             "y":12
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":1
-                        }]
-                }, 
-                {
-                 "id":1062,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":20,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":11,
-                             "x":0,
-                             "y":12
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":1
-                        }]
-                }, 
-                {
-                 "id":1124,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":14,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":12,
-                             "x":20,
-                             "y":0
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":0
-                        }]
-                }, 
-                {
-                 "id":1125,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":14,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":32,
-                             "x":0,
-                             "y":0
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":0
-                        }]
-                }, 
-                {
-                 "id":1126,
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "id":2,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":14,
-                             "id":1,
-                             "name":"",
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":11,
-                             "x":0,
-                             "y":0
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "x":0,
-                     "y":0
-                    },
-                 "properties":[
-                        {
-                         "name":"elevation",
-                         "type":"int",
-                         "value":0
-                        }]
-                }],
-         "tilewidth":32
+         "source":"..\/..\/..\/Atlas-props.tsx"
         }],
  "tilewidth":32,
  "type":"map",

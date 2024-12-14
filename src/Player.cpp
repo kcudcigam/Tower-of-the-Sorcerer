@@ -63,7 +63,7 @@ void Movement :: update(const float &deltaTime) {
 
 //Player
 Player :: Player() : movement(&sprite, 160.f, 600.f, 300.f, true), isDead(false) {
-
+    
 }
 Player :: ~Player() {
 

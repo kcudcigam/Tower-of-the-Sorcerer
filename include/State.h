@@ -81,9 +81,11 @@ public:
 class MenuState : public State {
 private:
     sf :: RectangleShape background;
+    Shade startShade;
 public:
     MenuState(sf :: RenderWindow* window, Stack<State>* states);
     ~MenuState();
+    void login();
     void update(const float& deltaTime);
     void render(sf :: RenderTarget* target);
 };

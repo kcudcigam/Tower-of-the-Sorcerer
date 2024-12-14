@@ -16,34 +16,37 @@ Stack<State>* State :: stateStack() const {
 }
 
 //MenuState
-MenuState :: MenuState(sf :: RenderWindow* window, Stack<State>* states) : State(window, states) {
-    //init background
+MenuState :: MenuState(sf :: RenderWindow* window, Stack<State>* states) : State(window, states), startShade(0.5f, true) {
     background.setSize(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x), 
         static_cast<float>(getWindow() -> getSize().y)
         )
     );
     background.setTexture(resource.getImg("menu-background.png"));
+    login();
 }
 MenuState :: ~MenuState() {
 
 }
+void MenuState :: login() {
+    startShade.reset();
+}
 void MenuState :: update(const float &deltaTime) {
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape)) stateStack() -> pop();
-
+    startShade.update(deltaTime);
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
         stateStack() -> push(new GameState(getWindow(), stateStack(), "map1.json", Attribute(50, 20, 5, 0, 0)));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
+    startShade.render(target);
 }
 
 //GameState
 GameState :: GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute)
  : State(window, states), map(map), startShade(0.5f, true), endShade(0.5f, false), newState(nullptr) {
     login(attribute, this -> map.getWelcome());
-    location.setFont(*resource.getFont("pixel.ttf"));
-    location.setPosition(sf :: Vector2f (static_cast<float>(getWindow() -> getSize().x) - 400.f, static_cast<float>(getWindow() -> getSize().y) - 40.f));
+    location.setFont(*resource.getFont("OPPOSans-H-2.ttf"));
+    location.setPosition(sf :: Vector2f (static_cast<float>(getWindow() -> getSize().x) - 330.f, static_cast<float>(getWindow() -> getSize().y) - 45.f));
     location.setString(L"当前位置: " + this -> map.getName());
 }
 GameState :: ~GameState() {
@@ -202,8 +205,8 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
     object[0].attribute = player.attributeReference();
     object[1].attribute = monster.attributeReference();
     object[0].color = "green", object[1].color = "brown";
-    object[0].name.setFont(*resource.getFont("pixel.ttf"));
-    object[1].name.setFont(*resource.getFont("pixel.ttf"));
+    object[0].name.setFont(*resource.getFont("pixel2.ttf"));
+    object[1].name.setFont(*resource.getFont("pixel2.ttf"));
     object[0].wname = L"你", object[1].wname = monster.getName();
     object[0].name.setString(L"勇士"), object[1].name.setString(object[1].wname);
     object[0].name.setPosition(object[0].sprite.getPosition() + sf :: Vector2f(-50.f, 20.f));
@@ -323,7 +326,9 @@ WinState :: ~WinState() {
 }
 void WinState :: update(const float& deltaTime) {
     if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
-        stateStack() -> clear(); return;
+        stateStack() -> clear();
+        static_cast<MenuState*>(stateStack() -> top()) -> login();
+        return;
     }
     enterPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter);
 }
@@ -340,19 +345,21 @@ DeadState :: DeadState(sf :: RenderWindow* window, Stack<State>* states, int sco
         )
     );
     background.setTexture(resource.getImg("dead-background.png"));
-    text.setFont(*resource.getFont("pixel.ttf"));
+    text.setFont(*resource.getFont("pixel2.ttf"));
     text.setPosition(sf :: Vector2f (
-        static_cast<float>(getWindow() -> getSize().x) / 2.f, 
-        static_cast<float>(getWindow() -> getSize().y) / 2.f
+        static_cast<float>(getWindow() -> getSize().x) / 2.f + 100.f, 
+        static_cast<float>(getWindow() -> getSize().y) / 2.f + 100.f
     ));
-    text.setString(L"总分: " + std :: to_wstring(score));
+    text.setString(L"游戏总分: " + std :: to_wstring(score));
 }
 DeadState :: ~DeadState() {
     
 }
 void DeadState :: update(const float& deltaTime) {
     if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
-        stateStack() -> clear(); return;
+        stateStack() -> clear();
+        static_cast<MenuState*>(stateStack() -> top()) -> login();
+        return;
     }
     enterPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter);
 }

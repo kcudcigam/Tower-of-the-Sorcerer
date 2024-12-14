@@ -3,11 +3,19 @@ extern Resource resource;
 extern Subtitle subtitle;
 
 //Game
-Game :: Game() : window(sf :: VideoMode(1280, 720), "The Sorcerer") {
+Game :: Game() : window(sf :: VideoMode(1280, 960), "The Sorcerer") {
     window.setFramerateLimit(120);
     window.setVerticalSyncEnabled(false);
+    window.clear();
+    
+    sf :: RectangleShape background;
+    loadingTexture.loadFromFile("../resource/image/background/loading-background.png");
+    background.setSize({1280, 960});
+    background.setTexture(&loadingTexture);
+    window.draw(background);
+    window.display();
     resource.loadFrom("../resource");
-    subtitle.setFont("pixel.ttf");
+    subtitle.setFont("OPPOSans-H-2.ttf");
     subtitle.setPosition({window.getSize().x / 2.f, window.getSize().y - 100.f});
     states.setMenu(new MenuState(&window, &states));
 }
@@ -22,10 +30,12 @@ void Game :: update() {
     states.top() -> update(deltaTime);
 }
 void Game :: render() {
+    if(window.getSize() != sf :: Vector2u(1280, 960)) window.setSize(sf :: Vector2u(1280, 960));
     window.clear();
     states.top() -> render(&window);
     window.display();
 }
 void Game :: run() {
+    deltaTime = clock.restart().asSeconds();
     while (window.isOpen()) update(), render();
 }

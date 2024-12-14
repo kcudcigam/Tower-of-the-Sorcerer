@@ -12098,6 +12098,30 @@
                  "animation":[
                         {
                          "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
+                        {
+                         "duration":100,
                          "tileid":24
                         }, 
                         {
@@ -12400,6 +12424,30 @@
                  "animation":[
                         {
                          "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
+                        {
+                         "duration":100,
                          "tileid":24
                         }, 
                         {
@@ -12700,6 +12748,30 @@
                 }, 
                 {
                  "animation":[
+                        {
+                         "duration":100,
+                         "tileid":16
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":17
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":18
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":19
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":20
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":21
+                        }, 
                         {
                          "duration":100,
                          "tileid":24

@@ -26,8 +26,8 @@ void Attribute :: render(sf :: RenderTarget* target, sf :: Vector2f position, co
         sprite.setTexture(*resource.getImg(type + "-" + color + ".png"));
         sprite.setPosition(position);
         sprite.setScale({2.f, 2.f});
-        text.setFont(*resource.getFont("pixel.ttf"));
-        text.setPosition(position + sf :: Vector2f(74.f, 10.f));
+        text.setFont(*resource.getFont("pixel6.ttf"));
+        text.setPosition(position + sf :: Vector2f(74.f, 14.f));
         text.setString(std :: to_string(get(type)) + (type == "health" ? "/" + std :: to_string(get("max_health")) : ""));
         target -> draw(sprite), target -> draw(text);
         position.y += 64.f;

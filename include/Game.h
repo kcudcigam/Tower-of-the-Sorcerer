@@ -8,6 +8,7 @@ private:
     sf :: RenderWindow window;
     sf :: Event event;
     sf :: Clock clock;
+    sf :: Texture loadingTexture;
     float deltaTime;
     Stack<State> states;
 public:

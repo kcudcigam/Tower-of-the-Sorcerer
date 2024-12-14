@@ -34,7 +34,7 @@ sf :: Vector2f CollisionBox :: getCenter() const {
 void CollisionBox :: update(Player &player, const float &deltaTime) {
     const auto &hitbox = player.getHitbox(playerBox);
     if(!hitbox.intersects(rect)) return;
-    if(tag != "") {player.addTag(tag, 0.3f); return;}
+    if(tag != "") {player.addTag(tag, 0.8f); return;}
     const std :: pair<float, float> dx = {hitbox.left + hitbox.width - rect.left, rect.left + rect.width - hitbox.left};
     const std :: pair<float, float> dy = {hitbox.top + hitbox.height - rect.top, rect.top + rect.height - hitbox.top};
     if(std :: min(dx.first, dx.second) < std :: min(dy.first, dy.second)) {
@@ -85,7 +85,7 @@ void Treasure :: update(Player &player, const float &deltaTime) {
             animation.run(), opened = true;
     }
     if(animation.end() && !display) {
-        const int id = rnd() % 6;
+        const int id = rnd() % 3;
         subtitle.display(L"你获得了" + getEquipment(id).description, 1.f);
         player.attributeReference().add(getEquipment(id).attribute, getEquipment(id).value);
         display = true;
@@ -143,13 +143,17 @@ void Door :: update(Player &player, const float &deltaTime) {
     for(auto box : boxList) box.update(player, deltaTime);
     if(!opened) {
         const sf :: Vector2f &position = boxList.back().getCenter();
-        if(len(position - player.getPosition()) < dDoor) {
+        if(len(position - player.getPosition()) < dDoor && !(subtitle.get() == L"你没有足够的钥匙!")) {
             subtitle.display(L"门被锁上, 按F键消耗一把钥匙打开", 0.1f);
             activate = true;
         }
         else activate = false;
         if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
-            animation.run(), opened = true, boxList.pop_back();
+            if(player.attributeReference().get("key") > 0) {
+                animation.run(), opened = true, boxList.pop_back();
+                player.attributeReference().add("key", -1);
+            }
+            else subtitle.display(L"你没有足够的钥匙!", 0.8f); 
         }
     }
     if(animation.end() && !display) {

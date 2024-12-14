@@ -9,6 +9,7 @@ private:
 public:
     Subtitle();
     virtual ~Subtitle();
+    std :: wstring get() const;
     void setFont(const std :: string &file);
     void setPosition(const sf :: Vector2f &position);
     void display(const std :: wstring &sentence, const float &duration);

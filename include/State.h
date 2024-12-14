@@ -91,6 +91,7 @@ public:
 class GameState : public State {
 private:
     Tilemap map;
+    sf :: Text location;
     Shade startShade, endShade;
     State* newState;
 public:

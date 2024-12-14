@@ -8,6 +8,9 @@ Subtitle :: Subtitle() {
 Subtitle :: ~Subtitle() {
 
 }
+std :: wstring Subtitle :: get() const {
+    return text.getString();
+}
 void Subtitle :: setFont(const std :: string &file) {
     text.setFont(*resource.getFont(file));
 }

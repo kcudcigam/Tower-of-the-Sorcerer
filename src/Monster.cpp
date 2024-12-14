@@ -20,7 +20,7 @@ const std :: string& Monster :: getSkill() const {
     return skill;
 }
 int Monster :: getDrop() const {
-    if(drop.empty()) return -1;
+    if(drop.empty() || rnd() % 10 < 7) return -1;
     return drop[rnd() % drop.size()] - '0';
 }
 const std :: string& Monster :: getDropList() const {

@@ -1,5 +1,6 @@
 #include "Player.h"
 extern Resource resource;
+extern Subtitle subtitle;
 
 //Equip
 Equip getEquipment(const int &id) {
@@ -141,8 +142,9 @@ void Player :: updateTag(const float &deltaTime) {
 void Player :: addEffect(const std :: string &tag) {
     if(tag == "lava") {
         animation.setPriority(movement.getDirection() ? "hurt_right" : "hurt_left");
-        attribute.add("health", -10);
+        attribute.add("health", -5);
         addTag("busy", 0.4f);
+        subtitle.display(L"远离那些岩浆!", 0.5f);
     }
     else if(tag == "busy") movement.setPause(true);
 }

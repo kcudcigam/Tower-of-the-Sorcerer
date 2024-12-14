@@ -32,7 +32,7 @@ void MenuState :: update(const float &deltaTime) {
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Escape)) stateStack() -> pop();
 
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
-        stateStack() -> push(new GameState(getWindow(), stateStack(), "base.json", Attribute(50, 20, 5, 0, 0)));
+        stateStack() -> push(new GameState(getWindow(), stateStack(), "map1.json", Attribute(50, 20, 5, 0, 0)));
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
@@ -42,6 +42,9 @@ void MenuState :: render(sf :: RenderTarget* target) {
 GameState :: GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute)
  : State(window, states), map(map), startShade(0.5f, true), endShade(0.5f, false), newState(nullptr) {
     login(attribute, this -> map.getWelcome());
+    location.setFont(*resource.getFont("pixel.ttf"));
+    location.setPosition(sf :: Vector2f (static_cast<float>(getWindow() -> getSize().x) - 400.f, static_cast<float>(getWindow() -> getSize().y) - 40.f));
+    location.setString(L"当前位置: " + this -> map.getName());
 }
 GameState :: ~GameState() {
 
@@ -107,6 +110,7 @@ void GameState :: update(const float &deltaTime) {
 }
 void GameState :: render(sf :: RenderTarget* target) {
     map.render(target);
+    target -> draw(location);
     if(newState == nullptr && startShade.end()) subtitle.render(target);
     startShade.render(target);
     endShade.render(target);

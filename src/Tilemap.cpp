@@ -1,5 +1,4 @@
 #include "Tilemap.h"
-#include <iostream>
 extern Resource resource;
 
 //Tile

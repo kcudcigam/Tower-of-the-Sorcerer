@@ -13,6 +13,7 @@ Equip getEquipment(const int &id) {
         case 5: return (Equip){L"生命之石", L"一块生命之石, 血量上限增加50", "max_health", 50};
         default: assert(0);
     }
+    return Equip();
 }
 //Movement
 Movement :: Movement(sf :: Sprite *sprite, const float &maxVelocity, const float &acceleration, const float &deceleration, const bool &direction)
@@ -191,12 +192,4 @@ void Player :: update(const float& deltaTime) {
 }
 void Player :: render(sf :: RenderTarget* target) const {
     if(!hidden) target -> draw(sprite);
-    /*
-    sf :: RectangleShape outline;
-    outline.setPosition(getHitbox().getPosition());
-    outline.setSize(hitbox.getSize());
-    outline.setFillColor(sf :: Color :: Transparent);
-    outline.setOutlineThickness(-1.f);
-    outline.setOutlineColor(sf :: Color :: Green);
-    target -> draw(outline);*/
 }

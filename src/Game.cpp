@@ -1,7 +1,6 @@
 #include "Game.h"
 extern Resource resource;
 extern Subtitle subtitle;
-#include<iostream>
 //Game
 Game :: Game() : window(sf :: VideoMode(1280, 960), "Tower of the Sorcerer") {
     sf :: Image icon; icon.loadFromFile("../resource/image/icon/icon.png");

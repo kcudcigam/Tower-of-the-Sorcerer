@@ -90,7 +90,7 @@ private:
     sf :: Sprite sprite;
     std :: vector<CollisionBox> boxList;
     Animation animation;
-    float ysort;
+    float ysort, countdown;
     bool opened, forward, activate, opening;
 public:
     Entrance(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, bool forward);

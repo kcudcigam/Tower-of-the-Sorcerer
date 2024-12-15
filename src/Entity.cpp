@@ -50,7 +50,7 @@ void CollisionBox :: update(Player &player, const float &deltaTime) {
     //if(tag != "") player.addTag(tag, 0.1f);
 }
 void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bool &flag) const {
-    /*
+    return;
     sf :: RectangleShape outline;
     outline.setPosition({rect.left, rect.top});
     outline.setSize({rect.width, rect.height});
@@ -58,7 +58,6 @@ void CollisionBox :: render(sf :: RenderTarget *target, const float &y, const bo
     outline.setOutlineThickness(-1.f);
     outline.setOutlineColor(sf :: Color :: Green);
     target -> draw(outline);
-    */
 }
 
 //Treasure
@@ -206,7 +205,7 @@ void MonsterLink :: render(sf :: RenderTarget *target, const float &y, const boo
 //Entrance
 const float dEntrance = 50.f;
 Entrance :: Entrance(const sf :: Vector2f &position, const Animation &animation, const std :: vector<CollisionBox> &boxList, bool forward)
-: animation(animation), boxList(boxList), forward(forward), activate(false), opening(false), opened(false) {
+: animation(animation), boxList(boxList), countdown(1.f), forward(forward), activate(false), opening(false), opened(false) {
     sprite.setPosition(position);
     ysort = this -> boxList.back().getBox().top + this -> boxList.back().getBox().height;
     if(forward) this -> animation.pause();
@@ -217,7 +216,8 @@ Entrance :: ~Entrance() {
 }
 void Entrance :: update(Player &player, const float &deltaTime) {
     animation.play(&sprite, deltaTime);
-    if(animation.end() && !opened) {
+    if(opening) countdown = std :: max(countdown - deltaTime, 0.f);
+    if(!opened && countdown == 0.f) {
         opened = true, boxList.pop_back();
     }
     if(opened) {

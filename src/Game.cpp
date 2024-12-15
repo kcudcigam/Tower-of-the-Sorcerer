@@ -1,13 +1,14 @@
 #include "Game.h"
 extern Resource resource;
 extern Subtitle subtitle;
-
+#include<iostream>
 //Game
-Game :: Game() : window(sf :: VideoMode(1280, 960), "The Sorcerer") {
+Game :: Game() : window(sf :: VideoMode(1280, 960), "Tower of the Sorcerer") {
+    sf :: Image icon; icon.loadFromFile("../resource/image/icon/icon.png");
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     window.setFramerateLimit(120);
     window.setVerticalSyncEnabled(false);
     window.clear();
-    
     sf :: RectangleShape background;
     loadingTexture.loadFromFile("../resource/image/background/loading-background.png");
     background.setSize({1280, 960});
@@ -15,7 +16,7 @@ Game :: Game() : window(sf :: VideoMode(1280, 960), "The Sorcerer") {
     window.draw(background);
     window.display();
     resource.loadFrom("../resource");
-    subtitle.setFont("OPPOSans-H-2.ttf");
+    subtitle.setFont("font-subtitle.ttf");
     subtitle.setPosition({window.getSize().x / 2.f, window.getSize().y - 100.f});
     states.setMenu(new MenuState(&window, &states));
 }

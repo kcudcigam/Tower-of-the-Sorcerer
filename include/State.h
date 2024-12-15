@@ -111,7 +111,8 @@ private:
     sf :: Sprite sprite;
     sf :: RectangleShape background;
     std :: vector<Monster> monsters;
-    sf :: Text text, beaten, drop, skill;
+    sf :: Text text, skill;
+    std :: wstring dropList, beaten;
     size_t it; bool leftPress, rightPress;
 public:
     DictionaryState(sf :: RenderWindow* window, Stack<State>* states, const std :: vector<Monster> &monsters);

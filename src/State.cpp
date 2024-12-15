@@ -45,9 +45,10 @@ void MenuState :: render(sf :: RenderTarget* target) {
 GameState :: GameState(sf :: RenderWindow* window, Stack<State>* states, const std :: string &map, const Attribute &attribute)
  : State(window, states), map(map), startShade(0.5f, true), endShade(0.5f, false), newState(nullptr) {
     login(attribute, this -> map.getWelcome());
-    location.setFont(*resource.getFont("OPPOSans-H-2.ttf"));
-    location.setPosition(sf :: Vector2f (static_cast<float>(getWindow() -> getSize().x) - 330.f, static_cast<float>(getWindow() -> getSize().y) - 45.f));
+    location.setFont(*resource.getFont("font-subtitle.ttf"));
+    location.setPosition(sf :: Vector2f (static_cast<float>(getWindow() -> getSize().x) - 270.f, static_cast<float>(getWindow() -> getSize().y) - 65.f));
     location.setString(L"当前位置: " + this -> map.getName());
+    location.setScale(0.8f, 0.8f);
 }
 GameState :: ~GameState() {
 
@@ -129,15 +130,11 @@ DictionaryState :: DictionaryState(sf :: RenderWindow* window, Stack<State>* sta
         )
     );
     background.setTexture(resource.getImg("dictionary-background.png"));
-    sprite.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y / 2.f});
-    text.setFont(*resource.getFont("pixel.ttf"));
-    text.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 100.f});
-    beaten.setFont(*resource.getFont("pixel.ttf"));
-    beaten.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 50.f});
-    skill.setFont(*resource.getFont("pixel.ttf"));
-    skill.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 150.f});
-    drop.setFont(*resource.getFont("pixel.ttf"));
-    drop.setPosition({getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y - 200.f});
+    sprite.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y / 2.f - 50.f});
+    text.setFont(*resource.getFont("font-text.ttf"));
+    text.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y / 2.f});
+    text.setScale(1.4f, 1.4f);
+    skill.setFont(*resource.getFont("font-subtitle.ttf"));
 }
 DictionaryState :: ~DictionaryState() {
 
@@ -153,28 +150,54 @@ void DictionaryState :: update(const float& deltaTime) {
         (it += 1) %= monsters.size();
     leftPress  = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left);
     rightPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right);
-    monsters[it].animationSetReference().play(&sprite, "idle", deltaTime, 4.f);
+    monsters[it].animationSetReference().play(&sprite, "idle", deltaTime, 5.f);
     text.setString(monsters[it].getName());
-    beaten.setString(L"本关击败: " + std :: to_wstring(monsters[it].getCnt().second - monsters[it].getCnt().first) + L"/" + std :: to_wstring(monsters[it].getCnt().second));
-    skill.setString(L""), drop.setString(L"");
+    text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2.f, 0.f);
+    beaten = std :: to_wstring(monsters[it].getCnt().second - monsters[it].getCnt().first) + L"/" + std :: to_wstring(monsters[it].getCnt().second);
+
+    skill.setString(L"");
     if(monsters[it].getSkill() == "mental pollution") skill.setString(L"具有精神污染特性, 每三回合停滞对方攻击");
     else if(monsters[it].getSkill() == "vampire") skill.setString(L"具有吸血特性, 每次对玩家造成伤害后恢复同等血量");
     else if(monsters[it].getName() == L"魔王") skill.setString(L"最终Boss, 击败后即可通关");
-    std :: wstring dropList = L"";
+    skill.setOrigin(skill.getLocalBounds().left + skill.getLocalBounds().width / 2.f, 0.f);
+
+    dropList = L"";
     for(auto drop : monsters[it].getDropList())  {
         if(!dropList.empty()) dropList += L", ";
         dropList += getEquipment(drop - '0').name;
     }
-    if(!dropList.empty()) drop.setString(L"可能掉落: " + dropList);
 }
 void DictionaryState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
     target -> draw(sprite);
     target -> draw(text);
-    monsters[it].attributeReference().render(target, {getWindow() -> getSize().x / 2.f - 100.f, getWindow() -> getSize().y / 2.f + 150.f}, {"max_health", "attack", "defence"}, "brown");
-    target -> draw(beaten);
-    target -> draw(drop);
-    target -> draw(skill);
+    sf :: Text attribute;
+    attribute.setFont(*resource.getFont("font-subtitle.ttf"));
+    attribute.setPosition({getWindow() -> getSize().x / 2.f, getWindow() -> getSize().y / 2.f + 90.f});
+    if(skill.getString() != L"") {
+        skill.setPosition({getWindow() -> getSize().x / 2.f, attribute.getPosition().y});
+        target -> draw(skill);
+        attribute.setPosition(attribute.getPosition() + sf :: Vector2f(0, 74.f));
+    }
+    typedef std :: pair<std :: string, std :: wstring> name;
+    for(const auto &type : {(name){"max_health", L"总血量"}, (name){"attack", L"攻击力"}, (name){"defence", L"防御力"}}) {
+        attribute.setString(type.second +  L": " + std :: to_wstring(monsters[it].attributeReference().get(type.first)));
+        attribute.setOrigin(attribute.getLocalBounds().left + attribute.getLocalBounds().width / 2.f, 0.f);
+        target -> draw(attribute);
+        attribute.setPosition(attribute.getPosition() + sf :: Vector2f(0, 64.f));
+    }
+    if(dropList != L"") {
+        attribute.setString(L"概率掉落: " + dropList);
+        attribute.setOrigin(attribute.getLocalBounds().left + attribute.getLocalBounds().width / 2.f, 0.f);
+        target -> draw(attribute);
+        attribute.setPosition(attribute.getPosition() + sf :: Vector2f(0, 64.f));
+    }
+    attribute.setString(L"本关击败: " + beaten);
+    attribute.setOrigin(attribute.getLocalBounds().left + attribute.getLocalBounds().width / 2.f, 0.f);
+    target -> draw(attribute);
+    
+    //skill.setPosition({getWindow() -> getSize().x / 2.f, attribute.getPosition().y});
+    
 }
 
 //BattleState
@@ -184,7 +207,7 @@ void BattleState :: Object :: update(const float &deltaTime) {
 void BattleState :: Object :: render(sf :: RenderTarget* target) {
     target -> draw(sprite);
     target -> draw(name);
-    attribute.render(target, sprite.getPosition() + sf :: Vector2f(-80.f, 60.f), {"health", "attack", "defence"}, color);
+    attribute.render(target, sprite.getPosition() + sf :: Vector2f(-90.f, 100.f), {"health", "attack", "defence"}, color);
 }
 
 const float battleDuration = 2.f;
@@ -200,17 +223,21 @@ BattleState :: BattleState(sf :: RenderWindow* window, Stack<State>* states, Pla
     monster.del(); drop = monster.getDrop();
     object[0].origin = player.attributeReference().get("health");
     object[1].origin = monster.attributeReference().get("health");
-    object[0].sprite.setPosition(getWindow() -> getSize().x * 0.25f, getWindow() -> getSize().y / 2.f);
-    object[1].sprite.setPosition(getWindow() -> getSize().x * 0.75f, getWindow() -> getSize().y / 2.f);
+    object[0].sprite.setPosition(getWindow() -> getSize().x * 0.25f + 30.f, getWindow() -> getSize().y / 2.f - 30.f);
+    object[1].sprite.setPosition(getWindow() -> getSize().x * 0.75f - 20.f, getWindow() -> getSize().y / 2.f - 30.f);
     object[0].attribute = player.attributeReference();
     object[1].attribute = monster.attributeReference();
     object[0].color = "green", object[1].color = "brown";
-    object[0].name.setFont(*resource.getFont("pixel2.ttf"));
-    object[1].name.setFont(*resource.getFont("pixel2.ttf"));
+    object[0].name.setFont(*resource.getFont("font-text.ttf"));
+    object[1].name.setFont(*resource.getFont("font-text.ttf"));
     object[0].wname = L"你", object[1].wname = monster.getName();
     object[0].name.setString(L"勇士"), object[1].name.setString(object[1].wname);
-    object[0].name.setPosition(object[0].sprite.getPosition() + sf :: Vector2f(-50.f, 20.f));
-    object[1].name.setPosition(object[1].sprite.getPosition() + sf :: Vector2f(-50.f, 20.f));
+    object[0].name.setPosition(object[0].sprite.getPosition() + sf :: Vector2f(0.f, 40.f));
+    object[0].name.setOrigin(object[0].name.getLocalBounds().left + object[0].name.getLocalBounds().width / 2.f, 0.f);
+    object[0].name.setScale(1.2f, 1.2f);
+    object[1].name.setPosition(object[1].sprite.getPosition() + sf :: Vector2f(0.f, 40.f));
+    object[1].name.setOrigin(object[1].name.getLocalBounds().left + object[1].name.getLocalBounds().width / 2.f, 0.f);
+    object[1].name.setScale(1.2f, 1.2f);
     object[0].turns = object[1].turns = 0;
     object[0].skill = "", object[1].skill = monster.getSkill();
     for(const std :: string &action : {"idle", "attack", "hurt", "dead"}) {
@@ -314,12 +341,12 @@ WinState :: WinState(sf :: RenderWindow* window, Stack<State>* states, int score
         )
     );
     background.setTexture(resource.getImg("win-background.png"));
-    text.setFont(*resource.getFont("pixel.ttf"));
+    text.setFont(*resource.getFont("font-text.ttf"));
     text.setPosition(sf :: Vector2f (
-        static_cast<float>(getWindow() -> getSize().x) / 2.f, 
-        static_cast<float>(getWindow() -> getSize().y) / 2.f
+        static_cast<float>(getWindow() -> getSize().x) / 2.f + 100.f, 
+        static_cast<float>(getWindow() -> getSize().y) / 2.f + 100.f
     ));
-    text.setString(L"总分: " + std :: to_wstring(score));
+    text.setString(L"游戏总分: " + std :: to_wstring(score));
 }
 WinState :: ~WinState() {
     
@@ -345,7 +372,7 @@ DeadState :: DeadState(sf :: RenderWindow* window, Stack<State>* states, int sco
         )
     );
     background.setTexture(resource.getImg("dead-background.png"));
-    text.setFont(*resource.getFont("pixel2.ttf"));
+    text.setFont(*resource.getFont("font-text.ttf"));
     text.setPosition(sf :: Vector2f (
         static_cast<float>(getWindow() -> getSize().x) / 2.f + 100.f, 
         static_cast<float>(getWindow() -> getSize().y) / 2.f + 100.f

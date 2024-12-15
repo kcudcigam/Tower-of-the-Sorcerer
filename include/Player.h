@@ -21,6 +21,7 @@ public:
     virtual ~Movement();  
     void setPause(bool flag);
     void setDirection(bool flag);
+    const bool& getPause() const;
     const bool& getDirection() const;
     const sf :: Vector2f& getVelocity() const;
     void stopVelocity(const bool &x, const bool &y);

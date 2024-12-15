@@ -25,6 +25,9 @@ Movement :: ~Movement() {
 void Movement :: setPause(bool flag) {
     paused = flag;
 }
+const bool& Movement :: getPause() const {
+    return paused;
+}
 void Movement :: setDirection(bool flag) {
     direction = flag;
 }
@@ -144,6 +147,7 @@ void Player :: addEffect(const std :: string &tag) {
         animation.setPriority(movement.getDirection() ? "hurt_right" : "hurt_left");
         attribute.add("health", -5);
         addTag("busy", 0.4f);
+        resource.getSound("hit.wav") -> play();
         subtitle.display(L"远离那些岩浆!", 0.5f);
     }
     else if(tag == "busy") movement.setPause(true);
@@ -160,16 +164,18 @@ void Player :: update(const float& deltaTime) {
         isDead = true;
     }
     if(isDead) {animation.play(&sprite, "walk_right", deltaTime); return;}
+    bool flag = false;
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: A) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left))
-        movement.move(-1.f,  0.f, deltaTime);
+        movement.move(-1.f,  0.f, deltaTime), flag = true;
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: D) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right))
-        movement.move(1.f,  0.f, deltaTime);
+        movement.move(1.f,  0.f, deltaTime), flag = true;
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: W) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Up))
-        movement.move(0.f, -1.f, deltaTime);
+        movement.move(0.f, -1.f, deltaTime), flag = true;
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: S) || sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Down))
-        movement.move(0.f,  1.f, deltaTime);
+        movement.move(0.f,  1.f, deltaTime), flag = true;
     movement.update(deltaTime);
-
+    if(flag && !movement.getPause() && resource.getSound("footstep.wav") -> getStatus() != sf :: SoundSource :: Playing)
+        resource.getSound("footstep.wav") -> play();
     //std :: cerr << (movement -> getVelocity().x) << ' ' << (movement -> getVelocity().y) << std :: endl;
     if(movement.getVelocity() != sf :: Vector2f(0.f, 0.f)) {
         if(movement.getDirection())

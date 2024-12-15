@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "Json.hpp"
 #include "Animation.h"
@@ -10,10 +11,13 @@ private:
     std :: map <std :: string, sf :: Texture*> img;
     std :: map <std :: string, json*> map;
     std :: map <std :: string, sf :: Font*> font;
-    std :: map <std :: string, AnimationSet> entity;
+    std :: map <std :: string, sf :: SoundBuffer*> soundBuffer;
+    std :: map <std :: string, sf :: Sound*> sound;
+    
     void loadImg(const std :: filesystem :: path &directory);
     void loadMap(const std :: filesystem :: path &directory);
     void loadFont(const std :: filesystem :: path &directory);
+    void loadSound(const std :: filesystem :: path &directory);
 public:
     Resource();
     virtual ~Resource();
@@ -21,5 +25,5 @@ public:
     sf :: Texture* getImg(const std :: string &file) const;
     json* getMap(const std :: string &file) const;
     sf :: Font* getFont(const std :: string &file) const;
-    
+    sf :: Sound* getSound(const std :: string &file) const;
 };

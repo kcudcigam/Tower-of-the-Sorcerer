@@ -80,8 +80,10 @@ void Treasure :: update(Player &player, const float &deltaTime) {
             activate = true;
         }
         else activate = false;
-        if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F))
+        if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+            resource.getSound("metal-small.wav") -> play();
             animation.run(), opened = true;
+        }
     }
     if(animation.end() && !display) {
         const int id = rnd() % 3;
@@ -121,6 +123,7 @@ void Reward :: update(Player &player, const float &deltaTime) {
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
         opened = true;
         subtitle.display(L"你获得了" + getEquipment(id).description, 1.f);
+        resource.getSound("metal-ringing.wav") -> play();
         player.attributeReference().add(getEquipment(id).attribute, getEquipment(id).value);
     }
 }
@@ -151,6 +154,7 @@ void Door :: update(Player &player, const float &deltaTime) {
             if(player.attributeReference().get("key") > 0) {
                 animation.run(), opened = true, boxList.pop_back();
                 player.attributeReference().add("key", -1);
+                resource.getSound("door.wav") -> play();
             }
             else subtitle.display(L"你没有足够的钥匙!", 0.8f); 
         }
@@ -192,6 +196,7 @@ void MonsterLink :: update(Player &player, const float &deltaTime) {
     if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
         player.setBattle(name);
         challenged = true;
+        resource.getSound("click.wav") -> play();
     }
     animation.play(&sprite, deltaTime);
 }
@@ -209,7 +214,7 @@ Entrance :: Entrance(const sf :: Vector2f &position, const Animation &animation,
     sprite.setPosition(position);
     ysort = this -> boxList.back().getBox().top + this -> boxList.back().getBox().height;
     if(forward) this -> animation.pause();
-    else this -> animation.run(), opening = true;
+    else this -> animation.run(), opening = true, resource.getSound("door.wav") -> play();
 }
 Entrance :: ~Entrance() {
 
@@ -222,6 +227,7 @@ void Entrance :: update(Player &player, const float &deltaTime) {
     }
     if(opened) {
         if(boxList[0].getBox().intersects(player.getHitbox("bodyHitbox"))) {
+            resource.getSound("pass.wav") -> play();
             player.setPosition(boxList[0].getCenter() + sf :: Vector2f(0.f, 60.f));
             player.setLocation(forward ? "forward" : "backward");
             player.setHidden(true), player.setDirection(true), player.stopVelocity(true, true);
@@ -242,6 +248,7 @@ void Entrance :: update(Player &player, const float &deltaTime) {
         }
         else activate = false;
         if(activate && sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: F)) {
+            resource.getSound("door.wav") -> play();
             animation.run(), opening = true;
         }
     }

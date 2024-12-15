@@ -29,12 +29,15 @@ MenuState :: ~MenuState() {
 
 }
 void MenuState :: login() {
-    startShade.reset();
+    startShade.reset(); resource.getSound("menu.wav") -> play();
 }
 void MenuState :: update(const float &deltaTime) {
     startShade.update(deltaTime);
-    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter))
+    if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
+        resource.getSound("menu.wav") -> stop();
+        resource.getSound("game.wav") -> play();
         stateStack() -> push(new GameState(getWindow(), stateStack(), "map1.json", Attribute(50, 20, 5, 0, 0)));
+    }
 }
 void MenuState :: render(sf :: RenderTarget* target) {
     target -> draw(background);
@@ -81,6 +84,8 @@ void GameState :: update(const float &deltaTime) {
     if(newState != nullptr) return;
     map.update(deltaTime);
     if(map.playerReference().dead()) {
+        resource.getSound("game.wav") -> stop();
+        resource.getSound("dead.wav") -> play();
         logout(new DeadState(getWindow(), stateStack(), map.playerReference().attributeReference().get("score"))); return;
     }
     if(map.playerReference().getAttribute().dead()) return;
@@ -109,6 +114,7 @@ void GameState :: update(const float &deltaTime) {
         logout(new BattleState(getWindow(), stateStack(), map.playerReference(), map.monsterReference(map.playerReference().getBattle()))); return;
     }
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: X)) {
+        resource.getSound("click.wav") -> play();
         stateStack() -> push(new DictionaryState(getWindow(), stateStack(), map.getMonsterList())); return;
     }
 }
@@ -142,12 +148,17 @@ DictionaryState :: ~DictionaryState() {
 
 void DictionaryState :: update(const float& deltaTime) {
     if(sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Z)) {
+        resource.getSound("click.wav") -> play();
         stateStack() -> pop(); return;
     }
-    if(!sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left) && leftPress)
+    if(!sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left) && leftPress) {
+        resource.getSound("click.wav") -> play(); 
         (it += monsters.size() - 1) %= monsters.size();
-    if(!sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right) && rightPress)
+    }
+    if(!sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right) && rightPress) {
+        resource.getSound("click.wav") -> play(); 
         (it += 1) %= monsters.size();
+    }
     leftPress  = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Left);
     rightPress = sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Right);
     monsters[it].animationSetReference().play(&sprite, "idle", deltaTime, 5.f);
@@ -275,8 +286,16 @@ void BattleState :: update(const float& deltaTime) {
         endShade.update(deltaTime);
         if(endShade.end()) {
             subtitle.clear(); 
-            if(object[0].attribute.dead()) stateStack() -> push(new DeadState(getWindow(), stateStack(), object[0].attribute.get("score")));
-            else stateStack() -> push(new WinState(getWindow(), stateStack(), object[0].attribute.get("score")));
+            if(object[0].attribute.dead()) {
+                resource.getSound("game.wav") -> stop();
+                resource.getSound("dead.wav") -> play();
+                stateStack() -> push(new DeadState(getWindow(), stateStack(), object[0].attribute.get("score")));
+            }
+            else {
+                resource.getSound("game.wav") -> stop();
+                resource.getSound("win.wav") -> play();
+                stateStack() -> push(new WinState(getWindow(), stateStack(), object[0].attribute.get("score")));
+            }
         }
         return;
     }
@@ -287,6 +306,7 @@ void BattleState :: update(const float& deltaTime) {
         subtitle.display(L"难以决出胜负, " + object[1].wname + L"放弃了与你的战斗", 0.1f);
         endTimer = std :: max(0.f, endTimer - deltaTime); if(endTimer > 0.f) return;
         subtitle.clear(); stateStack() -> pop();
+        resource.getSound("pass.wav") -> play();
         static_cast<GameState*>(stateStack() -> top()) -> login(object[0].attribute, object[1].wname + L"逃离了魔塔");
         return;
     }
@@ -302,6 +322,7 @@ void BattleState :: update(const float& deltaTime) {
             endShade.run(), end = true; return;
         }
         subtitle.clear(); stateStack() -> pop();
+        resource.getSound("pass.wav") -> play();
         if(drop != -1) {
             const auto &equip = getEquipment(drop);
             object[0].attribute.add(equip.attribute, equip.value);
@@ -314,6 +335,7 @@ void BattleState :: update(const float& deltaTime) {
         object[turn].animation.setPriority("");
     if(inAttack && !object[turn].animation.hasPriority()) {
         inAttack = false, inHurt = true;
+        resource.getSound("attack.wav") -> play();
         play(object[turn], object[turn ^ 1]);
         turn ^= 1;
     }
@@ -354,6 +376,7 @@ WinState :: ~WinState() {
 void WinState :: update(const float& deltaTime) {
     if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
         stateStack() -> clear();
+        resource.getSound("win.wav") -> stop();
         static_cast<MenuState*>(stateStack() -> top()) -> login();
         return;
     }
@@ -385,6 +408,7 @@ DeadState :: ~DeadState() {
 void DeadState :: update(const float& deltaTime) {
     if(enterPress && !sf :: Keyboard :: isKeyPressed(sf :: Keyboard :: Enter)) {
         stateStack() -> clear();
+        resource.getSound("dead.wav") -> stop();
         static_cast<MenuState*>(stateStack() -> top()) -> login();
         return;
     }
